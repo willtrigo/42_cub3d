@@ -1,0 +1,22 @@
+*.swp
+*.o
+*.out
+*.d
+*.dSYM
+*.a
+
+tovog/
+.vscode
+cub3d
+*commands.json
+.cache/
+*out.txt
+*.log
+
+## emacs temp
+*~
+\#*\#
+
+## Debug
+**/TAGS
+**/valgrind-out.txt

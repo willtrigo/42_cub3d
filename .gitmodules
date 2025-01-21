@@ -1,0 +1,9 @@
+[submodule "lib/libftx"]
+	path = lib/libftx
+	url = git@github.com:RedJocker/libftx.git
+[submodule "MLX42"]
+	path = lib/MLX42
+	url = git@github.com:codam-coding-college/MLX42.git
+[submodule "lib/lib/MLX42"]
+	path = lib/lib/MLX42
+	url = git@github.com:RedJocker/libftx.git
