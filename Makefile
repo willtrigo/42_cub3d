@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/10 17:05:20 by maurodri         ###   ########.fr        #
+#    Updated: 2025/02/10 17:51:33 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,8 @@ LIBS                            := ./lib/libftx/libft.a \
 NAME                            = cub3D
 
 SRCS_FILES                      += $(addprefix $(SRCS_MAIN_DIR), main.c \
-								color.c)
+								color.c \
+								ft_extensions.c)
 
 OBJS                            += $(SRCS_FILES:%.c=$(BUILD_DIR)%.o)
 
