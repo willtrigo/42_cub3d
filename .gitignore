@@ -7,7 +7,7 @@
 
 tovog/
 .vscode
-cub3d
+cub3D
 *commands.json
 .cache/
 *out.txt
