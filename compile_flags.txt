@@ -1,0 +1,6 @@
+-I
+src/
+-I
+lib/libftx/includes/
+-I
+lib/MLX42/include/
