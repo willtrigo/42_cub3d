@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 20:06:57 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/12 22:48:58 by maurodri         ###   ########.fr       */
+/*   Created: 2025/02/12 22:46:59 by maurodri          #+#    #+#             */
+/*   Updated: 2025/02/12 22:47:48 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#ifndef CUBE_H
+# define CUBE_H
 
-int	main(int argc, char **argv)
-{
-	return cube_main(argc, argv);
-}
+int	cube_main(int argc, char **argv);
+
+#endif

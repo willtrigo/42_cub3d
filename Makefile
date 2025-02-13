@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/12 20:55:17 by dande-je         ###   ########.fr        #
+#    Updated: 2025/02/12 23:01:47 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,10 +63,13 @@ LIBS                            := ./lib/libftx/libft.a \
 NAME                            = $(BIN_DIR)cub3D
 NAME_TEST                       = $(BIN_DIR)test_cub3d
 
-SRCS_FILES                      += $(addprefix $(SRCS_MAIN_DIR), main.c \
+
+SRCS_MAIN			= $(addprefix $(SRCS_MAIN_DIR), main.c)
+SRCS_FILES                      += $(addprefix $(SRCS_MAIN_DIR), cube.c \
 								color.c \
 								ft_extensions.c)
 
+OBJS_MAIN                       = $(SRCS_MAIN:%.c=$(BUILD_DIR)%.o)
 OBJS                            += $(SRCS_FILES:%.c=$(BUILD_DIR)%.o)
 
 SRCS_TEST_FILES                 += $(addprefix $(SRCS_TEST_DIR), test_suite.c)
@@ -99,7 +102,7 @@ LFLAGS                         := -march=native
 LDFLAGS                        := $(addprefix -L,$(dir $(LIBS)))
 LDLIBS                         := -lft -lmlx42 -ldl -lglfw -pthread -lm
 COMPILE_OBJS                   = $(CC) $(CFLAGS) $(LFLAGS) $(CPPFLAGS) -c $< -o $@
-COMPILE_EXE                    = $(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
+COMPILE_EXE                    = $(CC) $(LDFLAGS) $(OBJS_MAIN) $(OBJS) $(LDLIBS) -o $(NAME)
 
 #******************************************************************************#
 #                                   DEFINE                                     #
@@ -112,12 +115,6 @@ endif
 ifdef WITH_BONUS
 	NAME                       = $(NAME_BONUS)
 	OBJS                       = $(OBJS_BONUS)
-	COMP_MESSAGE               = $(COMP_BONUS_MESSAGE)
-	EXE_MESSAGE                = $(EXE_BONUS_MESSAGE)
-endif
-
-ifdef WITH_TEST
-	OBJS                       += $(OBJS_TEST)
 	COMP_MESSAGE               = $(COMP_BONUS_MESSAGE)
 	EXE_MESSAGE                = $(EXE_BONUS_MESSAGE)
 endif
@@ -204,7 +201,7 @@ $(BUILD_DIR)%.o: %.c
 	$(call create_dir)
 	$(call comp_objs)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(OBJS_MAIN)
 	$(call comp_exe)
 
 $(LIBFTX):
@@ -225,8 +222,8 @@ debug:
 	$(call debug)
 
 test: $(LIBFTX) $(MLX42) $(OBJS) $(OBJS_TEST)
-	$(CC) $(LDFLAGS) $(OBJS) $(OBJS_TEST) $(LDLIBS) -o $(NAME_TEST) -Wl,-e,test_suite
-	./$(NAME_TEST)
+	$(CC) $(LDFLAGS) $(OBJS) $(OBJS_TEST) $(LDLIBS) -o $(NAME_TEST)
+	valgrind ./$(NAME_TEST)
 
 .PHONY: all clean fclean re debug test
 .DEFAULT_GOAL := all

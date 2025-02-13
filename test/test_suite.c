@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 20:24:50 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/12 21:31:58 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/12 23:05:35 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,42 @@
 #include "ft_assert.h"
 #include "ft_stdio.h"
 
-// void initialize_stderr() {
-//     // Reopen stderr to ensure it's properly initialized
-//     if (freopen("/dev/null", "w", stderr) == NULL) {
-//         // If freopen fails, print an error and exit
-//         perror("freopen");
-//         exit(EXIT_FAILURE);
-//     }
-// }
-// void initialize_stderr() {
-//     static FILE stderr_buf;
-//     stderr = &stderr_buf;
-//     // Additional setup for stderr if needed
-// }
+#include "test_suite.h"
 
-int	test_suite(void)
+
+void test_color(void)
 {
-	t_color	color;
-	int *str;
-
-	str = malloc(sizeof(int));
-	*str = 1;
+	ft_printf("%s: ", __FUNCTION__);
+	t_color color;
 
 	color = ft_color(0, 0, 0, 0);
-	// printf("Hello test color %d", color.value);
-	char *msg = NULL;
-	ft_asprintf(&msg, "%s%d %s ", __FILE__, __LINE__, "some error message");
-	ft_assert(0 == *str, msg);
+	FT_TEST(color.value == 0, "ft_color(0, 0, 0, 0) should have color.value == 0");
+
+	color = ft_color(0xFF, 0, 0, 0);
+	FT_TEST(color.value == 0xFF000000,
+			"ft_color(0xFF, 0, 0, 0) should have color.value == 0xFF000000");
+
+	color = ft_color(0, 0xA1, 0, 0);
+	FT_TEST(color.value == 0x00A10000,
+			"ft_color(0, 0xA1, 0, 0) should have color.value == 0x00A10000");
+
+	color = ft_color(0, 0x0, 0x77, 0);
+	FT_TEST(color.value == 0x00007700,
+			"ft_color(0, 0, 0x77, 0) should have color.value == 0x00007700");
+
+	color = ft_color(0, 0, 0, 0x13);
+	FT_TEST(color.value == 0x000000013,
+			"ft_color(0, 0, 0, 0x13) should have color.value == 0x00000013");
+
+	color = ft_color(0xFE, 0xDC, 0xBA, 0x98);
+	FT_TEST(color.value == 0xFEDCBA98,
+			"ft_color(0xFE, 0xDC, 0xBA, 0x98) should have color.value == 0xFEDCBA98");
+	ft_printf("OK\n");
+}
+
+int	main(void)
+{
+	test_color();
 	exit (EXIT_SUCCESS);
+	return (0);
 }
