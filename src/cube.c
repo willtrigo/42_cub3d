@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 22:46:45 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/12 22:47:59 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:28:15 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "ft_string.h"
 #include "get_next_line.h"
 #include "ft_extensions.h"
+#include <stdint.h>
 #include <stdbool.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -63,8 +64,8 @@ int parse_textures(int file_fd, t_config_file *config)
 int	parse_color(char *color_line, t_color *color, bool *has_set_color)
 {
 	char	**split_line;
-	int		has_parse_error;
-	
+
+	*has_set_color = false;
 	// andar
 	color_line++;
 		// assuming line does not contain \n
@@ -76,23 +77,15 @@ int	parse_color(char *color_line, t_color *color, bool *has_set_color)
 		return ((int)((long)ft_free_retnull(split_line)) + EXIT_FAILURE);
 	// parseInt
 	color->a = 255;
-	color->r = ft_atoi_strict(&has_parse_error, split_line[0]);
-	if (has_parse_error)
-		return (EXIT_FAILURE);
-	color->g = ft_atoi_strict(&has_parse_error, split_line[1]);
-	if (has_parse_error)
-		return (EXIT_FAILURE);
-	color->b = ft_atoi_strict(&has_parse_error, split_line[2]);
-	if (has_parse_error)
-		return (EXIT_FAILURE);
-	// check >=0 && <= 255
-	if ((color->r < 0 || color->r > 255) \
-		|| (color->g < 0 || color->g > 255) \
-		|| (color->b < 0 || color->b > 255))
-		return (EXIT_FAILURE);
+	if (!ft_atoi8_range(&color->r, split_line[0], 0, 255))
+		return ((int)((long)ft_free_retnull(split_line)) + EXIT_FAILURE);
+	if (!ft_atoi8_range(&color->g, split_line[1], 0, 255))
+		return ((int)((long)ft_free_retnull(split_line)) + EXIT_FAILURE);
+	if (!ft_atoi8_range(&color->b, split_line[2], 0, 255))
+		return ((int)((long)ft_free_retnull(split_line)) + EXIT_FAILURE);
 	// set color && has_set_color
 	*has_set_color = true;
-	return (EXIT_SUCCESS);
+	return ((int)((long)ft_free_retnull(split_line)));
 }
 
 int parse_colors(int file_fd, t_config_file *config)

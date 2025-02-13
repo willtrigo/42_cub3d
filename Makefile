@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/13 14:03:14 by dande-je         ###   ########.fr        #
+#    Updated: 2025/02/13 17:30:04 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -194,7 +194,7 @@ endef
 
 define comp_test
 	$(CC) $(LDFLAGS) $(OBJS) $(OBJS_TEST) $(LDLIBS) -o $(NAME_TEST_PATH)
-	valgrind ./$(NAME_TEST_PATH)
+	valgrind --leak-check=full ./$(NAME_TEST_PATH)
 endef
 
 #******************************************************************************#

@@ -6,14 +6,18 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:49:14 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/10 19:05:37 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:09:41 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdbool.h>
+#include <stdint.h>
+#include "MLX42/MLX42.h"
 #include "ft_ctype.h"
 #include "ft_extensions.h"
+#include "ft_string.h"
 
-int	ft_is_blank(char *str)
+bool	ft_is_blank(char *str)
 {
 	while (*str)
 	{
@@ -32,4 +36,17 @@ size_t ft_strarr_len(char **strarr)
 	while (*(strarr++))
 		len++;
 	return (len);
+}
+
+bool	ft_atoi8_range(uint8_t *out_value, char *str, int range_low, int range_high)
+{
+	int	has_parse_error;
+
+	has_parse_error = 0;
+	*out_value = ft_atoi_strict(&has_parse_error, str);
+	if (has_parse_error)
+		return (true);
+	if (*out_value >= range_low && *out_value <= range_high)
+		return (false);
+	return (true);
 }
