@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 20:24:50 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/13 17:25:16 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:55:02 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,13 @@ void	test_parse_color(void)
 		 "when parse color F 220,100 expect == EXIT_FAILURE");
 	FT_TEST(has_set_color == false,
 		 "when parse color F 220,100,0 expect has_set_color == false");
+
+	has_set_color = false;
+	result = parse_color("", &color, &has_set_color);
+	FT_TEST(result == EXIT_FAILURE,
+		 "when parse color '' expect == EXIT_FAILURE");
+	FT_TEST(has_set_color == false,
+		 "when parse color '' expect has_set_color == false");
 	ft_printf("OK\n");
 }
 

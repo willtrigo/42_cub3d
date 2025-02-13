@@ -6,13 +6,12 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:49:14 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/13 17:09:41 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:51:00 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "MLX42/MLX42.h"
 #include "ft_ctype.h"
 #include "ft_extensions.h"
 #include "ft_string.h"
@@ -49,4 +48,10 @@ bool	ft_atoi8_range(uint8_t *out_value, char *str, int range_low, int range_high
 	if (*out_value >= range_low && *out_value <= range_high)
 		return (false);
 	return (true);
+}
+
+int	ft_free_arr_retvalue(char **to_free, int retvalue)
+{
+	ft_strarr_free(to_free);
+	return (retvalue);
 }
