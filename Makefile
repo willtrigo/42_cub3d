@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/10 17:51:33 by maurodri         ###   ########.fr        #
+#    Updated: 2025/02/12 20:55:17 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,13 @@ RESET                           := \033[0m
 #******************************************************************************#
 
 SRCS_MAIN_DIR                   := src/
+SRCS_TEST_DIR                   := test/
 INCS                            := src/ lib/libftx/includes/ lib/MLX42/include/
 BUILD_DIR                       := build/
 MLX42_DIR                       := lib/MLX42/
 MLX42_BUILD_DIR                 := lib/MLX42/build/
 LIBFTX_DIR                      := lib/libftx/
+BIN_DIR                         := bin/
 
 #******************************************************************************#
 #                                  COMMANDS                                    #
@@ -58,13 +60,17 @@ MLX42 = $(addprefix $(MLX42_BUILD_DIR), libmlx42.a)
 LIBS                            := ./lib/libftx/libft.a \
 	./lib/MLX42/build/libmlx42.a
 
-NAME                            = cub3D
+NAME                            = $(BIN_DIR)cub3D
+NAME_TEST                       = $(BIN_DIR)test_cub3d
 
 SRCS_FILES                      += $(addprefix $(SRCS_MAIN_DIR), main.c \
 								color.c \
 								ft_extensions.c)
 
 OBJS                            += $(SRCS_FILES:%.c=$(BUILD_DIR)%.o)
+
+SRCS_TEST_FILES                 += $(addprefix $(SRCS_TEST_DIR), test_suite.c)
+OBJS_TEST                       += $(SRCS_TEST_FILES:%.c=$(BUILD_DIR)%.o)
 
 DEPS                            := $(OBJS:.o=.d)
 
@@ -110,11 +116,18 @@ ifdef WITH_BONUS
 	EXE_MESSAGE                = $(EXE_BONUS_MESSAGE)
 endif
 
+ifdef WITH_TEST
+	OBJS                       += $(OBJS_TEST)
+	COMP_MESSAGE               = $(COMP_BONUS_MESSAGE)
+	EXE_MESSAGE                = $(EXE_BONUS_MESSAGE)
+endif
+
 #******************************************************************************#
 #                                  FUNCTION                                    #
 #******************************************************************************#
 
 define create_dir
+	$(MKDIR) $(BIN_DIR)
 	$(MKDIR) $(dir $@)
 endef
 
@@ -160,9 +173,9 @@ define comp_exe
 endef
 
 define clean
-	$(RM) $(BUILD_DIR)
-	$(MAKE) fclean -C $(LIBFTX_DIR)
-	$(RM) $(MLX42_BUILD_DIR)
+	$(RM) $(BUILD_DIR) $(BIN_DIR)
+	# $(MAKE) fclean -C $(LIBFTX_DIR)
+	# $(RM) $(MLX42_BUILD_DIR)
 	printf "$(RED)$(CLEAN_MLX42_OBJS_MESSAGE)\n$(RESET)"
 	printf "$(RED)$(CLEAN_MLX42_MESSAGE)\n$(RESET)"
 	$(SLEEP)
@@ -211,7 +224,11 @@ re: fclean all
 debug:
 	$(call debug)
 
-.PHONY: all clean fclean re debug
+test: $(LIBFTX) $(MLX42) $(OBJS) $(OBJS_TEST)
+	$(CC) $(LDFLAGS) $(OBJS) $(OBJS_TEST) $(LDLIBS) -o $(NAME_TEST) -Wl,-e,test_suite
+	./$(NAME_TEST)
+
+.PHONY: all clean fclean re debug test
 .DEFAULT_GOAL := all
 .SILENT:
 

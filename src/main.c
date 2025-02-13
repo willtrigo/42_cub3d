@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:06:57 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/10 19:43:32 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/12 20:25:44 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
 
 int	is_invalid_args(int argc, char **argv)
 {
@@ -164,8 +165,8 @@ int	main(int argc, char **argv)
 	mlx = mlx_init(1920, 995, "cub3d", false);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	ft_printf("cub3d");
 
+	ft_printf("cub3d");
 	config_clean(&config);
 	return (EXIT_SUCCESS);
 }
