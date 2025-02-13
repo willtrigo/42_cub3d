@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/12 23:01:47 by maurodri         ###   ########.fr        #
+#    Updated: 2025/02/13 14:03:14 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,11 +60,13 @@ MLX42 = $(addprefix $(MLX42_BUILD_DIR), libmlx42.a)
 LIBS                            := ./lib/libftx/libft.a \
 	./lib/MLX42/build/libmlx42.a
 
-NAME                            = $(BIN_DIR)cub3D
-NAME_TEST                       = $(BIN_DIR)test_cub3d
+NAME                            = cub3D
+NAME_PATH                       = $(BIN_DIR)$(NAME)
+NAME_TEST                       = test_$(NAME)
+NAME_TEST_PATH                  = $(BIN_DIR)$(NAME_TEST)
 
 
-SRCS_MAIN			= $(addprefix $(SRCS_MAIN_DIR), main.c)
+SRCS_MAIN                       = $(addprefix $(SRCS_MAIN_DIR), main.c)
 SRCS_FILES                      += $(addprefix $(SRCS_MAIN_DIR), cube.c \
 								color.c \
 								ft_extensions.c)
@@ -82,11 +84,11 @@ DEPS                            := $(OBJS:.o=.d)
 #******************************************************************************#
 
 COUNT                           = 0
-CLEAN_MESSAGE                   := cub3d objects deleted
+CLEAN_MESSAGE                   := $(NAME) objects deleted
 CLEAN_MLX42_OBJS_MESSAGE        := Library MLX42 objects deleted
 CLEAN_MLX42_MESSAGE             := Library MLX42 deleted
-FCLEAN_MESSAGE                  := cub3d deleted
-EXE_MESSAGE                     = $(RESET)[100%%] $(GREEN)Built target cub3d
+FCLEAN_MESSAGE                  := $(NAME) deleted
+EXE_MESSAGE                     = $(RESET)[100%%] $(GREEN)Built target $(NAME)
 COMP_MESSAGE                    = Building C object
 
 #******************************************************************************#
@@ -102,7 +104,7 @@ LFLAGS                         := -march=native
 LDFLAGS                        := $(addprefix -L,$(dir $(LIBS)))
 LDLIBS                         := -lft -lmlx42 -ldl -lglfw -pthread -lm
 COMPILE_OBJS                   = $(CC) $(CFLAGS) $(LFLAGS) $(CPPFLAGS) -c $< -o $@
-COMPILE_EXE                    = $(CC) $(LDFLAGS) $(OBJS_MAIN) $(OBJS) $(LDLIBS) -o $(NAME)
+COMPILE_EXE                    = $(CC) $(LDFLAGS) $(OBJS_MAIN) $(OBJS) $(LDLIBS) -o $(NAME_PATH)
 
 #******************************************************************************#
 #                                   DEFINE                                     #
@@ -110,13 +112,6 @@ COMPILE_EXE                    = $(CC) $(LDFLAGS) $(OBJS_MAIN) $(OBJS) $(LDLIBS)
 
 ifdef WITH_DEBUG
 	CFLAGS += $(DFLAGS)
-endif
-
-ifdef WITH_BONUS
-	NAME                       = $(NAME_BONUS)
-	OBJS                       = $(OBJS_BONUS)
-	COMP_MESSAGE               = $(COMP_BONUS_MESSAGE)
-	EXE_MESSAGE                = $(EXE_BONUS_MESSAGE)
 endif
 
 #******************************************************************************#
@@ -170,9 +165,9 @@ define comp_exe
 endef
 
 define clean
-	$(RM) $(BUILD_DIR) $(BIN_DIR)
-	# $(MAKE) fclean -C $(LIBFTX_DIR)
-	# $(RM) $(MLX42_BUILD_DIR)
+	$(RM) $(BUILD_DIR)
+	$(MAKE) fclean -C $(LIBFTX_DIR)
+	$(RM) $(MLX42_BUILD_DIR)
 	printf "$(RED)$(CLEAN_MLX42_OBJS_MESSAGE)\n$(RESET)"
 	printf "$(RED)$(CLEAN_MLX42_MESSAGE)\n$(RESET)"
 	$(SLEEP)
@@ -180,9 +175,15 @@ define clean
 endef
 
 define fclean
-	$(RM) $(NAME)
+	$(RM) $(BIN_DIR)
 	$(SLEEP)
 	printf "$(RED)$(FCLEAN_MESSAGE)$(RESET)\n"
+endef
+
+define clean_test
+	$(RM) $(BUILD_DIR)
+	$(SLEEP)
+	printf "$(RED)$(CLEAN_MESSAGE)\n$(RESET)"
 endef
 
 define debug
@@ -191,18 +192,26 @@ define debug
 	$(MAKE) WITH_DEBUG=TRUE
 endef
 
+define comp_test
+	$(CC) $(LDFLAGS) $(OBJS) $(OBJS_TEST) $(LDLIBS) -o $(NAME_TEST_PATH)
+	valgrind ./$(NAME_TEST_PATH)
+endef
+
 #******************************************************************************#
 #                                   TARGETS                                    #
 #******************************************************************************#
 
-all: $(LIBFTX) $(MLX42) $(NAME)
+all: $(LIBFTX) $(MLX42) $(NAME_PATH)
 
 $(BUILD_DIR)%.o: %.c
 	$(call create_dir)
 	$(call comp_objs)
 
-$(NAME): $(OBJS) $(OBJS_MAIN)
+$(NAME_PATH): $(OBJS) $(OBJS_MAIN)
 	$(call comp_exe)
+
+$(NAME_TEST_PATH): $(LIBFTX) $(MLX42) $(OBJS) $(OBJS_TEST)
+	$(call comp_test)
 
 $(LIBFTX):
 	$(call submodule_update_libftx)
@@ -216,16 +225,17 @@ clean:
 fclean: clean
 	$(call fclean)
 
+clean_test:
+	$(call clean_test)
+
 re: fclean all
 
 debug:
 	$(call debug)
 
-test: $(LIBFTX) $(MLX42) $(OBJS) $(OBJS_TEST)
-	$(CC) $(LDFLAGS) $(OBJS) $(OBJS_TEST) $(LDLIBS) -o $(NAME_TEST)
-	valgrind ./$(NAME_TEST)
+test: clean_test $(NAME_TEST_PATH)
 
-.PHONY: all clean fclean re debug test
+.PHONY: all clean fclean clean_test re debug test
 .DEFAULT_GOAL := all
 .SILENT:
 
