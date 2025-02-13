@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 22:46:45 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/13 19:27:05 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:54:13 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,12 +155,16 @@ void	set_pixel(int x, int y, mlx_image_t *img, t_color *color)
 
 int	cube_main(int argc, char **argv)
 {
+	// TODO: criar estrutura game, e mover o que precisar dentro dela.
 	mlx_t			*mlx;
 	mlx_image_t		*bg;
-	t_config_file 	config;
 	int				window_height;
 	int				x;
 	int				y;
+	// TODO: criar contexto para as images
+
+	// TODO: config/parse inicializar o game passando t_config_file
+	t_config_file 	config;
 
 	window_height = 995;
 	y = -1;
