@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   parse_file.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
+/*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 16:51:49 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/10 16:55:05 by maurodri         ###   ########.fr       */
+/*   Created: 2025/02/17 16:34:32 by dande-je          #+#    #+#             */
+/*   Updated: 2025/02/17 18:39:56 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#ifndef PARSE_FILE_H
+# define PARSE_FILE_H
 
-#include "MLX42/MLX42.h"
+# include "infrastructure/config.h"
 
-typedef union u_color		t_color;
-union u_color
-{
-	uint32_t	value;
-	struct
-	{
-		uint8_t	a;
-		uint8_t	b;
-		uint8_t	g;
-		uint8_t	r;
-	};
-};
-
-t_color	ft_color(int8_t r, int8_t g, int8_t b, int8_t a);
+int	parse_file(char *filename, t_config_file *config);
 
 #endif

@@ -6,14 +6,14 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:49:14 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/13 18:51:00 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:53:49 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <stdint.h>
 #include "ft_ctype.h"
-#include "ft_extensions.h"
+#include "utils/ft_extensions.h"
 #include "ft_string.h"
 
 bool	ft_is_blank(char *str)

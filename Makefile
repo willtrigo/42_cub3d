@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/13 17:30:04 by dande-je         ###   ########.fr        #
+#    Updated: 2025/02/17 18:54:51 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,10 @@ RESET                           := \033[0m
 #******************************************************************************#
 
 SRCS_MAIN_DIR                   := src/
+SRCS_CORE_DIR                   := $(SRCS_MAIN_DIR)core/
+SRCS_GRAPHIC_DIR                := $(SRCS_MAIN_DIR)graphic/
+SRCS_INFRASTRUCTURE_DIR         := $(SRCS_MAIN_DIR)infrastructure/
+SRCS_UTILS_DIR                  := $(SRCS_MAIN_DIR)utils/
 SRCS_TEST_DIR                   := test/
 INCS                            := src/ lib/libftx/includes/ lib/MLX42/include/
 BUILD_DIR                       := build/
@@ -67,9 +71,13 @@ NAME_TEST_PATH                  = $(BIN_DIR)$(NAME_TEST)
 
 
 SRCS_MAIN                       = $(addprefix $(SRCS_MAIN_DIR), main.c)
-SRCS_FILES                      += $(addprefix $(SRCS_MAIN_DIR), cube.c \
-								color.c \
-								ft_extensions.c)
+SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c)
+SRCS_FILES                      += $(addprefix $(SRCS_GRAPHIC_DIR), render.c)
+SRCS_FILES                      += $(addprefix $(SRCS_INFRASTRUCTURE_DIR), config.c \
+								   parse_file.c)
+SRCS_FILES                      += $(addprefix $(SRCS_UTILS_DIR), color.c \
+								   ft_extensions.c)
+SRCS_FILES                      += $(addprefix $(SRCS_MAIN_DIR), cube.c)
 
 OBJS_MAIN                       = $(SRCS_MAIN:%.c=$(BUILD_DIR)%.o)
 OBJS                            += $(SRCS_FILES:%.c=$(BUILD_DIR)%.o)

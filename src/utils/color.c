@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube.h                                             :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 22:46:59 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/17 18:55:16 by dande-je         ###   ########.fr       */
+/*   Created: 2025/02/10 16:53:30 by maurodri          #+#    #+#             */
+/*   Updated: 2025/02/17 18:48:58 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE_H
-# define CUBE_H
+#include "utils/color.h"
 
-# include <stdbool.h>
-# include "utils/color.h"
-
-int	cube_main(int argc, char **argv);
-int	parse_color(char *color_line, t_color *color, bool *has_set_color);
-
-#endif
+t_color	ft_color(int8_t r, int8_t g, int8_t b, int8_t a)
+{
+	return ((t_color){.r = r, .g = g, .b = b, .a = a});
+}
