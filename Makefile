@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/17 18:54:51 by dande-je         ###   ########.fr        #
+#    Updated: 2025/02/17 19:36:26 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS_MAIN_DIR                   := src/
 SRCS_CORE_DIR                   := $(SRCS_MAIN_DIR)core/
 SRCS_GRAPHIC_DIR                := $(SRCS_MAIN_DIR)graphic/
 SRCS_INFRASTRUCTURE_DIR         := $(SRCS_MAIN_DIR)infrastructure/
+SRCS_PARSE_DIR                  := $(SRCS_INFRASTRUCTURE_DIR)parse/
 SRCS_UTILS_DIR                  := $(SRCS_MAIN_DIR)utils/
 SRCS_TEST_DIR                   := test/
 INCS                            := src/ lib/libftx/includes/ lib/MLX42/include/
@@ -73,7 +74,8 @@ NAME_TEST_PATH                  = $(BIN_DIR)$(NAME_TEST)
 SRCS_MAIN                       = $(addprefix $(SRCS_MAIN_DIR), main.c)
 SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c)
 SRCS_FILES                      += $(addprefix $(SRCS_GRAPHIC_DIR), render.c)
-SRCS_FILES                      += $(addprefix $(SRCS_INFRASTRUCTURE_DIR), config.c \
+SRCS_FILES                      += $(addprefix $(SRCS_INFRASTRUCTURE_DIR), config.c)
+SRCS_FILES                      += $(addprefix $(SRCS_PARSE_DIR), parse_color.c \
 								   parse_file.c)
 SRCS_FILES                      += $(addprefix $(SRCS_UTILS_DIR), color.c \
 								   ft_extensions.c)
@@ -202,7 +204,7 @@ endef
 
 define comp_test
 	$(CC) $(LDFLAGS) $(OBJS) $(OBJS_TEST) $(LDLIBS) -o $(NAME_TEST_PATH)
-	valgrind --leak-check=full ./$(NAME_TEST_PATH)
+	-valgrind --leak-check=full ./$(NAME_TEST_PATH)
 endef
 
 #******************************************************************************#

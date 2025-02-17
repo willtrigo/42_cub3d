@@ -6,12 +6,13 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 20:24:50 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/13 18:55:02 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:28:34 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "color.h"
+#include "utils/color.h"
+#include "infrastructure/parse/parse_internal.h"
 #include "cube.h"
 // #include <assert.h>
 // #include <stdio.h>
@@ -80,6 +81,13 @@ void	test_parse_color(void)
 		 "when parse color '' expect == EXIT_FAILURE");
 	FT_TEST(has_set_color == false,
 		 "when parse color '' expect has_set_color == false");
+
+	has_set_color = false;
+	result = parse_color("F 300,100,0", &color, &has_set_color);
+	FT_TEST(result == EXIT_FAILURE,
+		 "when invalid range 'F 300,100,0' expect == EXIT_FAILURE");
+	FT_TEST(has_set_color == false,
+		 "when invalid range 'F 300,100,0' expect has_set_color == false");
 	ft_printf("OK\n");
 }
 

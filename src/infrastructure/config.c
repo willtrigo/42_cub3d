@@ -6,14 +6,14 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:35 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/17 19:09:42 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:23:24 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "infrastructure/config.h"
 #include "ft_stdio.h"
-#include "infrastructure/parse_file.h"
+#include "infrastructure/parse/parse_file.h"
 
 static int	is_invalid_args(int argc, char **argv);
 
