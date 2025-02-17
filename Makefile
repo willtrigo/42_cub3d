@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/17 19:36:26 by dande-je         ###   ########.fr        #
+#    Updated: 2025/02/17 20:33:22 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,8 @@ SRCS_FILES                      += $(addprefix $(SRCS_INFRASTRUCTURE_DIR), confi
 SRCS_FILES                      += $(addprefix $(SRCS_PARSE_DIR), parse_color.c \
 								   parse_file.c)
 SRCS_FILES                      += $(addprefix $(SRCS_UTILS_DIR), color.c \
-								   ft_extensions.c)
+								   ft_extensions.c \
+								   output.c)
 SRCS_FILES                      += $(addprefix $(SRCS_MAIN_DIR), cube.c)
 
 OBJS_MAIN                       = $(SRCS_MAIN:%.c=$(BUILD_DIR)%.o)
