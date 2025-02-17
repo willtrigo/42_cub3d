@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:49:14 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/17 18:53:49 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/17 20:01:59 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,16 @@ size_t ft_strarr_len(char **strarr)
 
 bool	ft_atoi8_range(uint8_t *out_value, char *str, int range_low, int range_high)
 {
-	int	has_parse_error;
+	int	out_ok;
+	int	result;
 
-	has_parse_error = 0;
-	*out_value = ft_atoi_strict(&has_parse_error, str);
-	if (has_parse_error)
-		return (true);
-	if (*out_value >= range_low && *out_value <= range_high)
+	out_ok = 0;
+	result = ft_atoi_strict(&out_ok, str);
+	if (!out_ok)
 		return (false);
+	if (result < range_low || result > range_high)
+		return (false);
+	*out_value = (uint8_t)result;
 	return (true);
 }
 
