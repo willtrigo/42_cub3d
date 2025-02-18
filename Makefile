@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/17 20:33:22 by dande-je         ###   ########.fr        #
+#    Updated: 2025/02/18 17:03:38 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRCS_MAIN_DIR                   := src/
 SRCS_CORE_DIR                   := $(SRCS_MAIN_DIR)core/
 SRCS_GRAPHIC_DIR                := $(SRCS_MAIN_DIR)graphic/
 SRCS_INFRASTRUCTURE_DIR         := $(SRCS_MAIN_DIR)infrastructure/
-SRCS_PARSE_DIR                  := $(SRCS_INFRASTRUCTURE_DIR)parse/
+SRCS_CONFIG_DIR                 := $(SRCS_INFRASTRUCTURE_DIR)config/
+SRCS_PARSE_DIR                  := $(SRCS_CONFIG_DIR)parse/
 SRCS_UTILS_DIR                  := $(SRCS_MAIN_DIR)utils/
 SRCS_TEST_DIR                   := test/
 INCS                            := src/ lib/libftx/includes/ lib/MLX42/include/
@@ -63,7 +64,7 @@ SLEEP                           := sleep 0.01
 LIBFTX = $(addprefix $(LIBFTX_DIR), libft.a)
 MLX42 = $(addprefix $(MLX42_BUILD_DIR), libmlx42.a)
 LIBS                            := ./lib/libftx/libft.a \
-	./lib/MLX42/build/libmlx42.a
+								   ./lib/MLX42/build/libmlx42.a
 
 NAME                            = cub3D
 NAME_PATH                       = $(BIN_DIR)$(NAME)
@@ -74,7 +75,7 @@ NAME_TEST_PATH                  = $(BIN_DIR)$(NAME_TEST)
 SRCS_MAIN                       = $(addprefix $(SRCS_MAIN_DIR), main.c)
 SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c)
 SRCS_FILES                      += $(addprefix $(SRCS_GRAPHIC_DIR), render.c)
-SRCS_FILES                      += $(addprefix $(SRCS_INFRASTRUCTURE_DIR), config.c)
+SRCS_FILES                      += $(addprefix $(SRCS_CONFIG_DIR), config.c)
 SRCS_FILES                      += $(addprefix $(SRCS_PARSE_DIR), parse_color.c \
 								   parse_file.c)
 SRCS_FILES                      += $(addprefix $(SRCS_UTILS_DIR), color.c \

@@ -6,13 +6,13 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/17 19:23:45 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:01:03 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "infrastructure/config.h"
+#include "infrastructure/config/config.h"
 #include "get_next_line.h"
-#include "infrastructure/parse/parse_internal.h"
+#include "infrastructure/config/parse/parse_internal.h"
 #include "utils/ft_extensions.h"
 #include <fcntl.h>
 #include <stdbool.h>

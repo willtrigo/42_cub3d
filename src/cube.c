@@ -6,13 +6,13 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 22:46:45 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/17 18:58:17 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:01:23 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
 #include <stdlib.h>
-#include "infrastructure/config.h"
+#include "infrastructure/config/config.h"
 #include "utils/color.h"
 #include <stdint.h>
 #include <stdbool.h>

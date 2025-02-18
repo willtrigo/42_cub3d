@@ -6,14 +6,15 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:26 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/17 19:22:21 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:01:11 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ctype.h"
 #include "ft_string.h"
 #include "get_next_line.h"
-#include "infrastructure/parse/parse_internal.h"
+#include "infrastructure/config/config.h"
+#include "infrastructure/config/parse/parse_internal.h"
 #include "utils/ft_extensions.h"
 
 int	parse_colors(int file_fd, t_config_file *config)
