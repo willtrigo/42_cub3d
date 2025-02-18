@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:35 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/18 16:56:46 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:56:48 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	is_invalid_args(int argc, char *filename)
 		return (output_ret("Error: invalid number of arguments", EXIT_FAILURE));
 	if (!is_invalid_extension(filename, ft_strlen(filename)))
 		return (output_ret("Error: invalid extension must be .cub", EXIT_FAILURE));
-	if (!is_invalid_file(filename))
-		return (output_ret("Error: invalid file", EXIT_FAILURE));
+	// if (!is_invalid_file(filename))
+	// 	return (output_ret("Error: invalid file", EXIT_FAILURE));
 	return (EXIT_SUCCESS);
 }
 
@@ -53,6 +53,8 @@ bool	is_invalid_extension(char *filename, size_t filename_len)
 	const char	*ext = ".cub";
 	size_t		ext_len = ft_strlen(ext);
 
+	if (filename_len < ext_len)
+		return (false);
 	if (ft_strncmp(&filename[filename_len - ext_len], ext, ext_len))
 		return (false);
 	return (true);
