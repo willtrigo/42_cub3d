@@ -6,13 +6,13 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 20:24:50 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/17 19:28:34 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:59:18 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "utils/color.h"
-#include "infrastructure/parse/parse_internal.h"
+#include "infrastructure/config/parse/parse_internal.h"
 #include "cube.h"
 // #include <assert.h>
 // #include <stdio.h>
