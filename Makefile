@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/18 17:03:38 by dande-je         ###   ########.fr        #
+#    Updated: 2025/02/18 17:48:00 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -247,7 +247,10 @@ debug:
 
 test: clean_test $(NAME_TEST_PATH)
 
-.PHONY: all clean fclean clean_test re debug test
+etags:
+	etags $$(find . -name '*.[ch]')
+
+.PHONY: all clean fclean clean_test re debug test etags
 .DEFAULT_GOAL := all
 .SILENT:
 
