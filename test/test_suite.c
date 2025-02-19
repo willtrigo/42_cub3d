@@ -6,21 +6,20 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 20:24:50 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 17:37:57 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:26:39 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "infrastructure/config/config.h"
 #include "utils/color.h"
 #include "infrastructure/config/parse/parse_internal.h"
 #include "infrastructure/config/config_internal.h"
-#include "cube.h"
 #include "ft_assert.h"
 #include "ft_stdio.h"
 #include "test_suite.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 
 void test_config_init()
@@ -108,31 +107,40 @@ void	test_parse_color(void)
 
 	has_set_color = false;
 	result = parse_color("F 220,100,0", &color, &has_set_color);
-	FT_TEST(result == EXIT_SUCCESS,
-		 "when parse color F 220,100,0 expect return == EXIT_SUCCESS");
+	FT_TEST(result == true,
+		 "when parse color F 220,100,0 expect return == true");
 	FT_TEST(color.value == 0xdc6400FF,
 		 "when parse color F 220,100,0 expect color.value == xdc6400FF");
 	FT_TEST(has_set_color == true,
 		 "when parse color F 220,100,0 expect has_set_color == true");
 
 	has_set_color = false;
+	result = parse_color("C 225,30,0", &color, &has_set_color);
+	FT_TEST(result == true,
+		 "when parse color C 225,30,0 expect return == true");
+	FT_TEST(color.value == 0xe11e00FF,
+		 "when parse color C 225,30,0 expect color.value == xdc6400FF");
+	FT_TEST(has_set_color == true,
+		 "when parse color C 225,30,0 expect has_set_color == true");
+
+	has_set_color = false;
 	result = parse_color("F 220,100", &color, &has_set_color);
-	FT_TEST(result == EXIT_FAILURE,
-		 "when parse color F 220,100 expect == EXIT_FAILURE");
+	FT_TEST(result == false,
+		 "when parse color F 220,100 expect == false");
 	FT_TEST(has_set_color == false,
 		 "when parse color F 220,100,0 expect has_set_color == false");
 
 	has_set_color = false;
 	result = parse_color("", &color, &has_set_color);
-	FT_TEST(result == EXIT_FAILURE,
-		 "when parse color '' expect == EXIT_FAILURE");
+	FT_TEST(result == false,
+		 "when parse color '' expect == false");
 	FT_TEST(has_set_color == false,
 		 "when parse color '' expect has_set_color == false");
 
 	has_set_color = false;
 	result = parse_color("F 300,100,0", &color, &has_set_color);
-	FT_TEST(result == EXIT_FAILURE,
-		 "when invalid range 'F 300,100,0' expect == EXIT_FAILURE");
+	FT_TEST(result == false,
+		 "when invalid range 'F 300,100,0' expect == false");
 	FT_TEST(has_set_color == false,
 		 "when invalid range 'F 300,100,0' expect has_set_color == false");
 	ft_printf("%s: OK\n", __FUNCTION__);

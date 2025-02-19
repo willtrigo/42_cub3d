@@ -6,15 +6,15 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:44 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 17:18:47 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:19:11 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONFIG_H
 # define CONFIG_H
 
-# include <stdbool.h>
 # include "utils/color.h"
+# include <stdbool.h>
 
 enum e_config
 {

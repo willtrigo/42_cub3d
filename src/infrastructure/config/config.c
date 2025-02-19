@@ -6,22 +6,21 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:35 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 17:40:10 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:22:44 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "infrastructure/config/config.h"
+#include "infrastructure/config/config_internal.h"
+#include "infrastructure/config/parse/parse_file.h"
+#include "ft_string.h"
+#include "utils/output.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "infrastructure/config/config.h"
-#include "infrastructure/config/config_internal.h"
-#include "ft_string.h"
-#include "infrastructure/config/parse/parse_file.h"
-#include "utils/output.h"
-
 
 bool	config_init(int argc, char **argv, t_config_file *config)
 {

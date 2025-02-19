@@ -6,14 +6,14 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 22:29:35 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/13 14:24:44 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:26:06 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEST_SUITE_H
 # define TEST_SUITE_H
 
-// #include <assert.h>
+#include <assert.h>
 
 #define FT_TEST(test, error_message)                                                    \
 	do                                                                                  \
