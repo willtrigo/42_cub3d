@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 18:23:23 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:36:51 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ bool	parse_file(char *filename, t_config_file *config)
 bool	parse_textures(int file_fd, t_config_file *config)
 {
 	char	*line;
-	(void) config; // TODO parse textures
 
+	(void) config; // TODO parse textures
 	while (1)
 	{
 		line = get_next_line(file_fd);

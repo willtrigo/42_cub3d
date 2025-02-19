@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:35 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 18:22:44 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:39:15 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ bool	is_invalid_args(int argc, char *filename)
 
 bool	is_invalid_extension(char *filename, size_t filename_len)
 {
-	const char	*ext = ".cub";
-	size_t		ext_len = ft_strlen(ext);
+	const char		*ext = ".cub";
+	const size_t	ext_len = ft_strlen(ext);
 
 	if (filename_len < ext_len)
 		return (false);
@@ -73,7 +73,7 @@ bool	is_invalid_file(char *filename)
 		ret = false;
 	file = read(fd, buf, BUF_SIZE);
 	close(fd);
-	if (ret && 
+	if (ret && \
 		(!file || !(*buf == 'N' || *buf == 'S' || *buf == 'W' || *buf == 'E')))
 		ret = false;
 	return (ret);

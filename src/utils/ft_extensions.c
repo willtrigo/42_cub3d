@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:49:14 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/17 20:01:59 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:36:00 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	ft_is_blank(char *str)
 	return (1);
 }
 
-size_t ft_strarr_len(char **strarr)
+size_t	ft_strarr_len(char **strarr)
 {
 	size_t	len;
 
@@ -37,7 +37,8 @@ size_t ft_strarr_len(char **strarr)
 	return (len);
 }
 
-bool	ft_atoi8_range(uint8_t *out_value, char *str, int range_low, int range_high)
+bool	ft_atoi8_range(uint8_t *out_value, char *str, int range_low, \
+			int range_high)
 {
 	int	out_ok;
 	int	result;
