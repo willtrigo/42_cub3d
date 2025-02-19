@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:35 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 16:50:33 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:19:25 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 #include "utils/output.h"
 
 
-int	config_init(int argc, char **argv, t_config_file *config)
+bool	config_init(int argc, char **argv, t_config_file *config)
 {
 	if (is_invalid_args(argc, *argv) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+		return (false);
 	if (parse_file(*argv, config) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return (false);
+	return (true);
 }
 
 void	config_clean(t_config_file *config)

@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 22:46:45 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/18 17:01:23 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:17:54 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	cube_main(int argc, char **argv)
 
 	window_height = 995;
 	y = -1;
-	if (config_init(--argc, ++argv, &config) == EXIT_FAILURE)
+	if (!config_init(--argc, ++argv, &config))
 		return(EXIT_FAILURE);
 
 	mlx = mlx_init(1920, window_height, "cub3d", false);

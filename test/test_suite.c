@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 20:24:50 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 16:54:19 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:21:36 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void test_config_init()
 		t_config_file	conf;
 
 		FT_TEST(config_init(1, (char *[]){ "does_not_exist.cub", NULL} , &conf)
-				== EXIT_FAILURE,
+				== false,
 				"when argc == 1 and filename == \"does_not_exist.cub\" "
-				"expected return to be EXIT_FAILURE");
+				"expected return to be false");
 	}
 	ft_printf("%s: OK\n", __FUNCTION__);
 }

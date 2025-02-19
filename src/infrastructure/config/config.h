@@ -6,13 +6,14 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:44 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/18 16:21:55 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:18:47 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONFIG_H
 # define CONFIG_H
 
+# include <stdbool.h>
 # include "utils/color.h"
 
 enum e_config
@@ -32,7 +33,7 @@ typedef struct s_config_file
 	// TODO: ? map
 } t_config_file;
 
-int	  config_init(int argc, char **argv, t_config_file *config);
-void	config_clean(t_config_file *config);
+bool	  config_init(int argc, char **argv, t_config_file *config);
+void	  config_clean(t_config_file *config);
 
 #endif
