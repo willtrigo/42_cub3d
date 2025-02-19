@@ -6,14 +6,14 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:51:49 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/17 18:33:58 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:20:03 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLOR_H
 # define COLOR_H
 
-#include <stdint.h>
+# include <stdint.h>
 
 typedef union u_color		t_color;
 union u_color

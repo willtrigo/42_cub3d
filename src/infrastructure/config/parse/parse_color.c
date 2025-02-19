@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:26 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 18:36:32 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:59:37 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "utils/output.h"
 #include <stdbool.h>
 
-int	parse_colors(int file_fd, t_config_file *config)
+bool	parse_colors(int file_fd, t_config_file *config)
 {
 	char	*ln;
 	bool	is_clr_set[2];
@@ -31,22 +31,22 @@ int	parse_colors(int file_fd, t_config_file *config)
 	{
 		ln = ft_chomp(get_next_line(file_fd));
 		if (ln == 0)
-			return (EXIT_FAILURE);
+			return (false);
 		if (ft_is_blank(ln))
 		{
 			free(ln);
 			break ;
 		}
-		if (*ln == 'F' && check_color(ln, &config->floor, is_clr_set))
-			return (ft_free_retvalue(ln, EXIT_FAILURE));
+		if (*ln == 'F' && !check_color(ln, &config->floor, is_clr_set))
+			return (ft_free_retvalue(ln, false));
 		else if (*ln == 'C' && \
-			check_color(ln, &config->ceil, is_clr_set + 1))
-			return (ft_free_retvalue(ln, EXIT_FAILURE));
+			!check_color(ln, &config->ceil, is_clr_set + 1))
+			return (ft_free_retvalue(ln, false));
 		free(ln);
 	}
 	if (!is_clr_set[0] || !is_clr_set[1])
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return (false);
+	return (true);
 }
 
 bool	check_color(char *ln, t_color *color, bool *is_clr_set)
@@ -57,7 +57,7 @@ bool	check_color(char *ln, t_color *color, bool *is_clr_set)
 	return (parse_color(ln, color, is_clr_set));
 }
 
-int	parse_color(char *color_ln, t_color *color, bool *is_clr_set)
+bool	parse_color(char *color_ln, t_color *color, bool *is_clr_set)
 {
 	char	**split_ln;
 
@@ -70,16 +70,16 @@ int	parse_color(char *color_ln, t_color *color, bool *is_clr_set)
 	// split
 	split_ln = ft_split(color_ln, ',');
 	if (ft_strarr_len(split_ln) != 3)
-		return (ft_free_arr_retvalue(split_ln, EXIT_FAILURE));
+		return (ft_free_arr_retvalue(split_ln, false));
 	// parseInt
 	color->a = 255;
 	if (!ft_atoi8_range(&color->r, split_ln[0], 0, 255))
-		return (ft_free_arr_retvalue(split_ln, EXIT_FAILURE));
+		return (ft_free_arr_retvalue(split_ln, false));
 	if (!ft_atoi8_range(&color->g, split_ln[1], 0, 255))
-		return (ft_free_arr_retvalue(split_ln, EXIT_FAILURE));
+		return (ft_free_arr_retvalue(split_ln, false));
 	if (!ft_atoi8_range(&color->b, split_ln[2], 0, 255))
-		return (ft_free_arr_retvalue(split_ln, EXIT_FAILURE));
+		return (ft_free_arr_retvalue(split_ln, false));
 	// set color && is_clr_set
 	*is_clr_set = true;
-	return (ft_free_arr_retvalue(split_ln, EXIT_SUCCESS));
+	return (ft_free_arr_retvalue(split_ln, true));
 }
