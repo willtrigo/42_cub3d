@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 20:24:50 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/18 20:01:30 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:54:19 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,47 @@
 #include "ft_stdio.h"
 #include "test_suite.h"
 
+
+void test_config_init()
+{
+	ft_printf("\n%s:\n", __FUNCTION__);
+
+	{
+		t_config_file	conf;
+
+		FT_TEST(config_init(1, (char *[]){ "does_not_exist.cub", NULL} , &conf)
+				== EXIT_FAILURE,
+				"when argc == 1 and filename == \"does_not_exist.cub\" "
+				"expected return to be EXIT_FAILURE");
+	}
+	ft_printf("%s: OK\n", __FUNCTION__);
+}
+
 void test_is_valid_args()
 {
 	ft_printf("\n%s:\n", __FUNCTION__);
 
-	FT_TEST(is_invalid_args(1, (char *){"name.cub"})
+	FT_TEST(is_invalid_args(1, "name.cub")
 			== false,
 			"when argc == 1 and filename == name.cub expected invalid args to be false");
 
-	FT_TEST(is_invalid_args(0, (char *){"name.cub"})
+	FT_TEST(is_invalid_args(0, "name.cub")
 			== true,
 			"when argc == 0 and filename == name.cub expected invalid args to be true");
 
-	FT_TEST(is_invalid_args(2, (char *){"name.cub"})
+	FT_TEST(is_invalid_args(2, "name.cub")
 			== true,
 			"when argc == 2 and filename == name.cub expected invalid args to be true");
 
-	FT_TEST(is_invalid_args(1, (char *){"name"})
+	FT_TEST(is_invalid_args(1, "name")
 			== true,
 			"when argc == 1 and filename == name expected invalid args to be true");
 
-	FT_TEST(is_invalid_args(1, (char *){"cub"})
+	FT_TEST(is_invalid_args(1, "cub")
 			== true,
 			"when argc == 1 and filename == cub expected invalid args to be true");
 
-	FT_TEST(is_invalid_args(1, (char *){".cub"})
+	FT_TEST(is_invalid_args(1, ".cub")
 			== false,
 			"when argc == 1 and filename == .cub expected invalid args to be false");
 
@@ -127,6 +143,7 @@ int	main(void)
 	test_color();
 	test_parse_color();
 	test_is_valid_args();
+	test_config_init();
 	exit (EXIT_SUCCESS);
 	return (0);
 }
