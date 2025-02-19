@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/18 18:15:33 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:50:54 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	parse_file(char *filename, t_config_file *config)
 
 	fd = open(filename, O_RDONLY, CHMOD_PERMISSION);
 	if (fd == FD_FAIL)
-		return (close_fd_ret(fd, EXIT_FAILURE));
+		return (EXIT_FAILURE);
 	if (parse_textures(fd, config) == EXIT_FAILURE)
 		return (clean_parse(config, fd, EXIT_FAILURE));
 	if (parse_colors(fd, config) == EXIT_FAILURE)
@@ -37,6 +37,7 @@ int	parse_file(char *filename, t_config_file *config)
 int	parse_textures(int file_fd, t_config_file *config)
 {
 	char	*line;
+	(void) config; // TODO parse textures
 
 	while (1)
 	{
