@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:35 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/18 17:56:48 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:50:33 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	config_init(int argc, char **argv, t_config_file *config)
 
 void	config_clean(t_config_file *config)
 {
+	(void) config;
 	// TODO: clean texture filenames
 }
 
