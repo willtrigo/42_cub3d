@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/18 20:03:53 by maurodri         ###   ########.fr        #
+#    Updated: 2025/02/19 19:51:56 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,11 @@ SRCS_FILES                      += $(addprefix $(SRCS_MAIN_DIR), cube.c)
 OBJS_MAIN                       = $(SRCS_MAIN:%.c=$(BUILD_DIR)%.o)
 OBJS                            += $(SRCS_FILES:%.c=$(BUILD_DIR)%.o)
 
-SRCS_TEST_FILES                 += $(addprefix $(SRCS_TEST_DIR), test_suite.c)
+SRCS_TEST_FILES                 += $(addprefix $(SRCS_TEST_DIR), test_suite.c \
+								test_color.c \
+								test_parse_color.c \
+								test_is_valid_args.c \
+								test_config_init.c)
 OBJS_TEST                       += $(SRCS_TEST_FILES:%.c=$(BUILD_DIR)%.o)
 
 DEPS                            := $(OBJS:.o=.d)
