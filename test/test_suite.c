@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 20:24:50 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 16:54:19 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:16:47 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,53 @@ void test_config_init()
 
 	{
 		t_config_file	conf;
-
-		FT_TEST(config_init(1, (char *[]){ "does_not_exist.cub", NULL} , &conf)
-				== EXIT_FAILURE,
+		int 			result = config_init(1,
+											 (char *[]){ "does_not_exist.cub", NULL} ,
+											 &conf); 
+		FT_TEST(result == EXIT_FAILURE,
 				"when argc == 1 and filename == \"does_not_exist.cub\" "
 				"expected return to be EXIT_FAILURE");
+	}
+
+	{
+		t_config_file	conf;
+		int             result = config_init(2, 
+											 (char *[]) {
+                                        		"./test/maps/trivial.cub",
+												"./test/maps/trivial.cub",
+                                        		NULL
+                                    		 },
+											 &conf);
+		FT_TEST(result == EXIT_FAILURE,
+				"when argc == 2 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected return to be EXIT_FAILURE");
+	}
+
+	{
+		t_config_file	conf;
+		int 			result = config_init(1, \
+							(char *[]){ "./test/maps/invalid_floor_color_above_range.cub", NULL},
+											 &conf);
+		FT_TEST(result == EXIT_FAILURE,
+				"when argc == 1 and "
+				"filename == \"./test/maps/invalid_floor_color_above_range.cub\" "
+				"and the file exists expected return to be EXIT_SUCCESS");
+	}
+
+	{
+		t_config_file	conf;
+		int 			result = config_init(1,
+											 (char *[]){ "./test/maps/trivial.cub", NULL},
+											 &conf);
+		FT_TEST(result == EXIT_SUCCESS,
+				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected return to be EXIT_SUCCESS");
+		FT_TEST(conf.floor.value == 0xDC6400FF,
+				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected conf.floor.value == 0xDC6400FF");
+		FT_TEST(conf.ceil.value == 0xE11E00FF,
+				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected conf.ceil.value == 0xE11E00FF");
 	}
 	ft_printf("%s: OK\n", __FUNCTION__);
 }
