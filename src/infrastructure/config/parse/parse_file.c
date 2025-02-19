@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 16:50:54 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:41:19 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int	parse_file(char *filename, t_config_file *config)
+bool	parse_file(char *filename, t_config_file *config)
 {
 	int	fd;
 
 	fd = open(filename, O_RDONLY, CHMOD_PERMISSION);
 	if (fd == FD_FAIL)
-		return (EXIT_FAILURE);
+		return (false);
 	if (parse_textures(fd, config) == EXIT_FAILURE)
-		return (clean_parse(config, fd, EXIT_FAILURE));
+		return (clean_parse(config, fd, false));
 	if (parse_colors(fd, config) == EXIT_FAILURE)
-		return (clean_parse(config, fd, EXIT_FAILURE));
+		return (clean_parse(config, fd, false));
 	// TODO: parse_map;
-	return (close_fd_ret(fd, EXIT_SUCCESS));
+	return (close_fd_ret(fd, true));
 }
 
 int	parse_textures(int file_fd, t_config_file *config)

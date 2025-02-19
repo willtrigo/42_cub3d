@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 20:24:50 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 17:21:36 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:37:57 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,28 @@ void test_is_valid_args()
 	ft_printf("\n%s:\n", __FUNCTION__);
 
 	FT_TEST(is_invalid_args(1, "name.cub")
-			== false,
-			"when argc == 1 and filename == name.cub expected invalid args to be false");
+			== true,
+			"when argc == 1 and filename == name.cub expected invalid args to be true");
 
 	FT_TEST(is_invalid_args(0, "name.cub")
-			== true,
-			"when argc == 0 and filename == name.cub expected invalid args to be true");
+			== false,
+			"when argc == 0 and filename == name.cub expected invalid args to be false");
 
 	FT_TEST(is_invalid_args(2, "name.cub")
-			== true,
-			"when argc == 2 and filename == name.cub expected invalid args to be true");
+			== false,
+			"when argc == 2 and filename == name.cub expected invalid args to be false");
 
 	FT_TEST(is_invalid_args(1, "name")
-			== true,
-			"when argc == 1 and filename == name expected invalid args to be true");
+			== false,
+			"when argc == 1 and filename == name expected invalid args to be false");
 
 	FT_TEST(is_invalid_args(1, "cub")
-			== true,
-			"when argc == 1 and filename == cub expected invalid args to be true");
+			== false,
+			"when argc == 1 and filename == cub expected invalid args to be false");
 
 	FT_TEST(is_invalid_args(1, ".cub")
-			== false,
-			"when argc == 1 and filename == .cub expected invalid args to be false");
+			== true,
+			"when argc == 1 and filename == .cub expected invalid args to be true");
 
 	ft_printf("%s: OK\n", __FUNCTION__);
 }
