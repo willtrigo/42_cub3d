@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:26 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/18 19:08:48 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:36:32 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int	parse_colors(int file_fd, t_config_file *config)
 			break ;
 		}
 		if (*ln == 'F' && check_color(ln, &config->floor, is_clr_set))
-			return (EXIT_FAILURE);
+			return (ft_free_retvalue(ln, EXIT_FAILURE));
 		else if (*ln == 'C' && \
 			check_color(ln, &config->ceil, is_clr_set + 1))
-			return (EXIT_FAILURE);
+			return (ft_free_retvalue(ln, EXIT_FAILURE));
 		free(ln);
 	}
 	if (!is_clr_set[0] || !is_clr_set[1])

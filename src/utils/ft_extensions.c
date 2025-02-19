@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:49:14 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/17 20:01:59 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:35:16 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,11 @@ bool	ft_atoi8_range(uint8_t *out_value, char *str, int range_low, int range_high
 int	ft_free_arr_retvalue(char **to_free, int retvalue)
 {
 	ft_strarr_free(to_free);
+	return (retvalue);
+}
+
+int	ft_free_retvalue(void *to_free, int retvalue)
+{
+	free(to_free);
 	return (retvalue);
 }
