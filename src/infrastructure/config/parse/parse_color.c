@@ -6,12 +6,13 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:26 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 13:24:44 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:55:36 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_assert.h"
 #include "ft_ctype.h"
+#include "ft_memlib.h"
 #include "ft_string.h"
 #include "get_next_line.h"
 #include "infrastructure/config/config.h"
@@ -25,8 +26,7 @@ bool	parse_colors(int fd, t_config_file *config)
 	char	*ln;
 	bool	is_clr_set[TOTAL_COLOR];
 
-	is_clr_set[COLOR_F] = false;
-	is_clr_set[COLOR_C] = false;
+	ft_bzero(is_clr_set, sizeof(is_clr_set));
 	while (!is_clr_set[COLOR_F] || !is_clr_set[COLOR_C])
 	{
 		ln = ft_chomp(get_next_line(fd));

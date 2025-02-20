@@ -6,13 +6,15 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 13:24:38 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:26:36 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_string.h"
 #include "infrastructure/config/config.h"
 #include "infrastructure/config/parse/parse_internal.h"
 #include "get_next_line.h"
+#include "utils/output.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -27,10 +29,25 @@ bool	parse_file(char *filename, t_config_file *config)
 		return (false);
 	if (!parse_textures(fd, config))
 		return (clean_parse(config, fd, false));
+	if (!jump_empty_line(fd))
+		return (clean_parse(config, fd, false));
 	if (!parse_colors(fd, config))
+		return (clean_parse(config, fd, false));
+	if (!jump_empty_line(fd))
 		return (clean_parse(config, fd, false));
 	// TODO: parse_map;
 	return (close_fd_ret(fd, true));
+}
+
+bool	jump_empty_line(int fd)
+{
+	char	*ln;
+	
+	ln = ft_chomp(get_next_line(fd));
+	if (!ln)
+		return (output_ret("Error: invalid file format", false));
+	free(ln);
+	return (true);
 }
 
 bool	clean_parse(t_config_file *config, int fd, int ret)
