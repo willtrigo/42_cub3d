@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:52 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 17:44:15 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:06:13 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include "infrastructure/config/config.h"
 # include <stdbool.h>
+
+enum e_parse_file
+{
+	CHMOD_PERMISSION = 0666,
+	FD_FAIL = -1,
+};
 
 enum e_parse_texture
 {

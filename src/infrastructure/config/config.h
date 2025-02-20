@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:44 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 11:49:59 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:06:17 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 enum e_config
 {
 	MAX_ARG = 1,
-	BUF_SIZE = 1,
-	CHMOD_PERMISSION = 0666,
-	FD_FAIL = -1,
 };
 
 typedef struct s_config_file

@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:35 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 11:55:33 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:03:54 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ bool	is_invalid_args(int argc, char *filename)
 		return (output_ret("Error: invalid number of arguments", false));
 	if (!is_invalid_extension(filename, ft_strlen(filename)))
 		return (output_ret("Error: invalid extension must be .cub", false));
-	// if (!is_invalid_file(filename))
-	// 	return (output_ret("Error: invalid file", EXIT_FAILURE));
 	return (true);
 }
 
@@ -69,23 +67,4 @@ bool	is_invalid_extension(char *filename, size_t filename_len)
 	if (ft_strncmp(&filename[filename_len - ext_len], ext, ext_len))
 		return (false);
 	return (true);
-}
-
-bool	is_invalid_file(char *filename)
-{
-	int32_t	fd;
-	int32_t	file;
-	char	buf[BUF_SIZE];
-	bool	ret;
-
-	ret = true;
-	fd = open(filename, O_RDONLY, CHMOD_PERMISSION);
-	if (fd <= FD_FAIL)
-		ret = false;
-	file = read(fd, buf, BUF_SIZE);
-	close(fd);
-	if (ret && \
-		(!file || !(*buf == 'N' || *buf == 'S' || *buf == 'W' || *buf == 'E')))
-		ret = false;
-	return (ret);
 }
