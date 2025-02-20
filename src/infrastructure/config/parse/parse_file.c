@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 18:36:51 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:00:51 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ int	clean_parse(t_config_file *config, int file_fd, int ret)
 
 int	close_fd_ret(int file_fd, int ret)
 {
+	char	*str;
+
 	close(file_fd);
+	str = get_next_line(file_fd);
+	while (str != NULL)
+	{
+		(void) "forcing buffer reset on gnl";
+		free(str);
+		str = get_next_line(file_fd);
+	}
+	free(str);
 	return (ret);
 }
