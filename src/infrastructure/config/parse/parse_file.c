@@ -6,14 +6,13 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 19:00:51 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/20 08:42:52 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
 #include "infrastructure/config/config.h"
 #include "infrastructure/config/parse/parse_internal.h"
-#include "utils/ft_extensions.h"
+#include "get_next_line.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -34,34 +33,13 @@ bool	parse_file(char *filename, t_config_file *config)
 	return (close_fd_ret(fd, true));
 }
 
-bool	parse_textures(int file_fd, t_config_file *config)
-{
-	char	*line;
-
-	(void) config; // TODO parse textures
-	while (1)
-	{
-		line = get_next_line(file_fd);
-		if (line == 0)
-			return (false);
-		if (ft_is_blank(line))
-		{
-			// TODO: ? support multiple blank lines
-			free(line);
-			break ;
-		}
-		free(line);
-	}
-	return (true);
-}
-
-int	clean_parse(t_config_file *config, int file_fd, int ret)
+bool	clean_parse(t_config_file *config, int file_fd, int ret)
 {
 	config_clean(config);
 	return (close_fd_ret(file_fd, ret));
 }
 
-int	close_fd_ret(int file_fd, int ret)
+bool	close_fd_ret(int file_fd, int ret)
 {
 	char	*str;
 
