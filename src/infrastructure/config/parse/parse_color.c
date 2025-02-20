@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:26 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 09:32:44 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:24:44 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "utils/output.h"
 #include <stdbool.h>
 
-bool	parse_colors(int file_fd, t_config_file *config)
+bool	parse_colors(int fd, t_config_file *config)
 {
 	char	*ln;
 	bool	is_clr_set[TOTAL_COLOR];
@@ -29,7 +29,7 @@ bool	parse_colors(int file_fd, t_config_file *config)
 	is_clr_set[COLOR_C] = false;
 	while (!is_clr_set[COLOR_F] || !is_clr_set[COLOR_C])
 	{
-		ln = ft_chomp(get_next_line(file_fd));
+		ln = ft_chomp(get_next_line(fd));
 		if (!ln)
 			return (output_ret("Error: invalid file format", false));
 		if (ft_is_blank(ln))

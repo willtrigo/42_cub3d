@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 08:42:52 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:24:38 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,23 @@ bool	parse_file(char *filename, t_config_file *config)
 	return (close_fd_ret(fd, true));
 }
 
-bool	clean_parse(t_config_file *config, int file_fd, int ret)
+bool	clean_parse(t_config_file *config, int fd, int ret)
 {
 	config_clean(config);
-	return (close_fd_ret(file_fd, ret));
+	return (close_fd_ret(fd, ret));
 }
 
-bool	close_fd_ret(int file_fd, int ret)
+bool	close_fd_ret(int fd, int ret)
 {
 	char	*str;
 
-	close(file_fd);
-	str = get_next_line(file_fd);
+	close(fd);
+	str = get_next_line(fd);
 	while (str != NULL)
 	{
 		(void) "forcing buffer reset on gnl";
 		free(str);
-		str = get_next_line(file_fd);
+		str = get_next_line(fd);
 	}
 	free(str);
 	return (ret);
