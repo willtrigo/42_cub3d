@@ -6,10 +6,11 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:25:21 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/19 19:41:18 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:53:41 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_string.h"
 #include "infrastructure/config/config.h"
 #include "ft_stdio.h"
 #include "test_suite.h"
@@ -22,9 +23,10 @@ void test_config_init_valid(void)
 
 	{
 		t_config_file	conf;
-		int 			result = config_init(1,
-											 (char *[]){ "./test/maps/trivial.cub", NULL},
-											 &conf);
+		int				result = \
+			config_init(1,
+						(char *[]){ "./test/maps/trivial.cub", NULL},
+						&conf);
 		FT_TEST(result == true,
 				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
 				"and the file exists expected return to be true");
@@ -34,6 +36,46 @@ void test_config_init_valid(void)
 		FT_TEST(conf.ceil.value == 0xE11E00FF,
 				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
 				"and the file exists expected conf.ceil.value == 0xE11E00FF");
+		FT_TEST(conf.texture_north != NULL,
+				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected conf.texture_north != NULL");
+		FT_TEST(conf.texture_east != NULL,
+				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected conf.texture_east != NULL");
+		FT_TEST(conf.texture_south != NULL,
+				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected conf.texture_south != NULL");
+		FT_TEST(conf.texture_west != NULL,
+				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected conf.texture_west != NULL");
+		FT_TEST(conf.texture_north != NULL \
+					&& ft_strncmp(conf.texture_north,
+							"./path_to_the_north_texture",
+							sizeof("./path_to_the_north_texture") == 0),
+				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected "
+				"conf.texture_north == \"./path_to_the_north_texture\"");
+		FT_TEST(conf.texture_east != NULL \
+					&& ft_strncmp(conf.texture_east,
+							"./path_to_the_east_texture",
+							sizeof("./path_to_the_east_texture") == 0),
+				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected "
+				"conf.texture_east == \"./path_to_the_east_texture\"");
+		FT_TEST(conf.texture_south != NULL \
+					&& ft_strncmp(conf.texture_south,
+							"./path_to_the_south_texture",
+							sizeof("./path_to_the_south_texture") == 0),
+				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected "
+				"conf.texture_south == \"./path_to_the_south_texture\"");
+		FT_TEST(conf.texture_west != NULL \
+					&& ft_strncmp(conf.texture_west,
+							"./path_to_the_west_texture",
+							sizeof("./path_to_the_west_texture") == 0),
+				"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
+				"and the file exists expected "
+				"conf.texture_west == \"./path_to_the_west_texture\"");
 	}
 	ft_printf("%s: END\n", __FUNCTION__);
 }
@@ -52,12 +94,12 @@ void test_config_init_invalid(void)
 
 	{
 		t_config_file	conf;
-		int             result = config_init(2, 
+		int             result = config_init(2,
 											 (char *[]) {
-                                        		"./test/maps/trivial.cub",
 												"./test/maps/trivial.cub",
-                                        		NULL
-                                    		 },
+												"./test/maps/trivial.cub",
+												NULL
+											 },
 											 &conf);
 		FT_TEST(result == false,
 				"when argc == 2 and filename == \"./test/maps/trivial.cub\" "
@@ -66,13 +108,16 @@ void test_config_init_invalid(void)
 
 	{
 		t_config_file	conf;
-		int 			result = config_init(1, \
-							(char *[]){ "./test/maps/invalid_floor_color_above_range.cub", NULL},
-											 &conf);
-		FT_TEST(result == false,
-				"when argc == 1 and "
-				"filename == \"./test/maps/invalid_floor_color_above_range.cub\" "
-				"and the file exists expected return to be false");
+		int				result = \
+			config_init(1, \
+						(char *[]){\
+							"./test/maps/invalid_floor_color_above_range.cub", \
+							NULL}, \
+						&conf);
+		FT_TEST(result == false, \
+			"when argc == 1 and "
+			"filename == \"./test/maps/invalid_floor_color_above_range.cub\" "
+			"and the file exists expected return to be false");
 	}
 	ft_printf("%s: END", __FUNCTION__);
 }
