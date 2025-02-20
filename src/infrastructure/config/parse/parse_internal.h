@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:52 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 15:31:25 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:44:15 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ bool	set_texture(char *tex_ln, char **texture, bool *is_tex_set);
 bool	parse_colors(int fd, t_config_file *config);
 bool	parse_color(char *color_line, t_color *color, bool *is_clr_set);
 bool	check_color(char *line, t_color *color, bool *is_clr_set);
+bool	parse_map(int fd, t_config_file *config);
+bool	check_ln_map(char *ln);
 bool	close_fd_ret(int fd, int ret);
 
 #endif

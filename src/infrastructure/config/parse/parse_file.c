@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 16:47:42 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:11:29 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ bool	parse_file(char *filename, t_config_file *config)
 		return (clean_parse(config, fd, false));
 	if (!jump_empty_line(fd))
 		return (clean_parse(config, fd, false));
-	// TODO: parse_map;
+	if (!parse_map(fd, config))
+		return (clean_parse(config, fd, false));
 	return (close_fd_ret(fd, true));
 }
 
