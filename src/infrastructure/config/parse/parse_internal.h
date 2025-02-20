@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:52 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 08:34:58 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 08:59:27 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 
 # include "infrastructure/config/config.h"
 # include <stdbool.h>
+
+enum e_parse_color
+{
+	COLOR_F,
+	COLOR_C,
+	TOTAL_COLOR,
+	COLOR_R = 0,
+	COLOR_G,
+	COLOR_B,
+	COLOR_RGB_LEN,
+	RANGE_LOW = 0,
+	RANGE_HIGH = 255,
+};
 
 bool	parse_color(char *color_line, t_color *color, bool *has_set_color);
 bool	parse_colors(int file_fd, t_config_file *config);

@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:26 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/19 18:59:37 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/20 09:01:53 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 bool	parse_colors(int file_fd, t_config_file *config)
 {
 	char	*ln;
-	bool	is_clr_set[2];
+	bool	is_clr_set[TOTAL_COLOR];
 
-	is_clr_set[0] = false;
-	is_clr_set[1] = false;
-	while (!is_clr_set[0] || !is_clr_set[1])
+	is_clr_set[COLOR_F] = false;
+	is_clr_set[COLOR_C] = false;
+	while (!is_clr_set[COLOR_F] || !is_clr_set[COLOR_C])
 	{
 		ln = ft_chomp(get_next_line(file_fd));
-		if (ln == 0)
+		if (!ln)
 			return (false);
 		if (ft_is_blank(ln))
 		{
@@ -40,11 +40,11 @@ bool	parse_colors(int file_fd, t_config_file *config)
 		if (*ln == 'F' && !check_color(ln, &config->floor, is_clr_set))
 			return (ft_free_retvalue(ln, false));
 		else if (*ln == 'C' && \
-			!check_color(ln, &config->ceil, is_clr_set + 1))
+			!check_color(ln, &config->ceil, is_clr_set + COLOR_C))
 			return (ft_free_retvalue(ln, false));
 		free(ln);
 	}
-	if (!is_clr_set[0] || !is_clr_set[1])
+	if (!is_clr_set[COLOR_F] || !is_clr_set[COLOR_C])
 		return (false);
 	return (true);
 }
@@ -62,24 +62,19 @@ bool	parse_color(char *color_ln, t_color *color, bool *is_clr_set)
 	char	**split_ln;
 
 	*is_clr_set = false;
-	// andar
 	color_ln++;
-		// assuming ln does not contain \n
 	while (ft_isspace(*color_ln))
 		color_ln++;
-	// split
 	split_ln = ft_split(color_ln, ',');
-	if (ft_strarr_len(split_ln) != 3)
+	if (ft_strarr_len(split_ln) != COLOR_RGB_LEN)
 		return (ft_free_arr_retvalue(split_ln, false));
-	// parseInt
 	color->a = 255;
-	if (!ft_atoi8_range(&color->r, split_ln[0], 0, 255))
+	if (!ft_atoi8_range(&color->r, split_ln[COLOR_R], RANGE_LOW, RANGE_HIGH))
 		return (ft_free_arr_retvalue(split_ln, false));
-	if (!ft_atoi8_range(&color->g, split_ln[1], 0, 255))
+	if (!ft_atoi8_range(&color->g, split_ln[COLOR_G], RANGE_LOW, RANGE_HIGH))
 		return (ft_free_arr_retvalue(split_ln, false));
-	if (!ft_atoi8_range(&color->b, split_ln[2], 0, 255))
+	if (!ft_atoi8_range(&color->b, split_ln[COLOR_B], RANGE_LOW, RANGE_HIGH))
 		return (ft_free_arr_retvalue(split_ln, false));
-	// set color && is_clr_set
 	*is_clr_set = true;
 	return (ft_free_arr_retvalue(split_ln, true));
 }
