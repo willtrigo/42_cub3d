@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 15:31:11 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:47:42 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "infrastructure/config/config.h"
 #include "infrastructure/config/parse/parse_internal.h"
 #include "get_next_line.h"
+#include "utils/ft_extensions.h"
 #include "utils/output.h"
 #include <fcntl.h>
 #include <stdbool.h>
@@ -46,6 +47,11 @@ bool	jump_empty_line(int fd)
 	ln = ft_chomp(get_next_line(fd));
 	if (!ln)
 		return (output_ret("Error: invalid file format", false));
+	if (!ft_is_blank(ln))
+	{
+		free(ln);
+		return (output_ret("Error: invalid file format", false));
+	}
 	free(ln);
 	return (true);
 }

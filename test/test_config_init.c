@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:25:21 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/20 16:26:29 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:55:32 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void test_config_init_valid_trivial_map(void)
 			"when argc == 1 and filename == \"./test/maps/trivial.cub\" "
 			"and the file exists expected "
 			"conf.map [4] == \"11111\"");
+	config_clean(&conf);
 	ft_printf("%s: END\n", __FUNCTION__);
 }
 
