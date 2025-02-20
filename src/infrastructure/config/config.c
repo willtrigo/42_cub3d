@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:35 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 18:03:54 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:14:53 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,11 @@ bool	is_invalid_extension(char *filename, size_t filename_len)
 		return (false);
 	if (ft_strncmp(&filename[filename_len - ext_len], ext, ext_len))
 		return (false);
+	return (true);
+}
+
+bool	config_validation(t_config_file *config)
+{
+	(void)config;
 	return (true);
 }

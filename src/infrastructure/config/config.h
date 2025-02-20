@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:44 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 18:06:17 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:15:12 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_config_file
 }	t_config_file;
 
 bool	config_init(int argc, char **argv, t_config_file *config);
+bool	config_validation(t_config_file *config);
 void	config_clean(t_config_file *config);
 
 #endif

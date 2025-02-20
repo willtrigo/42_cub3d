@@ -6,7 +6,13 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/17 16:34:13 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:11:48 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef GAME_H
+# define GAME_H
+
+int	game_manage(int argc, char **argv);
+
+#endif
