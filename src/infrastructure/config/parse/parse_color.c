@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:26 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 09:01:53 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 09:32:44 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	parse_colors(int file_fd, t_config_file *config)
 	{
 		ln = ft_chomp(get_next_line(file_fd));
 		if (!ln)
-			return (false);
+			return (output_ret("Error: invalid file format", false));
 		if (ft_is_blank(ln))
 		{
 			free(ln);
@@ -45,7 +45,7 @@ bool	parse_colors(int file_fd, t_config_file *config)
 		free(ln);
 	}
 	if (!is_clr_set[COLOR_F] || !is_clr_set[COLOR_C])
-		return (false);
+		return (output_ret("Error: invalid set of color", false));
 	return (true);
 }
 
@@ -53,7 +53,7 @@ bool	check_color(char *ln, t_color *color, bool *is_clr_set)
 {
 	ft_assert((*ln == 'F' || *ln == 'C'), "Error: unexpected color line");
 	if (*is_clr_set)
-		return (output_ret("Error: double set of color", true));
+		return (output_ret("Error: double set of color", false));
 	return (parse_color(ln, color, is_clr_set));
 }
 

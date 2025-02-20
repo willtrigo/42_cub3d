@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/20 09:03:26 by dande-je         ###   ########.fr        #
+#    Updated: 2025/02/20 09:37:02 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -212,11 +212,11 @@ endef
 define comp_test
 	$(CC) $(LDFLAGS) $(OBJS) $(OBJS_TEST) $(LDLIBS) -o $(NAME_TEST_PATH)
 	-valgrind --leak-check=full \
-                  -s \
-                  --show-reachable=yes \
-                  --errors-for-leak-kinds=all \
-                  --track-origins=yes \
-                  --track-fds=yes \./$(NAME_TEST_PATH)
+              -s \
+              --show-reachable=yes \
+              --errors-for-leak-kinds=all \
+              --track-origins=yes \
+              --track-fds=yes \./$(NAME_TEST_PATH)
 endef
 
 #******************************************************************************#
