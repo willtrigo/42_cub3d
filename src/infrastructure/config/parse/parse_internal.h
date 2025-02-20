@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:52 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 15:26:12 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:31:25 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ enum e_parse_texture
 	TEXTURE_SO,
 	TEXTURE_WE,
 	TOTAL_TEXTURE,
-  TEX_LEN = 2,
-  TEX_ASSERT = 0
+	TEX_LEN = 2,
+	TEX_ASSERT = 0
 };
 
 enum e_parse_color
