@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 18:13:51 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/21 11:36:32 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	game_manage(int argc, char **argv)
 {
-	t_config_file 	config;
+	t_config_file	config;
 
 	if (!config_init(--argc, ++argv, &config))
 		return (EXIT_FAILURE);

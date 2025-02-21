@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/20 17:07:17 by dande-je         ###   ########.fr        #
+#    Updated: 2025/02/21 11:46:00 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,8 +61,8 @@ SLEEP                           := sleep 0.01
 #                                   FILES                                      #
 #******************************************************************************#
 
-LIBFTX = $(addprefix $(LIBFTX_DIR), libft.a)
-MLX42 = $(addprefix $(MLX42_BUILD_DIR), libmlx42.a)
+LIBFTX                          = $(addprefix $(LIBFTX_DIR), libft.a)
+MLX42                           = $(addprefix $(MLX42_BUILD_DIR), libmlx42.a)
 LIBS                            := ./lib/libftx/libft.a \
 								   ./lib/MLX42/build/libmlx42.a
 
@@ -83,7 +83,6 @@ SRCS_FILES                      += $(addprefix $(SRCS_PARSE_DIR), parse_color.c 
 SRCS_FILES                      += $(addprefix $(SRCS_UTILS_DIR), color.c \
 								   ft_extensions.c \
 								   output.c)
-SRCS_FILES                      += $(addprefix $(SRCS_MAIN_DIR), cube.c)
 
 OBJS_MAIN                       = $(SRCS_MAIN:%.c=$(BUILD_DIR)%.o)
 OBJS                            += $(SRCS_FILES:%.c=$(BUILD_DIR)%.o)
