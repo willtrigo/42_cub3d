@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/22 12:21:58 by dande-je         ###   ########.fr        #
+#    Updated: 2025/02/22 12:34:58 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS_INFRASTRUCTURE_DIR         := $(SRCS_MAIN_DIR)infrastructure/
 SRCS_CONFIG_DIR                 := $(SRCS_INFRASTRUCTURE_DIR)config/
 SRCS_ARGS_DIR                   := $(SRCS_CONFIG_DIR)args/
 SRCS_PARSE_DIR                  := $(SRCS_CONFIG_DIR)parse/
+SRCS_VALIDATION_DIR             := $(SRCS_CONFIG_DIR)validation/
 SRCS_UTILS_DIR                  := $(SRCS_MAIN_DIR)utils/
 SRCS_TEST_DIR                   := test/
 INCS                            := src/ lib/libftx/includes/ lib/MLX42/include/
@@ -83,6 +84,7 @@ SRCS_FILES                      += $(addprefix $(SRCS_PARSE_DIR), parse_color.c 
 								   parse_file.c \
 								   parse_map.c \
 								   parse_texture.c)
+SRCS_FILES                      += $(addprefix $(SRCS_VALIDATION_DIR), invalid_config.c)
 SRCS_FILES                      += $(addprefix $(SRCS_UTILS_DIR), color.c \
 								   ft_extensions.c \
 								   output.c)
