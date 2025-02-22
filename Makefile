@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/21 11:46:00 by dande-je         ###   ########.fr        #
+#    Updated: 2025/02/22 12:21:58 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS_CORE_DIR                   := $(SRCS_MAIN_DIR)core/
 SRCS_GRAPHIC_DIR                := $(SRCS_MAIN_DIR)graphic/
 SRCS_INFRASTRUCTURE_DIR         := $(SRCS_MAIN_DIR)infrastructure/
 SRCS_CONFIG_DIR                 := $(SRCS_INFRASTRUCTURE_DIR)config/
+SRCS_ARGS_DIR                   := $(SRCS_CONFIG_DIR)args/
 SRCS_PARSE_DIR                  := $(SRCS_CONFIG_DIR)parse/
 SRCS_UTILS_DIR                  := $(SRCS_MAIN_DIR)utils/
 SRCS_TEST_DIR                   := test/
@@ -76,6 +77,8 @@ SRCS_MAIN                       = $(addprefix $(SRCS_MAIN_DIR), main.c)
 SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c)
 SRCS_FILES                      += $(addprefix $(SRCS_GRAPHIC_DIR), render.c)
 SRCS_FILES                      += $(addprefix $(SRCS_CONFIG_DIR), config.c)
+SRCS_FILES                      += $(addprefix $(SRCS_ARGS_DIR), invalid_args.c \
+								   invalid_extension.c)
 SRCS_FILES                      += $(addprefix $(SRCS_PARSE_DIR), parse_color.c \
 								   parse_file.c \
 								   parse_map.c \

@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   invalid_args_internal.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 20:06:57 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/22 12:02:54 by dande-je         ###   ########.fr       */
+/*   Created: 2025/02/22 12:14:05 by dande-je          #+#    #+#             */
+/*   Updated: 2025/02/22 12:14:51 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/game.h"
+#ifndef INVALID_ARGS_INTERNAL_H
+# define INVALID_ARGS_INTERNAL_H
 
-int	main(int argc, char **argv)
-{
-	return (game_manage(argc, argv));
-}
+# include <stdbool.h>
+# include <stddef.h>
+
+bool	is_invalid_extension(char *filename, size_t filename_len);
+
+#endif

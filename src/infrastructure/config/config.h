@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 18:31:44 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 18:15:12 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/22 12:02:17 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 # include "utils/color.h"
 # include <stdbool.h>
 # include "collection/ft_arraylist.h"
-
-enum e_config
-{
-	MAX_ARG = 1,
-};
 
 typedef struct s_config_file
 {
