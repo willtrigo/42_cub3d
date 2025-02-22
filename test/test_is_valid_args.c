@@ -6,11 +6,11 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:50:10 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/19 19:51:30 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/22 12:22:30 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "infrastructure/config/config_internal.h"
+#include "infrastructure/config/args/invalid_args.h"
 #include "test_suite.h"
 
 void test_is_valid_args()
