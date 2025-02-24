@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:06:57 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/24 11:44:18 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:18:07 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int argc, char **argv)
 	if (!game_init(&config, &game))
 		return (EXIT_FAILURE);
 	config_clean(&config);
-
 	mlx_loop_hook(game.mlx, (t_consumer) game_loop, (void *) &game);
 	mlx_loop(game.mlx);
 	game_clean(&game);
