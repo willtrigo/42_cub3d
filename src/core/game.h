@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/24 15:23:29 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/24 16:29:42 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ typedef struct s_imgs
 
 typedef struct s_txts
 {
-	// TODO: add textures
-	mlx_texture_t	*some_texture;
+	mlx_texture_t	*north;
+	mlx_texture_t	*east;
+	mlx_texture_t	*south;
+	mlx_texture_t	*west;
 }	t_txts;
 
 typedef struct s_window

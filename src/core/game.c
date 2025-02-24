@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/24 15:24:21 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:06:24 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "infrastructure/config/config.h"
 #include "utils/vec2.h"
 #include <stdlib.h>
+#include "utils/output.h"
 #include "game.h"
 #include "ft_assert.h"
 
@@ -78,11 +79,40 @@ bool	map_init(t_game *game, t_config_file *config)
 	return (true);
 }
 
+void	texture_clean(t_game *game)
+{
+	if (game->ctx.txts.north)
+		mlx_delete_texture(game->ctx.txts.north);
+	if (game->ctx.txts.east)
+		mlx_delete_texture(game->ctx.txts.east);
+	if (game->ctx.txts.south)
+		mlx_delete_texture(game->ctx.txts.south);
+	if (game->ctx.txts.west)
+		mlx_delete_texture(game->ctx.txts.west);
+}
+
+bool	texture_init_fail(t_game *game, t_config_file *config, char *msg_error)
+{
+	config_clean(config);
+	texture_clean(game);
+	return (output_ret(msg_error, false));
+}
+
 bool	textures_init(t_game *game, t_config_file *config)
 {
-	// TODO:
-	(void) game;
-	(void) config;
+	game->ctx.txts.north = mlx_load_png(config->texture_north);
+	if (!game->ctx.txts.north)
+		return (texture_init_fail(game, config, "\nError: invalid north texture"));
+	game->ctx.txts.east = mlx_load_png(config->texture_east);
+	if (!game->ctx.txts.east)
+		return (texture_init_fail(game, config, "\nError: invalid east texture"));
+	game->ctx.txts.south = mlx_load_png(config->texture_south);
+	if (!game->ctx.txts.south)
+		return (texture_init_fail(game, config, "\nError: invalid south texture"));
+	game->ctx.txts.west = mlx_load_png(config->texture_west);
+	if (!game->ctx.txts.west)
+		return (texture_init_fail(game, config, "\nError: invalid west texture"));
+	config_clean(config);
 	return (true);
 }
 
@@ -122,7 +152,7 @@ int	game_init(t_config_file *config, t_game *out_game)
 void	game_clean(t_game *game)
 {
 	// TODO:
-	// clear textures
+	texture_clean(game);
 	// clear map
 	mlx_terminate(game->mlx);
 }
