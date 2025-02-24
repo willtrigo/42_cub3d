@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/24 11:45:42 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:24:21 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	window_init(t_game *game)
 void	draw_background( \
 	mlx_image_t *bg, t_color *ceil, t_color *floor, t_vec2i size)
 {
-	const int height = size.y;
-	const int width = size.x;
-	int	y;
-	int x;
+	const int	height = size.y;
+	const int	width = size.x;
+	int			y;
+	int			x;
 
 	y = -1;
 	while (++y < height / 2)
@@ -51,8 +51,8 @@ void	draw_background( \
 
 bool	imgs_init(t_game *game, t_config_file *config)
 {
-	const int width = game->ctx.window.width;
-	const int height = game->ctx.window.height;
+	const int	width = game->ctx.window.width;
+	const int	height = game->ctx.window.height;
 
 	game->ctx.imgs.bg = mlx_new_image(game->mlx, width, height);
 	if (game->ctx.imgs.bg == NULL)
@@ -88,7 +88,7 @@ bool	textures_init(t_game *game, t_config_file *config)
 
 // TODO: move above functions to some other file
 
-void game_loop(t_game *game)
+void	game_loop(t_game *game)
 {
 	// TODO:
 	// get input
