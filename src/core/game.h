@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/24 16:29:42 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/24 19:24:55 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,10 @@
 
 # include "MLX42/MLX42.h"
 # include "infrastructure/config/config.h"
+#include "utils/color.h"
 
 # define DEFAULT_WIDTH 1920
-# define DEFAULT_HEIGHT 995
-
-typedef struct s_imgs
-{
-	mlx_image_t	*bg;
-}	t_imgs;
+# define DEFAULT_HEIGHT 955
 
 typedef struct s_txts
 {
@@ -40,9 +36,11 @@ typedef struct s_window
 
 typedef struct s_context
 {
-	t_imgs		imgs;
+	mlx_image_t	*canvas;
 	t_txts		txts;
 	t_window	window;
+	t_color		ceil;
+	t_color		floor;
 }	t_context;
 
 typedef struct s_game

@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/24 17:06:24 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:35:54 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 #include "ft_memlib.h"
 #include "graphic/render.h"
 #include "infrastructure/config/config.h"
-#include "utils/vec2.h"
 #include <stdlib.h>
 #include "utils/output.h"
 #include "game.h"
-#include "ft_assert.h"
 
 void	window_init(t_game *game)
 {
@@ -26,47 +24,21 @@ void	window_init(t_game *game)
 	game->ctx.window.width = DEFAULT_WIDTH;
 }
 
-void	draw_background( \
-	mlx_image_t *bg, t_color *ceil, t_color *floor, t_vec2i size)
+bool	texture_to_image(mlx_t *mlx, mlx_texture_t *txt, mlx_image_t **out_img)
 {
-	const int	height = size.y;
-	const int	width = size.x;
-	int			y;
-	int			x;
-
-	y = -1;
-	while (++y < height / 2)
-	{
-		x = -1;
-		while (++x < width)
-			set_pixel(x, y, bg, ceil);
-	}
-	y--;
-	while (++y < height)
-	{
-		x = -1;
-		while (++x < width)
-			set_pixel(x, y, bg, floor);
-	}
+	*out_img = mlx_texture_to_image(mlx, txt);
+	if (out_img == NULL)
+		return (false);
+	return (true);
 }
 
-bool	imgs_init(t_game *game, t_config_file *config)
+bool	canvas_init(t_game *game)
 {
 	const int	width = game->ctx.window.width;
 	const int	height = game->ctx.window.height;
 
-	game->ctx.imgs.bg = mlx_new_image(game->mlx, width, height);
-	if (game->ctx.imgs.bg == NULL)
-		return (false);
-	draw_background(game->ctx.imgs.bg, &config->ceil, &config->floor, \
-		(t_vec2i){width, height});
-	return (true);
-}
-
-bool	imgs_display_static(t_game *game)
-{
-	ft_assert(game->ctx.imgs.bg != NULL, "expected bg to not be null");
-	if (mlx_image_to_window(game->mlx, game->ctx.imgs.bg, 0, 0) < 0)
+	game->ctx.canvas = mlx_new_image(game->mlx, width, height);
+	if (game->ctx.canvas == NULL)
 		return (false);
 	return (true);
 }
@@ -127,12 +99,14 @@ void	game_loop(t_game *game)
 	// resolve colisions
 	// update positions of entities
 	// render new game state
-	(void) game;
+	render(game);
 }
 
 int	game_init(t_config_file *config, t_game *out_game)
 {
 	ft_bzero(out_game, sizeof(t_game));
+	out_game->ctx.ceil = config->ceil;
+	out_game->ctx.floor = config->floor;
 	window_init(out_game);
 	out_game->mlx = mlx_init(out_game->ctx.window.width, \
 		out_game->ctx.window.height, "cub3d", false);
@@ -142,9 +116,7 @@ int	game_init(t_config_file *config, t_game *out_game)
 		return (false);
 	if (!textures_init(out_game, config))
 		return (false);
-	if (!imgs_init(out_game, config))
-		return (false);
-	if (!imgs_display_static(out_game))
+	if (!canvas_init(out_game))
 		return (false);
 	return (true);
 }
