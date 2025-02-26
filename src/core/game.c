@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/26 12:33:50 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:40:28 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	texture_clean(t_game *game)
 bool	texture_init_fail(t_game *game, t_config_file *config, char *msg_error)
 {
 	config_clean(config);
-	texture_clean(game);
+	game_clean(game);
 	return (output_ret(msg_error, false));
 }
 
@@ -135,8 +135,7 @@ void	keys_hook(mlx_key_data_t key, void *param)
 
 void	game_clean(t_game *game)
 {
-	// TODO:
 	texture_clean(game);
-	// clear map
+	// TODO: clear map
 	mlx_terminate(game->mlx);
 }
