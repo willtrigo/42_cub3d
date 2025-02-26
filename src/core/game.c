@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/24 17:35:54 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:33:50 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,18 @@ int	game_init(t_config_file *config, t_game *out_game)
 	if (!canvas_init(out_game))
 		return (false);
 	return (true);
+}
+
+void	keys_hook(mlx_key_data_t key, void *param)
+{
+	t_game	*game;
+
+	game = (t_game *)param;
+	if (key.key == MLX_KEY_ESCAPE)
+	{
+		mlx_close_window(game->mlx);
+		return ;
+	}
 }
 
 void	game_clean(t_game *game)

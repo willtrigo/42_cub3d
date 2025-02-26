@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:06:57 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/24 19:27:58 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:31:17 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (!game_init(&config, &game))
 		return (EXIT_FAILURE);
+	mlx_key_hook(game.mlx, keys_hook, &game);
 	mlx_image_to_window(game.mlx, game.ctx.canvas, 0, 0);
 	mlx_loop_hook(game.mlx, (t_consumer) game_loop, (void *) &game);
 	mlx_loop(game.mlx);

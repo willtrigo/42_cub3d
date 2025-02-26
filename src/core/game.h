@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/24 19:24:55 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:34:05 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_game
 
 int		game_init(t_config_file *config, t_game *out_game);
 void	game_loop(t_game *game);
+void	keys_hook(mlx_key_data_t key, void *param);
 void	game_clean(t_game *game);
 
 #endif
