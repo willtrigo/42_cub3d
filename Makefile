@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/27 15:29:58 by maurodri         ###   ########.fr        #
+#    Updated: 2025/02/27 16:14:30 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,8 @@ NAME_TEST_PATH                  = $(BIN_DIR)$(NAME_TEST)
 
 SRCS_MAIN                       = $(addprefix $(SRCS_MAIN_DIR), main.c)
 SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c)
-SRCS_FILES                      += $(addprefix $(SRCS_GRAPHIC_DIR), render.c)
+SRCS_FILES                      += $(addprefix $(SRCS_GRAPHIC_DIR), render.c \
+								draw.c)
 SRCS_FILES                      += $(addprefix $(SRCS_CONFIG_DIR), config.c)
 SRCS_FILES                      += $(addprefix $(SRCS_ARGS_DIR), invalid_args.c \
 								   invalid_extension.c)
@@ -216,14 +217,14 @@ endef
 define comp_test
 	$(CC) $(LDFLAGS) $(OBJS) $(OBJS_TEST) $(LDLIBS) -o $(NAME_TEST_PATH)
 	-valgrind --leak-check=full \
-    	-s \
-     	--show-reachable=yes \
-     	--errors-for-leak-kinds=all \
-     	--track-origins=yes \
-     	--track-fds=yes \
-     	--suppressions=.suppress_mlx_error.sup \
-     	--log-file=valgrind-out.txt \
-     	./$(NAME_TEST_PATH)
+	-s \
+	--show-reachable=yes \
+	--errors-for-leak-kinds=all \
+	--track-origins=yes \
+	--track-fds=yes \
+	--suppressions=.suppress_mlx_error.sup \
+	--log-file=valgrind-out.txt \
+	./$(NAME_TEST_PATH)
 endef
 
 #******************************************************************************#
