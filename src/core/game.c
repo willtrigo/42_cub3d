@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/26 14:40:28 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:26:55 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 #include "ft_memlib.h"
 #include "graphic/render.h"
 #include "infrastructure/config/config.h"
+#include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "utils/output.h"
+#include "utils/vec2.h"
 #include "game.h"
 
 void	window_init(t_game *game)
@@ -88,17 +91,78 @@ bool	textures_init(t_game *game, t_config_file *config)
 	return (true);
 }
 
+t_posdir system_input_posdir(const t_game *game)
+{
+	t_posdir	posdir;
+
+	posdir = (t_posdir){{0.0f, 0.0f}, 0.0f};
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		posdir.dir -= 1.0f;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		posdir.dir += 1.0f;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+		posdir.pos.y += 1.0;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+		posdir.pos.y -= 1.0;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		posdir.pos.x -= 1.0;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+		posdir.pos.x += 1.0;
+	// TODO: ? when moving diagonaly normalize xy values
+	// so that moving diagonaly is not faster
+	return (posdir);
+}
+
+t_posdir system_update_posdir(
+	const t_player *player, const t_posdir *input, double delta_time)
+{
+	t_posdir update;
+
+	update.dir = (input->dir * delta_time) + player->angle;
+	update.pos.x = ((cosf(update.dir) * input->pos.y   \
+						+ cosf(update.dir + M_PI_2) * input->pos.x) \
+					* delta_time) + player->pos.x;
+	update.pos.y = ((sinf(update.dir) * input->pos.y \
+						+ sinf(update.dir + M_PI_2) * input->pos.x) \
+					* delta_time) + player->pos.y;
+	return (update);
+}
+
+void	system_colision_resolve(t_game *game, t_posdir *posdir)
+{
+	// TODO: wall colision
+	// TODO: border colision based on 1/2 *player size variable instead of 0.25
+	if (posdir->pos.x < 0.25f)
+		posdir->pos.x = 0.25f;
+	else if (posdir->pos.x > game->chart.dimen.x - 0.25f)
+		posdir->pos.x = game->chart.dimen.x - 0.25f;
+	if (posdir->pos.y < 0.25f)
+		posdir->pos.y = 0.25f;
+	else if (posdir->pos.y > game->chart.dimen.y - 0.25f)
+		posdir->pos.y = game->chart.dimen.y - 0.25f;
+}
+
+void	system_player_update(t_player *player, t_posdir *posdir)
+{
+	player->pos = posdir->pos;
+	player->angle = posdir->dir;
+}
+
+
 // TODO: move above functions to some other file
+
 
 void	game_loop(t_game *game)
 {
-	// TODO:
-	// get input
-	// calculate new position
-	// check colisions
-	// resolve colisions
-	// update positions of entities
-	// render new game state
+	t_posdir	input;
+	t_posdir	update;
+
+	input = system_input_posdir(game);
+	//printf("input: x: %.2f y: %.2f a: %.2f\n", input.pos.x, input.pos.y, input.dir);
+	update = system_update_posdir(&game->player, &input, game->mlx->delta_time);
+	system_colision_resolve(game, &update);
+	system_player_update(&game->player, &update);
+	//printf("player_update: x: %.2f y: %.2f a: %.2f\n", game->player.pos.x, game->player.pos.y, game->player.angle);
 	render(game);
 }
 

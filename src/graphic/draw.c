@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 15:46:10 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/27 17:02:24 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:10:36 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,10 +172,6 @@ void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
 	// TODO: draw player on draw_mini_map
 	//const int	height = game->ctx.window.height;
 	//const int	width = game->ctx.window.width;
-	game->chart.buffer = "1111110001100011010111111";
-	game->chart.dimen = (t_vec2i){5, 5};
-	game->player.angle += 1 * game->mlx->delta_time;
-	game->player.pos = (t_vec2f){2.5f, 2.5f};
 	i = (t_vec2i){-1, -1};
 	while (++i.y < game->chart.dimen.y)
 	{

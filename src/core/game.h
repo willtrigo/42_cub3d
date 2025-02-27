@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/27 16:16:43 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:47:31 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@
 # define DEFAULT_WIDTH 1920
 # define DEFAULT_HEIGHT 955
 
-// angle: radians
+typedef struct s_posdir
+{
+	t_vec2f	pos;
+	float	dir;
+} t_posdir;
+
+// dir = angle in radians
 typedef struct s_player
 {
 	t_vec2f	pos;
