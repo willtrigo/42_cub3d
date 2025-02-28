@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 15:46:10 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/28 14:34:28 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 19:29:42 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include "draw.h"
 
-char	chart_entity(t_chart *chart, t_vec2i pos);
+
 
 void	draw_circle_cs( \
 	mlx_image_t *canvas, t_vec2f center, float radius, t_color color)
@@ -181,13 +181,13 @@ void	draw_mini_grid(t_game *game, t_mini_args m)
 	}
 }
 
-void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
+void draw_mini_bg_entities(t_game *game, t_mini_args m)
 {
-	t_vec2i	i;
-	char	entity;
-	// TODO: improve logic draw_mini_map
-	// TODO: remove mock values drawn_mini_map
-	// TODO: draw player on draw_mini_map
+
+	const t_vec2f	grid_size = m.grid_pos;
+	t_vec2i			i;
+	char			entity;
+
 	//const int	height = game->ctx.window.height;
 	//const int	width = game->ctx.window.width;
 	i = (t_vec2i){-1, -1};
@@ -196,19 +196,58 @@ void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
 		i.x = -1;
 		while (++i.x < game->chart.dimen.x)
 		{
-			entity = chart_entity(&game->chart, i);
+			entity = chart_entity(&game->chart, vec2i_tof(i));
 			if (entity == '1')
-				draw_mini_texture(game, (t_mini_args){\
-					vec2i_tof(i), block_size, offset}, game->ctx.txts.north);
+				draw_mini_texture(game, (t_mini_args){ vec2i_tof(i),\
+					m.block_size, m.offset}, game->ctx.txts.north);
 			else if (entity == '0')
 				draw_mini_floor(game, (t_mini_args){\
-					vec2i_tof(i), block_size, offset});
+					vec2i_tof(i), m.block_size, m.offset});
 		}
 	}
+}
+
+void draw_mini_ray(t_game *game, t_mini_args m, float angle)
+{
+	const	t_vec2f	screen_bottom_right = vec2f_add(\
+		vec2f_scale(vec2i_tof(game->chart.dimen), m.block_size), m.offset);
+	t_vec2f			grid_pos;
+	char			entity;
+	t_vec2f			screen_pos;
+
+	//const int	height = game->ctx.window.height;
+	//const int	width = game->ctx.window.width;
+	grid_pos = m.grid_pos;
+	screen_pos = vec2f_add(vec2f_scale(grid_pos, m.block_size), m.offset);
+	while (screen_pos.y < screen_bottom_right.y && screen_pos.y > m.offset.y)
+	{
+		entity = chart_entity(&game->chart, grid_pos);
+		if (entity == '1')
+			break ;
+		else if (entity == '0')
+			draw_square_cs(game->ctx.canvas, screen_pos \
+				, 1, (t_color) {0x000000FF});
+		screen_pos = (t_vec2f) {screen_pos.x + cosf(angle), \
+			screen_pos.y + sinf(angle)};
+		grid_pos = vec2f_scale(vec2f_add(\
+			screen_pos, vec2f_scale(m.offset,-1.0f)), 1.0f / m.block_size);
+	}
+}
+
+void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
+{
+	const float	angle = game->player.angle;
+	t_vec2f		ray_center;
+
+	draw_mini_bg_entities(game, (t_mini_args){\
+			vec2i_tof(game->chart.dimen), block_size, offset});
 	draw_mini_player(game, (t_mini_args){\
 			game->player.pos, block_size, offset});
 	draw_mini_grid(game, (t_mini_args){\
 			vec2i_tof(game->chart.dimen), block_size, offset});
+
+	draw_mini_ray(game, (t_mini_args){						\
+			game->player.pos, block_size, offset}, angle);
 }
 
 void	draw_background(t_game *game)

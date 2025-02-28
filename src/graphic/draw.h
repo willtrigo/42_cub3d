@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 15:40:12 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/28 14:34:28 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:25:07 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ void	draw_square_cs(\
 void	draw_line_cs(\
 	mlx_image_t *canvas, t_vec2f center, t_vec2f size_angle, t_color color);
 
+char	chart_entity(t_chart *chart, t_vec2f pos);
 #endif

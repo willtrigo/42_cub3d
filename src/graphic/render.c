@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:41:04 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/27 17:21:21 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:45:43 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 
 #include "draw.h"
 
-char	chart_entity(t_chart *chart, t_vec2i pos)
+char	chart_entity(t_chart *chart, t_vec2f pos)
 {
-	return (chart->buffer[(pos.y * chart->dimen.x) + pos.x]);
+	const t_vec2i	posi = {pos.x, pos.y};
+
+	return (chart->buffer[(posi.y * chart->dimen.x) + posi.x]);
 }
 
 void	render(t_game *game)

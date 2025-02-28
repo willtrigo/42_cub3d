@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 14:08:36 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:04:26 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	game_init(t_config_file *config, t_game *out_game)
 	out_game->mlx = mlx_init(out_game->ctx.window.width, \
 		out_game->ctx.window.height, "cub3d", false);
 	if (out_game->mlx == NULL)
-		return (logerr_ret("failed to initialize mlx", false));
+		return (game_init_fail(out_game, config, "failed to initialize mlx"));
 	if (!map_init(out_game, config))
 		return (false);
 	if (!textures_init(out_game, config))
@@ -58,5 +58,6 @@ void	game_clean(t_game *game)
 	texture_clean(&game->ctx.txts);
 	canvas_clean(game->mlx, game->ctx.canvas);
 	// TODO: clear map
-	mlx_terminate(game->mlx);
+	if (game->mlx)
+		mlx_terminate(game->mlx);
 }
