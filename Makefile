@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/27 16:14:30 by maurodri         ###   ########.fr        #
+#    Updated: 2025/02/28 14:04:49 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,10 @@ NAME_TEST_PATH                  = $(BIN_DIR)$(NAME_TEST)
 
 
 SRCS_MAIN                       = $(addprefix $(SRCS_MAIN_DIR), main.c)
-SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c)
+SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c \
+								game_init_internal.c \
+								system.c \
+								texture.c)
 SRCS_FILES                      += $(addprefix $(SRCS_GRAPHIC_DIR), render.c \
 								draw.c)
 SRCS_FILES                      += $(addprefix $(SRCS_CONFIG_DIR), config.c)

@@ -6,13 +6,32 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:06:57 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/27 18:10:35 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:59:16 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
 #include "core/game.h"
 #include "infrastructure/config/config.h"
+
+void	keys_hook(mlx_key_data_t key, void *param)
+{
+	t_game	*game;
+
+	game = (t_game *)param;
+	if (key.key == MLX_KEY_ESCAPE)
+	{
+		mlx_close_window(game->mlx);
+		return ;
+	}
+}
+
+void	set_mock_values(t_game *game)
+{
+	game->player = (t_player){.angle = 0, .pos = {3.5f, 3.5f}};
+	game->chart.buffer = "1111110001100011010111111";
+	game->chart.dimen = (t_vec2i){5, 5};
+}
 
 int	main(int argc, char **argv)
 {
@@ -25,9 +44,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	mlx_key_hook(game.mlx, keys_hook, &game);
 	mlx_image_to_window(game.mlx, game.ctx.canvas, 0, 0);
-	game.player = (t_player){.angle = 0, .pos = {3.5f, 3.5f}};
-	game.chart.buffer = "1111110001100011010111111";
-	game.chart.dimen = (t_vec2i){5, 5};
+	set_mock_values(&game);
 	mlx_loop_hook(game.mlx, (t_consumer) game_loop, (void *) &game);
 	mlx_loop(game.mlx);
 	game_clean(&game);
