@@ -108,8 +108,10 @@ t_posdir system_input_posdir(const t_game *game)
 		posdir.pos.x -= 1.0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		posdir.pos.x += 1.0;
-	// TODO: ? when moving diagonaly normalize xy values
+	// when moving diagonaly normalize xy values
 	// so that moving diagonaly is not faster
+	if (posdir.pos.y != 0 && posdir.pos.x != 0)
+		posdir.pos = vec2f_scale(posdir.pos, M_SQRT1_2);
 	return (posdir);
 }
 
