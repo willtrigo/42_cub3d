@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 15:46:10 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/27 18:10:36 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 04:23:19 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "utils/vec2.h"
 #include <math.h>
 #include <stdio.h>
+#include "draw.h"
 
 char	chart_entity(t_chart *chart, t_vec2i pos);
 
@@ -88,12 +89,12 @@ void	draw_line_cs( \
 	}
 }
 
-void	draw_mini_floor(
-	t_game *game, t_vec2i grid_pos, int block_size, t_vec2f offset)
+
+void	draw_mini_floor(t_game *game, t_mini_args m)
 {
-	const t_vec2i	screen_pos = vec2i_addf(vec2i_scale(grid_pos, block_size), \
-								offset);
-	const t_vec2i	limit = vec2i_offset(screen_pos, block_size);
+	const t_vec2f	screen_pos = vec2f_add(\
+		vec2f_scalei(m.grid_pos, m.block_size), m.offset);
+	const t_vec2f	limit = vec2f_offset(screen_pos, (float)m.block_size);
 	const t_color	color = (t_color){.value = 0xFFFFFFFF};
 	t_vec2i			i;
 
@@ -106,16 +107,15 @@ void	draw_mini_floor(
 	}
 }
 
-void	draw_mini_wall(
-	t_game *game, t_vec2i grid_pos, int block_size, t_vec2f offset)
+void draw_mini_texture(
+	t_game *game, t_mini_args m, const mlx_texture_t *entity_sprite)
 {
-	const mlx_texture_t	*entity_sprite = game->ctx.txts.south;
-	const t_vec2i		screen_pos = vec2i_addf(\
-		vec2i_scale(grid_pos, block_size), offset);
-	const t_vec2i		limit = vec2i_offset(screen_pos, block_size);
+	const t_vec2f		screen_pos = vec2f_add(\
+		vec2f_scalei(m.grid_pos, m.block_size), m.offset);
+	const t_vec2f		limit = vec2f_offset(screen_pos, m.block_size);
 	const t_vec2f		scale_txt = (t_vec2f){
-		((float) entity_sprite->height) / block_size,
-		((float) entity_sprite->width) / block_size
+		((float) entity_sprite->height) / m.block_size,
+		((float) entity_sprite->width) / m.block_size
 	};
 	t_vec2i				px;
 	t_vec2i				txt_pos;
@@ -140,12 +140,12 @@ void	draw_mini_wall(
 	}
 }
 
-void	draw_mini_player(t_game *game, int block_size, t_vec2f offset)
+void	draw_mini_player(t_game *game, t_mini_args m)
 {
-	const float		player_size = block_size / 2.0f;
+	const float		player_size = m.block_size / 2.0f;
 	const t_vec2f	player_screen_pos_center = \
-		vec2f_add(vec2f_scalei(game->player.pos, block_size), offset);
-	const t_vec2f	pb = (t_vec2f){\
+		vec2f_add(vec2f_scalei(m.grid_pos, m.block_size), m.offset);
+	const t_vec2f	head_center = (t_vec2f){\
 		player_screen_pos_center.x \
 			+ (cosf(game->player.angle) * player_size / 2.0f), \
 		player_screen_pos_center.y \
@@ -160,7 +160,7 @@ void	draw_mini_player(t_game *game, int block_size, t_vec2f offset)
 	draw_line_cs(game->ctx.canvas, player_screen_pos_center, \
 		(t_vec2f){player_size, game->player.angle}, color);
 	color = (t_color){.value = 0x000000FF};
-	draw_square_cs(game->ctx.canvas, pb, 4, color);
+	draw_square_cs(game->ctx.canvas, head_center, 4, color);
 }
 
 void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
@@ -180,12 +180,15 @@ void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
 		{
 			entity = chart_entity(&game->chart, i);
 			if (entity == '1')
-				draw_mini_wall(game, i, block_size, offset);
+				draw_mini_texture(game, (t_mini_args){\
+					vec2i_tof(i), block_size, offset}, game->ctx.txts.north);
 			else if (entity == '0')
-				draw_mini_floor(game, i, block_size, offset);
+				draw_mini_floor(game, (t_mini_args){\
+					vec2i_tof(i), block_size, offset});
 		}
 	}
-	draw_mini_player(game, block_size, offset);
+	draw_mini_player(game, (t_mini_args) {\
+			game->player.pos, block_size, offset});
 }
 
 void	draw_background(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 15:21:24 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/27 15:28:49 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 03:33:03 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ t_vec2f	vec2f_scale(t_vec2f vec, float scalar)
 t_vec2i	vec2i_add(t_vec2i vec_a, t_vec2i vec_b)
 {
 	return (t_vec2i) { vec_a.x + vec_b.x, vec_a.y + vec_b.y};
+}
+
+t_vec2f	vec2i_tof(t_vec2i vec_a)
+{
+	return (t_vec2f) {vec_a.x, vec_a.y};
 }
 
 t_vec2i	vec2i_addf(t_vec2i vec_a, t_vec2f vec_b)

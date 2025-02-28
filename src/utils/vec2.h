@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 10:58:25 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/27 15:28:47 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 04:44:12 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ typedef struct s_vec2f
 	float	y;
 }	t_vec2f;
 
-
 t_vec2i	vec2i_scale(t_vec2i vec, int scalar);
 t_vec2f	vec2f_scalei(t_vec2f vec, int scalar);
 t_vec2f	vec2f_scale(t_vec2f vec, float scalar);
 t_vec2i	vec2i_add(t_vec2i vec_a, t_vec2i vec_b);
 t_vec2i	vec2i_addf(t_vec2i vec_a, t_vec2f vec_b);
+t_vec2f	vec2i_tof(t_vec2i vec_a);
 t_vec2f	vec2f_add(t_vec2f vec_a, t_vec2f vec_b);
 t_vec2f	vec2f_addi(t_vec2f vec_a, t_vec2i vec_b);
 t_vec2i	vec2i_offset(t_vec2i vec_a, int scalar);
