@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 15:46:10 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/28 04:23:19 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 14:34:28 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@
 
 char	chart_entity(t_chart *chart, t_vec2i pos);
 
-void	draw_circle( \
+void	draw_circle_cs( \
 	mlx_image_t *canvas, t_vec2f center, float radius, t_color color)
 {
 	const t_vec2f	top_left_square = vec2f_offset(center, -radius);
 	const t_vec2f	bottom_right_square = vec2f_offset(center, radius);
 	const float		r2 = radius * radius;
 	t_vec2i			i;
-	float			arc2;
+	float			sum_squares;
 
 	i.y = top_left_square.y - 1;
 	while (++i.y < bottom_right_square.y)
@@ -36,9 +36,9 @@ void	draw_circle( \
 		while (++i.x < bottom_right_square.x)
 		{
 			(void)"(x - a)^2 + (y - b)^2 < r^2";
-			arc2 = ((i.x - center.x) * (i.x - center.x)) \
+			sum_squares = ((i.x - center.x) * (i.x - center.x)) \
 						+ ((i.y - center.y) * (i.y - center.y));
-			if (arc2 < r2)
+			if (sum_squares < r2)
 				mlx_put_pixel(canvas, i.x, i.y, color.value);
 		}
 	}
@@ -89,7 +89,6 @@ void	draw_line_cs( \
 	}
 }
 
-
 void	draw_mini_floor(t_game *game, t_mini_args m)
 {
 	const t_vec2f	screen_pos = vec2f_add(\
@@ -107,7 +106,7 @@ void	draw_mini_floor(t_game *game, t_mini_args m)
 	}
 }
 
-void draw_mini_texture(
+void	draw_mini_texture(
 	t_game *game, t_mini_args m, const mlx_texture_t *entity_sprite)
 {
 	const t_vec2f		screen_pos = vec2f_add(\
@@ -154,7 +153,7 @@ void	draw_mini_player(t_game *game, t_mini_args m)
 	t_color			color;
 
 	color = (t_color){.value = 0x00FF00FF};
-	draw_circle(game->ctx.canvas, \
+	draw_circle_cs(game->ctx.canvas, \
 		player_screen_pos_center, player_size / 2.0f, color);
 	color = (t_color){.value = 0x0000FFFF};
 	draw_line_cs(game->ctx.canvas, player_screen_pos_center, \
@@ -163,7 +162,7 @@ void	draw_mini_player(t_game *game, t_mini_args m)
 	draw_square_cs(game->ctx.canvas, head_center, 4, color);
 }
 
-void draw_mini_grid(t_game *game, t_mini_args m)
+void	draw_mini_grid(t_game *game, t_mini_args m)
 {
 	const t_color	color = (t_color){.value = 0x0000ffFF};
 	const t_vec2f	grid_size = m.grid_pos;
@@ -177,11 +176,10 @@ void draw_mini_grid(t_game *game, t_mini_args m)
 		while (++i.x < limit.x)
 			if ((i.x) % m.block_size == 0
 				|| i.y % m.block_size == 0)
-				mlx_put_pixel(game->ctx.canvas, i.x + m.offset.x,
-							  i.y + m.offset.y, color.value);
+				mlx_put_pixel(game->ctx.canvas, i.x + m.offset.x, \
+					i.y + m.offset.y, color.value);
 	}
 }
-
 
 void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
 {
@@ -207,9 +205,9 @@ void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
 					vec2i_tof(i), block_size, offset});
 		}
 	}
-	draw_mini_player(game, (t_mini_args) {\
+	draw_mini_player(game, (t_mini_args){\
 			game->player.pos, block_size, offset});
-	draw_mini_grid(game, (t_mini_args) {\
+	draw_mini_grid(game, (t_mini_args){\
 			vec2i_tof(game->chart.dimen), block_size, offset});
 }
 
@@ -242,9 +240,9 @@ void	draw_level_col(t_game *game, int x)
 	const float			width = 256.0f;
 	const mlx_texture_t	*txt = game->ctx.txts.south;
 
-	t_vec2f				scale = (t_vec2f){((float) txt->height) / height,\
+	t_vec2f				scale = (t_vec2f){((float) txt->height) / height, \
 											((float) txt->width) / width};
-	t_vec2i				margin_horizontal = (t_vec2i){0, width};;
+	t_vec2i				margin_horizontal = (t_vec2i){0, width};
 	t_vec2i				margin_vertical = (t_vec2i){\
 		(game->ctx.window.height / 2.0f) - (height / 2),\
 		(game->ctx.window.height / 2.0f) + (height / 2)};
