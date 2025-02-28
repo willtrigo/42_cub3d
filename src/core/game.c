@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/27 19:26:55 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/27 23:18:57 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ bool	canvas_init(t_game *game)
 	return (true);
 }
 
+void	canvas_clean(mlx_t  *mlx, mlx_image_t *canvas)
+{
+	if (canvas != NULL)
+		mlx_delete_image(mlx, canvas);
+}
+
 bool	map_init(t_game *game, t_config_file *config)
 {
 	// TODO:
@@ -54,39 +60,46 @@ bool	map_init(t_game *game, t_config_file *config)
 	return (true);
 }
 
-void	texture_clean(t_game *game)
+void	texture_clean(t_txts *txts)
 {
-	if (game->ctx.txts.north)
-		mlx_delete_texture(game->ctx.txts.north);
-	if (game->ctx.txts.east)
-		mlx_delete_texture(game->ctx.txts.east);
-	if (game->ctx.txts.south)
-		mlx_delete_texture(game->ctx.txts.south);
-	if (game->ctx.txts.west)
-		mlx_delete_texture(game->ctx.txts.west);
+	if (txts->north)
+		mlx_delete_texture(txts->north);
+	if (txts->east)
+		mlx_delete_texture(txts->east);
+	if (txts->south)
+		mlx_delete_texture(txts->south);
+	if (txts->west)
+		mlx_delete_texture(txts->west);
 }
 
-bool	texture_init_fail(t_game *game, t_config_file *config, char *msg_error)
+bool	game_init_fail(t_game *game, t_config_file *config, char *msg_error)
 {
 	config_clean(config);
 	game_clean(game);
 	return (output_ret(msg_error, false));
 }
 
+bool	texture_load_png(char *png_path, mlx_texture_t	**out_txt)
+{
+	*out_txt = mlx_load_png(png_path);
+	if (*out_txt == NULL)
+		return (false);
+	return (true);
+}
+
 bool	textures_init(t_game *game, t_config_file *config)
 {
-	game->ctx.txts.north = mlx_load_png(config->texture_north);
-	if (!game->ctx.txts.north)
-		return (texture_init_fail(game, config, "\nError: invalid north texture"));
-	game->ctx.txts.east = mlx_load_png(config->texture_east);
-	if (!game->ctx.txts.east)
-		return (texture_init_fail(game, config, "\nError: invalid east texture"));
-	game->ctx.txts.south = mlx_load_png(config->texture_south);
-	if (!game->ctx.txts.south)
-		return (texture_init_fail(game, config, "\nError: invalid south texture"));
-	game->ctx.txts.west = mlx_load_png(config->texture_west);
-	if (!game->ctx.txts.west)
-		return (texture_init_fail(game, config, "\nError: invalid west texture"));
+	t_config_file	*c;
+
+	c = config;
+	if (!texture_load_png(c->texture_north, &game->ctx.txts.north))
+		return (game_init_fail(game, c, "\nError: invalid north texture"));
+	if (!texture_load_png(c->texture_east,&game->ctx.txts.east))
+		return (game_init_fail(game, c, "\nError: invalid east texture"));
+	if (!texture_load_png(c->texture_south, &game->ctx.txts.south))
+		return (game_init_fail(game, c, "\nError: invalid south texture"));
+	if (!texture_load_png(c->texture_west, &game->ctx.txts.west))
+		return (game_init_fail(game, c, "\nError: invalid west texture"));
 	config_clean(config);
 	return (true);
 }
@@ -201,7 +214,8 @@ void	keys_hook(mlx_key_data_t key, void *param)
 
 void	game_clean(t_game *game)
 {
-	texture_clean(game);
+	texture_clean(&game->ctx.txts);
+	canvas_clean(game->mlx, game->ctx.canvas);
 	// TODO: clear map
 	mlx_terminate(game->mlx);
 }
