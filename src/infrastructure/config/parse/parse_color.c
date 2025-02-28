@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:26 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 13:55:36 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/28 00:21:00 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ bool	check_color(char *ln, t_color *color, bool *is_clr_set)
 	ft_assert((*ln == 'F' || *ln == 'C'), "Error: unexpected color line");
 	if (*is_clr_set)
 		return (output_ret("Error: double set of color", false));
-	return (parse_color(ln, color, is_clr_set));
+	if (!parse_color(ln, color, is_clr_set))
+		return (output_ret("Error: invalid color", false));
+	return (true);
 }
 
 bool	parse_color(char *color_ln, t_color *color, bool *is_clr_set)
