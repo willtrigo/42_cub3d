@@ -163,6 +163,26 @@ void	draw_mini_player(t_game *game, t_mini_args m)
 	draw_square_cs(game->ctx.canvas, head_center, 4, color);
 }
 
+void draw_mini_grid(t_game *game, t_mini_args m)
+{
+	const t_color	color = (t_color){.value = 0x0000ffFF};
+	const t_vec2f	grid_size = m.grid_pos;
+	const t_vec2f	limit = vec2f_scalei(grid_size, m.block_size);
+	t_vec2i			i;
+
+	i.y = 1;
+	while (++i.y < limit.y)
+	{
+		i.x = -1;
+		while (++i.x < limit.x)
+			if ((i.x) % m.block_size == 0
+				|| i.y % m.block_size == 0)
+				mlx_put_pixel(game->ctx.canvas, i.x + m.offset.x,
+							  i.y + m.offset.y, color.value);
+	}
+}
+
+
 void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
 {
 	t_vec2i	i;
@@ -189,6 +209,8 @@ void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
 	}
 	draw_mini_player(game, (t_mini_args) {\
 			game->player.pos, block_size, offset});
+	draw_mini_grid(game, (t_mini_args) {\
+			vec2i_tof(game->chart.dimen), block_size, offset});
 }
 
 void	draw_background(t_game *game)
