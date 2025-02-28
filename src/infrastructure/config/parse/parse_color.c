@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:19:26 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 00:21:00 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:16:33 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	parse_colors(int fd, t_config_file *config)
 	{
 		ln = ft_chomp(get_next_line(fd));
 		if (!ln)
-			return (output_ret("Error: invalid file format", false));
+			return (logerr_ret("invalid file format", false));
 		if (ft_is_blank(ln))
 		{
 			free(ln);
@@ -45,7 +45,7 @@ bool	parse_colors(int fd, t_config_file *config)
 		free(ln);
 	}
 	if (!is_clr_set[COLOR_F] || !is_clr_set[COLOR_C])
-		return (output_ret("Error: invalid set of color", false));
+		return (logerr_ret("invalid set of color", false));
 	return (true);
 }
 
@@ -53,9 +53,9 @@ bool	check_color(char *ln, t_color *color, bool *is_clr_set)
 {
 	ft_assert((*ln == 'F' || *ln == 'C'), "Error: unexpected color line");
 	if (*is_clr_set)
-		return (output_ret("Error: double set of color", false));
+		return (logerr_ret("double set of color", false));
 	if (!parse_color(ln, color, is_clr_set))
-		return (output_ret("Error: invalid color", false));
+		return (logerr_ret("invalid color", false));
 	return (true);
 }
 

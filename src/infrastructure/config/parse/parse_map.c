@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:05:16 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/20 17:44:55 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:16:33 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	parse_map(int fd, t_config_file *config)
 	config->map = ft_arraylist_new((t_consumer)free);
 	ln = ft_chomp(get_next_line(fd));
 	if (!ln)
-		return (output_ret("Error: invalid file format", false));
+		return (logerr_ret("invalid file format", false));
 	while (ln)
 	{
 		config->map = ft_arraylist_add(config->map, ln);
@@ -41,6 +41,6 @@ bool	parse_map(int fd, t_config_file *config)
 bool	check_ln_map(char *ln)
 {
 	if (ft_is_blank(ln))
-		return (output_ret("Error: invalid map format", false));
+		return (logerr_ret("invalid map format", false));
 	return (true);
 }

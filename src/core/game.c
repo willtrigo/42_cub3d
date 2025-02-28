@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/27 23:18:57 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:22:21 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ bool	game_init_fail(t_game *game, t_config_file *config, char *msg_error)
 {
 	config_clean(config);
 	game_clean(game);
-	return (output_ret(msg_error, false));
+	return (logerr_ret(msg_error, false));
 }
 
 bool	texture_load_png(char *png_path, mlx_texture_t	**out_txt)
@@ -93,13 +93,13 @@ bool	textures_init(t_game *game, t_config_file *config)
 
 	c = config;
 	if (!texture_load_png(c->texture_north, &game->ctx.txts.north))
-		return (game_init_fail(game, c, "\nError: invalid north texture"));
+		return (game_init_fail(game, c, "invalid north texture"));
 	if (!texture_load_png(c->texture_east,&game->ctx.txts.east))
-		return (game_init_fail(game, c, "\nError: invalid east texture"));
+		return (game_init_fail(game, c, "invalid east texture"));
 	if (!texture_load_png(c->texture_south, &game->ctx.txts.south))
-		return (game_init_fail(game, c, "\nError: invalid south texture"));
+		return (game_init_fail(game, c, "invalid south texture"));
 	if (!texture_load_png(c->texture_west, &game->ctx.txts.west))
-		return (game_init_fail(game, c, "\nError: invalid west texture"));
+		return (game_init_fail(game, c, "invalid west texture"));
 	config_clean(config);
 	return (true);
 }
@@ -121,8 +121,8 @@ t_posdir system_input_posdir(const t_game *game)
 		posdir.pos.x -= 1.0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		posdir.pos.x += 1.0;
-	// when moving diagonaly normalize xy values
-	// so that moving diagonaly is not faster
+	(void) "when moving diagonaly normalize xy values"
+		"so that moving diagonaly is not faster";
 	if (posdir.pos.y != 0 && posdir.pos.x != 0)
 		posdir.pos = vec2f_scale(posdir.pos, M_SQRT1_2);
 	return (posdir);

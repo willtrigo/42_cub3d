@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:32:06 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 00:25:33 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:16:27 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	parse_textures(int fd, t_config_file *config)
 	{
 		ln = ft_chomp(get_next_line(fd));
 		if (!ln)
-			return (output_ret("Error: invalid file format", false));
+			return (logerr_ret("invalid file format", false));
 		if (ft_is_blank(ln))
 		{
 			free(ln);
@@ -42,7 +42,7 @@ bool	parse_textures(int fd, t_config_file *config)
 	}
 	if (!is_tex_set[TEXTURE_NO] || !is_tex_set[TEXTURE_EA] \
 		|| !is_tex_set[TEXTURE_SO] || !is_tex_set[TEXTURE_WE])
-		return (output_ret("Error: invalid set of texture", false));
+		return (logerr_ret("invalid set of texture", false));
 	return (true);
 }
 
@@ -60,19 +60,19 @@ bool	check_texture(char *tex_ln, t_config_file *config, bool *is_tex_set)
 	else if (ft_strncmp(tex_ln, "WE", TEX_LEN) == TEX_ASSERT)
 		return (set_texture(tex_ln, &config->texture_west, \
 			is_tex_set + TEXTURE_WE));
-	return (output_ret("Error: invalid direction", false));
+	return (logerr_ret("invalid direction", false));
 }
 
 bool	set_texture(char *tex_ln, char **texture, bool *is_tex_set)
 {
 	if (*is_tex_set)
-		return (output_ret("Error: double set of texture", false));
+		return (logerr_ret("double set of texture", false));
 	tex_ln++;
 	tex_ln++;
 	while (ft_isspace(*tex_ln))
 		tex_ln++;
 	if (!*tex_ln)
-		return (output_ret("Error: invalid set of texture", false));
+		return (logerr_ret("invalid set of texture", false));
 	*texture = ft_strdup(tex_ln);
 	*is_tex_set = true;
 	return (true);

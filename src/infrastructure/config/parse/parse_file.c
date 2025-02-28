@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 00:16:32 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:18:39 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	parse_file(char *filename, t_config_file *config)
 
 	fd = open(filename, O_RDONLY, CHMOD_PERMISSION);
 	if (fd == FD_FAIL)
-		return (output_ret("Error: could not read file", false));
+		return (logerr_ret("could not read config file", false));
 	if (!parse_textures(fd, config))
 		return (clean_parse(config, fd, false));
 	if (!jump_empty_line(fd))
@@ -47,11 +47,11 @@ bool	jump_empty_line(int fd)
 
 	ln = ft_chomp(get_next_line(fd));
 	if (!ln)
-		return (output_ret("Error: invalid file format", false));
+		return (logerr_ret("invalid file format", false));
 	if (!ft_is_blank(ln))
 	{
 		free(ln);
-		return (output_ret("Error: invalid file format", false));
+		return (logerr_ret("invalid file format", false));
 	}
 	free(ln);
 	return (true);
