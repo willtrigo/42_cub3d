@@ -6,11 +6,12 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 15:21:24 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/28 03:33:03 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/01 12:52:46 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec2.h"
+#include <math.h>
 
 t_vec2i	vec2i_scale(t_vec2i vec, int scalar)
 {
@@ -60,4 +61,14 @@ t_vec2i	vec2i_offset(t_vec2i vec_a, int scalar)
 t_vec2f	vec2f_offset(t_vec2f vec_a, float scalar)
 {
 	return (t_vec2f) { vec_a.x + scalar, vec_a.y + scalar};
+}
+
+float	vec2f_magnitude2(t_vec2f vec_a)
+{
+	return ((vec_a.x * vec_a.x) + (vec_a.y * vec_a.y));
+}
+
+t_vec2f	vec2f_unit_vector(float angle)
+{
+	return ((t_vec2f){1.f * cosf(angle), 1.f * sinf(angle)});
 }
