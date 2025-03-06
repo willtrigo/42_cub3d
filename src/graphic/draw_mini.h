@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   draw_mini.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 16:41:13 by dande-je          #+#    #+#             */
-/*   Updated: 2025/03/06 17:12:01 by maurodri         ###   ########.fr       */
+/*   Created: 2025/03/06 18:16:09 by maurodri          #+#    #+#             */
+/*   Updated: 2025/03/06 19:36:53 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_H
-# define RENDER_H
+#ifndef DRAW_MINI_H
+# define DRAW_MINI_H
 
 # include "core/game.h"
+# include "graphic/grid.h"
 
-void	render(t_game *game);
-char	chart_entity(const t_chart *chart, t_vec2f pos);
+typedef struct s_mini_args
+{
+	t_vec2f	grid_pos;
+	int		block_size;
+	t_vec2f	offset;
+}	t_mini_args;
+
+void	draw_mini_map(t_game *game, int block_size, t_vec2f offset);
 
 #endif

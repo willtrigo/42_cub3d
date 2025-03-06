@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:06:57 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 13:59:16 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:36:28 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	keys_hook(mlx_key_data_t key, void *param)
 
 void	set_mock_values(t_game *game)
 {
-	game->player = (t_player){.angle = 0, .pos = {3.5f, 3.5f}};
+	game->player = (t_player){.angle = 0, .pos = {3.5f, 3.5f}, .fov = 2.0f};
 	game->chart.buffer = "1111110001100011010111111";
 	game->chart.dimen = (t_vec2i){5, 5};
 }

@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 14:07:38 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:28:42 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ typedef struct s_posdir
 }	t_posdir;
 
 // dir = angle in radians
+// fov = field of view in radians
 typedef struct s_player
 {
 	t_vec2f	pos;
 	float	angle;
+	float	fov;
 }	t_player;
 
 typedef struct s_chart
