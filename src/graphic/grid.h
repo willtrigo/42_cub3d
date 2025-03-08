@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:55:19 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/06 19:41:24 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:38:20 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_grid_entity
 {
 	char		type;
 	t_direction	direction;
+	t_vec2f		pos;
 }	t_grid_entity;
 
 t_grid_entity	grid_entity(\
@@ -36,5 +37,6 @@ t_grid_entity	grid_entity(\
 t_vec2f			grid_next_border(t_vec2f grid_pos, float angle, t_vec2f unity);
 t_vec2f			grid_pos_to_screen_pos(\
 	t_vec2f grid_pos, float block_size, t_vec2f offset);
+t_grid_entity	grid_ray_wall(const t_chart *chart,  t_vec2f grid_pos, float angle);
 
 #endif

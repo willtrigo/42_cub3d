@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:54:33 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/06 19:40:31 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/07 18:16:52 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_grid_entity	grid_entity(\
 		chart, vec2f_addi(*grid_pos, off_i));
 	t_grid_entity	entity;
 
-	entity = (t_grid_entity){ch_entity, CENTER};
+	entity = (t_grid_entity){ch_entity, CENTER, *grid_pos};
 	if (unity->y < 0 && is_on_grid.y)
 		entity.direction = NORTH;
 	else if (unity->x > 0 && is_on_grid.x)
@@ -58,6 +58,34 @@ t_vec2f	grid_next_border(t_vec2f grid_pos, float angle, t_vec2f unity)
 	else
 		return (vec2f_add(grid_pos, vert));
 }
+
+
+t_grid_entity	grid_ray_wall(const t_chart *chart,  t_vec2f player_grid_pos, float angle)
+{
+	const t_vec2f	unity = vec2f_unit_vector(angle);
+	t_grid_entity	entity;
+	t_vec2f			grid_pos;
+	
+	grid_pos = player_grid_pos;
+	while (1)
+	{
+		grid_pos = grid_next_border(grid_pos, angle, unity);
+		if (grid_pos.y < 0 || grid_pos.y > chart->dimen.y \
+				|| grid_pos.x < 0 || grid_pos.x > chart->dimen.x)
+			break ;
+		entity = grid_entity(chart, &grid_pos, &unity);
+		if (entity.type == '1')
+			return (entity);
+	}
+	grid_pos = (t_vec2f){\
+		fmax(fmin(grid_pos.x, chart->dimen.x), 0),
+		fmax(fmin(grid_pos.y, chart->dimen.y), 0)
+	};
+	entity = (t_grid_entity){'_', CENTER};
+	return (entity);
+	
+}
+
 
 t_vec2f	grid_pos_to_screen_pos(t_vec2f grid_pos, float block_size, t_vec2f offset)
 {

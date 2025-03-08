@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 15:40:12 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/06 19:35:37 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/07 18:17:37 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 void	draw_background(t_game *game);
 void	draw_level_col(t_game *game, int x);
 void	draw_level(t_game *game);
+void	draw_level2(t_game *game);
 
 void	draw_circle_cs(\
 	mlx_image_t *canvas, t_vec2f center, float radius, t_color color);
