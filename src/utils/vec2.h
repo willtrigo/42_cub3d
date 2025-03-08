@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 10:58:25 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/07 17:51:32 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:17:48 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_vec2i	vec2i_addf(t_vec2i vec_a, t_vec2f vec_b);
 t_vec2f	vec2i_tof(t_vec2i vec_a);
 t_vec2f	vec2f_add(t_vec2f vec_a, t_vec2f vec_b);
 t_vec2f	vec2f_addi(t_vec2f vec_a, t_vec2i vec_b);
+t_vec2f vec2f_sub(t_vec2f vec_a, t_vec2f vec_b);
 t_vec2i	vec2i_offset(t_vec2i vec_a, int scalar);
 t_vec2f	vec2f_offset(t_vec2f vec_a, float scalar);
 float	vec2f_magnitude2(t_vec2f vec_a);

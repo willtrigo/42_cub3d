@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 15:21:24 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/07 17:50:00 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:17:49 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ t_vec2i	vec2i_addf(t_vec2i vec_a, t_vec2f vec_b)
 t_vec2f	vec2f_add(t_vec2f vec_a, t_vec2f vec_b)
 {
 	return ((t_vec2f){vec_a.x + vec_b.x, vec_a.y + vec_b.y});
+}
+
+t_vec2f vec2f_sub(t_vec2f vec_a, t_vec2f vec_b)
+{
+	return ((t_vec2f){vec_a.x - vec_b.x, vec_a.y - vec_b.y});
 }
 
 t_vec2f	vec2f_addi(t_vec2f vec_a, t_vec2i vec_b)

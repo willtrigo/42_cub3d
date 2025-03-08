@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:13:44 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/08 16:42:56 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:18:41 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void	draw_level_col2(t_game *game, float ray_angle, int pixel_x)
 	entity = grid_ray_wall(&game->chart, game->player.pos, ray_angle);
 	if (entity.type == '1')
 	{
-		diff = vec2f_add(entity.pos, vec2f_scale(game->player.pos, -1));
+		diff = vec2f_sub(entity.pos, game->player.pos);
 		distance = fabs(vec2f_dot_product(player_unity, diff));
 		wall_height_screen = (game->ctx.window.height * 0.5f) / pow(2, distance);
 		top_bottom = (t_vec2i){(game->ctx.window.height / 2) - ((int)(wall_height_screen / 2)), (game->ctx.window.height / 2) + ((int)(wall_height_screen / 2))};

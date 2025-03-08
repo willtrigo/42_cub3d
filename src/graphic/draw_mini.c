@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:15:08 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/08 16:43:14 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:19:57 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,8 @@ void	draw_mini_ray(t_game *game, t_mini_args m, float angle)
 				, 1, (t_color){0x000000FF});
 		screen_pos = (t_vec2f){screen_pos.x + cosf(angle), \
 			screen_pos.y + sinf(angle)};
-		grid_pos = vec2f_scale(vec2f_add(\
-			screen_pos, vec2f_scale(m.offset, -1.0f)), 1.0f / m.block_size);
+		grid_pos = vec2f_scale(\
+			vec2f_sub(screen_pos, m.offset), 1.0f / m.block_size);
 	}
 }
 
