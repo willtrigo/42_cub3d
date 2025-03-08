@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:13:44 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/07 20:14:02 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:42:56 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,12 @@ void	draw_background(t_game *game)
 
 void	draw_level_col(t_game *game, int x)
 {
-	int					y;
 	const float			height = 256.0f;
 	const float			width = 256.0f;
 	const mlx_texture_t	*txt = game->ctx.txts.south;
-
-	t_vec2f				scale = (t_vec2f){((float) txt->height) / height, \
+	const t_vec2f		scale = (t_vec2f){((float) txt->height) / height, \
 											((float) txt->width) / width};
+	int					y;
 	t_vec2i				margin_horizontal = (t_vec2i){0, width};
 	t_vec2i				margin_vertical = (t_vec2i){\
 		(game->ctx.window.height / 2.0f) - (height / 2), \
@@ -152,29 +151,24 @@ void	draw_level_col(t_game *game, int x)
 	}
 }
 
-
 void	draw_level_col2(t_game *game, float ray_angle, int pixel_x)
 {
-	t_vec2f			player_unity = vec2f_unit_vector(game->player.angle);
-	t_vec2f			diff; 
+	const t_vec2f	player_unity = vec2f_unit_vector(game->player.angle);
+	t_vec2f			diff;
 	t_grid_entity	entity;
 	float			distance;
 	float			wall_height_screen;
 	int				pixel_y;
 	t_vec2i			top_bottom;
-	int i = 0;
-	
+
 	entity = grid_ray_wall(&game->chart, game->player.pos, ray_angle);
 	if (entity.type == '1')
 	{
-		
 		diff = vec2f_add(entity.pos, vec2f_scale(game->player.pos, -1));
 		distance = fabs(vec2f_dot_product(player_unity, diff));
 		wall_height_screen = (game->ctx.window.height * 0.5f) / pow(2, distance);
-		top_bottom = (t_vec2i){(game->ctx.window.height / 2) - ((int) (wall_height_screen / 2)) , (game->ctx.window.height / 2) + ((int) (wall_height_screen / 2))};
+		top_bottom = (t_vec2i){(game->ctx.window.height / 2) - ((int)(wall_height_screen / 2)), (game->ctx.window.height / 2) + ((int)(wall_height_screen / 2))};
 		pixel_y = top_bottom.x - 1;
-		if ((pixel_x % 30) == 0)
-			printf("ray_angle %.2f dist %.2f, height %.2f || diff %.2f %.2f || entity %.2f %.2f || player %.2f %.2f\n", ray_angle, distance, wall_height_screen, diff.x, diff.y, entity.pos.x, entity.pos.y, game->player.pos.x, game->player.pos.y);
 		while (++pixel_y < top_bottom.y)
 		{
 			t_color color = (t_color){0x000000FF};
@@ -187,14 +181,13 @@ void	draw_level_col2(t_game *game, float ray_angle, int pixel_x)
 	}
 }
 
-
 void	draw_level2(t_game *game)
 {
 	const float	angle = game->player.angle;
 	const float	fov1_2 = game->player.fov / 2.0f;
 	const float	step = game->player.fov / game->ctx.window.width;
 	float		ray_angle_offset;
-	int         x_pixel;
+	int			x_pixel;
 
 	ray_angle_offset = -fov1_2;
 	x_pixel = -1;

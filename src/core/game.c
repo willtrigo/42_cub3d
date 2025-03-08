@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 18:04:26 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:37:21 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "game_init_internal.h"
 #include "system.h"
 #include "utils/output.h"
+#include <stdio.h>
 
 void	game_loop(t_game *game)
 {
@@ -24,13 +25,13 @@ void	game_loop(t_game *game)
 	t_posdir	update;
 
 	input = system_input_posdir(game);
-	//printf("input: x: %.2f y: %.2f a: %.2f\n", \
-		input.pos.x, input.pos.y, input.dir);
+	/* printf("input: x: %.2f y: %.2f a: %.2f\n",\ */
+	/* 	input.pos.x, input.pos.y, input.dir); */
 	update = system_update_posdir(&game->player, &input, game->mlx->delta_time);
 	system_colision_resolve(game, &update);
 	system_player_update(&game->player, &update);
-	//printf("player_update: x: %.2f y: %.2f a: %.2f\n", \
-		game->player.pos.x, game->player.pos.y, game->player.angle);
+	/* printf("player_update: x: %.2f y: %.2f a: %.2f\n", \ */
+	/* 	game->player.pos.x, game->player.pos.y, game->player.angle); */
 	render(game);
 }
 

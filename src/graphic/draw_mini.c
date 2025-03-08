@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:15:08 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/06 19:37:59 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:43:14 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	draw_mini_texture(
 		while (++px.x < limit.x)
 		{
 			txt_pos.x = (px.x - screen_pos.x) * scale_txt.x;
-			int 	idx = ((txt_pos.y * entity_sprite->width) + txt_pos.x) * 4;
+			int		idx = ((txt_pos.y * entity_sprite->width) + txt_pos.x) * 4;
 			t_color	color;
 			color.value = 0;
 			color.r = entity_sprite->pixels[idx + 0];

@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:54:33 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/07 18:16:52 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:43:53 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ t_vec2f	grid_next_border(t_vec2f grid_pos, float angle, t_vec2f unity)
 		return (vec2f_add(grid_pos, vert));
 }
 
-
-t_grid_entity	grid_ray_wall(const t_chart *chart,  t_vec2f player_grid_pos, float angle)
+t_grid_entity	grid_ray_wall(
+	const t_chart *chart, t_vec2f player_grid_pos, float angle)
 {
 	const t_vec2f	unity = vec2f_unit_vector(angle);
 	t_grid_entity	entity;
 	t_vec2f			grid_pos;
-	
+
 	grid_pos = player_grid_pos;
 	while (1)
 	{
@@ -81,13 +81,12 @@ t_grid_entity	grid_ray_wall(const t_chart *chart,  t_vec2f player_grid_pos, floa
 		fmax(fmin(grid_pos.x, chart->dimen.x), 0),
 		fmax(fmin(grid_pos.y, chart->dimen.y), 0)
 	};
-	entity = (t_grid_entity){'_', CENTER};
+	entity = (t_grid_entity){'_', CENTER, grid_pos};
 	return (entity);
-	
 }
 
-
-t_vec2f	grid_pos_to_screen_pos(t_vec2f grid_pos, float block_size, t_vec2f offset)
+t_vec2f	grid_pos_to_screen_pos(
+	t_vec2f grid_pos, float block_size, t_vec2f offset)
 {
 	return (vec2f_add(vec2f_scale(grid_pos, block_size), offset));
 }
