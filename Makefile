@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/03/06 18:21:23 by maurodri         ###   ########.fr        #
+#    Updated: 2025/03/09 00:54:25 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c \
 								system.c \
 								texture.c)
 SRCS_FILES                      += $(addprefix $(SRCS_GRAPHIC_DIR), render.c \
+								camera.c \
 								grid.c \
 								draw_mini.c \
 								draw.c)

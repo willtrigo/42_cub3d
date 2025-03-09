@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:41:04 by dande-je          #+#    #+#             */
-/*   Updated: 2025/03/08 21:04:43 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 23:02:51 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	chart_entity(const t_chart *chart, t_vec2f pos)
 void	render(t_game *game)
 {
 	draw_background(game);
-	draw_level3(game);
+	//draw_level3(game);
 	//draw_player(game);
-	//draw_mini_map(game, 32, (t_vec2f){10.0f, 10.0f});
+	draw_mini_map(game, 128, (t_vec2f){10.0f, 10.0f});
 }

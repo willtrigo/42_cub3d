@@ -6,13 +6,16 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:15:08 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/08 21:26:24 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/09 00:54:26 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "draw_mini.h"
+#include "graphic/camera.h"
 #include "graphic/draw.h"
+#include "graphic/grid.h"
 #include "graphic/render.h"
+#include "utils/vec2.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -139,8 +142,6 @@ void	draw_mini_ray(t_game *game, t_mini_args m, float angle)
 	char			entity;
 	t_vec2f			screen_pos;
 
-	//const int	height = game->ctx.window.height;
-	//const int	width = game->ctx.window.width;
 	grid_pos = m.grid_pos;
 	screen_pos = vec2f_add(vec2f_scale(grid_pos, m.block_size), m.offset);
 	while (screen_pos.y < screen_bottom_right.y && screen_pos.y > m.offset.y)
@@ -200,30 +201,61 @@ void	draw_mini_ray_dotgrid(t_game *game, t_mini_args m, float angle)
 	}
 }
 
+void	draw_mini_fov(\
+	t_game *game, int block_size, t_vec2f offset, const t_camera *c)
+{
+	const t_vec2f	player_screen = \
+		grid_pos_to_screen_pos(game->player.pos, block_size, offset);
+	const t_vec2f	caml_screen = \
+		grid_pos_to_screen_pos(c->caml, block_size, offset);
+	const t_vec2f	camr_screen = \
+		grid_pos_to_screen_pos(c->camr, block_size, offset);
+	const t_color	color = (t_color){0xFF00FFFF};
+
+	draw_line_p(game->ctx.canvas, \
+		player_screen, caml_screen, color);
+	draw_line_p(game->ctx.canvas, \
+		player_screen, camr_screen, color);
+	draw_line_p(game->ctx.canvas, \
+		camr_screen, caml_screen, color);
+}
+
+void	draw_mini_rays(t_game *game, t_mini_args m)
+{
+	t_camera	c;
+	int			i;
+	t_vec2f		player_to_camv_step;
+	float		angle;
+
+	camera_init(game, &c, 100);
+	draw_mini_fov(game, m.block_size, m.offset, &c);
+	i = -1;
+	while (++i <= c.num_rays)
+	{
+		draw_square_cs(game->ctx.canvas,
+			grid_pos_to_screen_pos(\
+				vec2f_add(c.caml, vec2f_scale(c.camv_step, i)), \
+				m.block_size, m.offset), \
+			4, (t_color){0x000000FF});
+		player_to_camv_step = vec2f_sub(\
+				vec2f_add(c.caml, vec2f_scale(c.camv_step, i)), \
+				game->player.pos);
+		angle = atan2(player_to_camv_step.y, player_to_camv_step.x);
+		draw_mini_ray(game, m, angle);
+		draw_mini_ray_dotgrid(game, m, angle);
+	}
+}
+
 void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
 {
-	const float	angle = game->player.angle;
-	const float	fov1_2 = game->player.fov / 2.0f;
-	const float	step = (10.0f * game->player.fov) / (block_size * game->ctx.window.height);
-	float		i;
+	const float			angle = game->player.angle;
+	const t_mini_args	player_args = (t_mini_args){\
+		game->player.pos, block_size, offset};
+	const t_mini_args	dimen_args = (t_mini_args){\
+		vec2i_tof(game->chart.dimen), block_size, offset};
 
-	draw_mini_bg_entities(game, (t_mini_args){\
-			vec2i_tof(game->chart.dimen), block_size, offset});
-	draw_mini_player(game, (t_mini_args){\
-			game->player.pos, block_size, offset});
-	draw_mini_grid(game, (t_mini_args){\
-			vec2i_tof(game->chart.dimen), block_size, offset});
-	i = -fov1_2;
-	while (i < fov1_2)
-	{
-		draw_mini_ray(game, (t_mini_args){\
-			game->player.pos, block_size, offset}, angle + i);
-		draw_mini_ray_dotgrid(game, (t_mini_args){\
-			game->player.pos, block_size, offset}, angle + i);
-		i += step;
-	}
-	/* draw_mini_ray(game, (t_mini_args){\ */
-	/* 		game->player.pos, block_size, offset}, angle); */
-	/* draw_mini_ray_dotgrid(game, (t_mini_args){\ */
-	/* 		game->player.pos, block_size, offset}, angle); */
+	draw_mini_bg_entities(game, dimen_args);
+	draw_mini_player(game, player_args);
+	draw_mini_grid(game, dimen_args);
+	draw_mini_rays(game, player_args);
 }

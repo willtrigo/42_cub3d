@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:13:44 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/08 21:34:00 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 22:54:26 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	draw_line_cs( \
 		i = (t_vec2f){i.x + cosf(size_angle.y), i.y + sinf(size_angle.y)};
 	}
 }
-
 
 void	draw_line_p( \
 	mlx_image_t *canvas, t_vec2f pa, t_vec2f pb, t_color color)
@@ -204,7 +203,7 @@ void	draw_level_col2(t_game *game, float ray_angle, int pixel_x)
 
 void	draw_level3(t_game *game)
 {
-	const int num_rays = 100;
+	const int num_rays = 30;
 	const float	angle = game->player.angle;
 	const float fov1_2 = game->player.fov / 2.0f;
 	const t_vec2f pa = vec2f_add(vec2f_unit_vector(angle - fov1_2), game->player.pos);
