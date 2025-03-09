@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 15:21:24 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/08 18:17:49 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:45:04 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,22 @@ float	vec2f_magnitude2(t_vec2f vec_a)
 	return ((vec_a.x * vec_a.x) + (vec_a.y * vec_a.y));
 }
 
+float	vec2f_magnitude(t_vec2f vec_a)
+{
+	return sqrt(vec2f_magnitude2(vec_a));
+}
+
 t_vec2f	vec2f_unit_vector(float angle)
 {
 	return ((t_vec2f){1.f * cosf(angle), 1.f * sinf(angle)});
+}
+
+t_vec2f	vec2f_to_unit(t_vec2f vec_a)
+{
+	const float	mag = vec2f_magnitude(vec_a);
+	if (mag < 0.00000001f)
+		return (t_vec2f){0,0};
+	return (t_vec2f){vec_a.x / mag, vec_a.y / mag};
 }
 
 float vec2f_dot_product(t_vec2f vec_a, t_vec2f vec_b)

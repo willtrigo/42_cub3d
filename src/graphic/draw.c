@@ -6,16 +6,18 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:13:44 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/08 18:18:41 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/08 21:34:00 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
 #include "core/game.h"
+#include "graphic/draw_mini.h"
 #include "utils/color.h"
 #include "utils/vec2.h"
 #include <math.h>
 #include <stdio.h>
+#include <sys/types.h>
 #include "draw.h"
 #include "render.h"
 #include "ft_assert.h"
@@ -87,6 +89,25 @@ void	draw_line_cs( \
 	{
 		draw_square_cs(canvas, i, 4, color);
 		i = (t_vec2f){i.x + cosf(size_angle.y), i.y + sinf(size_angle.y)};
+	}
+}
+
+
+void	draw_line_p( \
+	mlx_image_t *canvas, t_vec2f pa, t_vec2f pb, t_color color)
+{
+	const t_vec2f	delta = vec2f_to_unit(vec2f_sub(pb, pa));
+	t_vec2f			i;
+
+	i = pa;
+	while (1)
+	{
+		draw_square_cs(canvas, i, 4, color);
+		i = (t_vec2f) {i.x + delta.x, i.y + delta.y};
+		if ((delta.x > 0 && i.x > pb.x) || (delta.x < 0 && i.x < pb.x))
+			break ;
+		if ((delta.y > 0 && i.y > pb.y) || (delta.y < 0 && i.y < pb.y))
+			break ;
 	}
 }
 
@@ -181,21 +202,59 @@ void	draw_level_col2(t_game *game, float ray_angle, int pixel_x)
 	}
 }
 
+void	draw_level3(t_game *game)
+{
+	const int num_rays = 100;
+	const float	angle = game->player.angle;
+	const float fov1_2 = game->player.fov / 2.0f;
+	const t_vec2f pa = vec2f_add(vec2f_unit_vector(angle - fov1_2), game->player.pos);
+	const t_vec2f pb = vec2f_add(vec2f_unit_vector(angle + fov1_2), game->player.pos);
+	const t_vec2f diff = vec2f_sub(pb, pa);
+	const t_vec2f diff_s = vec2f_scale(diff, 1.0f / num_rays);
+
+	draw_square_cs(game->ctx.canvas, vec2f_scale(game->player.pos, 64), 16, (t_color){0x000000FF});
+	draw_line_p(game->ctx.canvas, vec2f_scale(game->player.pos, 64), vec2f_scale(pa, 64), (t_color) {0xFF00FFFF});
+	draw_line_p(game->ctx.canvas, vec2f_scale(game->player.pos, 64), vec2f_scale(pb, 64), (t_color) {0xFF00FFFF});
+	draw_line_p(game->ctx.canvas, vec2f_scale(pa, 64), vec2f_scale(vec2f_add(diff, pa), 64), (t_color) {0xFF00FFFF});
+	int i = 0;
+
+	while (i <= num_rays)
+	{
+		draw_square_cs(game->ctx.canvas, 
+					   vec2f_scale(
+								   vec2f_add(pa,
+											 vec2f_scale(diff_s, i)), 64), 
+			4,
+			(t_color){0x000000FF});
+		t_vec2f p_to_d =
+		    vec2f_sub(vec2f_add(pa, vec2f_scale(diff_s, i)), game->player.pos);
+		
+		float rad = atan2(p_to_d.y, p_to_d.x);
+		
+		draw_mini_ray_dotgrid(game, (t_mini_args) {game->player.pos, 64, (t_vec2f){0, 0}}, rad);
+		i++;
+	}
+	
+}
+
+
 void	draw_level2(t_game *game)
 {
-	const float	angle = game->player.angle;
-	const float	fov1_2 = game->player.fov / 2.0f;
-	const float	step = game->player.fov / game->ctx.window.width;
-	float		ray_angle_offset;
-	int			x_pixel;
+	/* const float	angle = game->player.angle; */
+	/* const float	fov1_2 = game->player.fov / 2.0f; */
+	/* const float	step = game->player.fov / game->ctx.window.width; */
+	/* float		ray_angle_offset; */
+	/* int			x_pixel; */
 
-	ray_angle_offset = -fov1_2;
-	x_pixel = -1;
-	while (++x_pixel < game->ctx.window.width)
-	{
-		draw_level_col2(game, ray_angle_offset + angle, x_pixel);
-		ray_angle_offset += step;
-	}
+	/* ray_angle_offset = -fov1_2; */
+	/* x_pixel = -1; */
+	/* while (++x_pixel < game->ctx.window.width) */
+	/* { */
+	/* 	draw_level_col2(game, ray_angle_offset + angle, x_pixel); */
+	/* 	ray_angle_offset += step; */
+	/* } */
+
+
 }
 
 void	draw_level(t_game *game)
