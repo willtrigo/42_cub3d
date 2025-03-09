@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:15:08 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/09 00:54:26 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/09 01:07:49 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ void	draw_mini_rays(t_game *game, t_mini_args m)
 	t_vec2f		player_to_camv_step;
 	float		angle;
 
-	camera_init(game, &c, 100);
+	camera_init(game, &c, 40);
 	draw_mini_fov(game, m.block_size, m.offset, &c);
 	i = -1;
 	while (++i <= c.num_rays)

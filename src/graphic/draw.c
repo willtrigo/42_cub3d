@@ -6,12 +6,13 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:13:44 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/08 22:54:26 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/09 01:39:20 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
 #include "core/game.h"
+#include "graphic/camera.h"
 #include "graphic/draw_mini.h"
 #include "utils/color.h"
 #include "utils/vec2.h"
@@ -201,59 +202,76 @@ void	draw_level_col2(t_game *game, float ray_angle, int pixel_x)
 	}
 }
 
+
+void	draw_level_col3(t_game *game, float ray_angle, int pixel_x)
+{
+	const t_vec2f	player_unity = vec2f_unit_vector(game->player.angle);
+	t_vec2f			diff;
+	t_grid_entity	entity;
+	float			distance;
+	float			wall_height_screen;
+	int				pixel_y;
+	t_vec2i			top_bottom;
+
+	entity = grid_ray_wall(&game->chart, game->player.pos, ray_angle);
+	if (entity.type == '1')
+	{
+		diff = vec2f_sub(entity.pos, game->player.pos);
+		distance = fabs(vec2f_dot_product(player_unity, diff)) * 2;
+		wall_height_screen = (game->ctx.window.height * 0.7f) / distance;
+		top_bottom = (t_vec2i) {(game->ctx.window.height / 2) - ((int) (wall_height_screen / 2)),
+		    (game->ctx.window.height / 2) + ((int) (wall_height_screen / 2))};
+		top_bottom = (t_vec2i) {fmax(0, top_bottom.x),
+								fmin(game->ctx.window.height, top_bottom.y)};
+		pixel_y = top_bottom.x - 1;
+		while (++pixel_y < top_bottom.y)
+		{
+			t_color color = (t_color){0x000000FF};
+			color.r = (entity.direction == EAST) * 180;
+			color.b = ((entity.direction == WEST) \
+							|| (entity.direction == SOUTH)) * 180;
+			color.g = (entity.direction == SOUTH) * 180;
+			mlx_put_pixel(game->ctx.canvas, pixel_x, pixel_y, color.value);
+		}
+	}
+}
+
+
 void	draw_level3(t_game *game)
 {
-	const int num_rays = 30;
-	const float	angle = game->player.angle;
-	const float fov1_2 = game->player.fov / 2.0f;
-	const t_vec2f pa = vec2f_add(vec2f_unit_vector(angle - fov1_2), game->player.pos);
-	const t_vec2f pb = vec2f_add(vec2f_unit_vector(angle + fov1_2), game->player.pos);
-	const t_vec2f diff = vec2f_sub(pb, pa);
-	const t_vec2f diff_s = vec2f_scale(diff, 1.0f / num_rays);
+	t_camera	c;
+	int			i;
+	t_vec2f		player_to_camv_step;
+	float		angle;
 
-	draw_square_cs(game->ctx.canvas, vec2f_scale(game->player.pos, 64), 16, (t_color){0x000000FF});
-	draw_line_p(game->ctx.canvas, vec2f_scale(game->player.pos, 64), vec2f_scale(pa, 64), (t_color) {0xFF00FFFF});
-	draw_line_p(game->ctx.canvas, vec2f_scale(game->player.pos, 64), vec2f_scale(pb, 64), (t_color) {0xFF00FFFF});
-	draw_line_p(game->ctx.canvas, vec2f_scale(pa, 64), vec2f_scale(vec2f_add(diff, pa), 64), (t_color) {0xFF00FFFF});
-	int i = 0;
-
-	while (i <= num_rays)
+	camera_init(game, &c, game->ctx.window.width - 1);
+	i = -1;
+	while (++i <= c.num_rays)
 	{
-		draw_square_cs(game->ctx.canvas, 
-					   vec2f_scale(
-								   vec2f_add(pa,
-											 vec2f_scale(diff_s, i)), 64), 
-			4,
-			(t_color){0x000000FF});
-		t_vec2f p_to_d =
-		    vec2f_sub(vec2f_add(pa, vec2f_scale(diff_s, i)), game->player.pos);
-		
-		float rad = atan2(p_to_d.y, p_to_d.x);
-		
-		draw_mini_ray_dotgrid(game, (t_mini_args) {game->player.pos, 64, (t_vec2f){0, 0}}, rad);
-		i++;
+		player_to_camv_step = vec2f_sub(\
+				vec2f_add(c.caml, vec2f_scale(c.camv_step, i)), \
+				game->player.pos);
+		angle = atan2(player_to_camv_step.y, player_to_camv_step.x);
+		draw_level_col3(game, angle, i);
 	}
-	
 }
 
 
 void	draw_level2(t_game *game)
 {
-	/* const float	angle = game->player.angle; */
-	/* const float	fov1_2 = game->player.fov / 2.0f; */
-	/* const float	step = game->player.fov / game->ctx.window.width; */
-	/* float		ray_angle_offset; */
-	/* int			x_pixel; */
+	const float	angle = game->player.angle;
+	const float	fov1_2 = game->player.fov / 2.0f;
+	const float	step = game->player.fov / game->ctx.window.width;
+	float		ray_angle_offset;
+	int			x_pixel;
 
-	/* ray_angle_offset = -fov1_2; */
-	/* x_pixel = -1; */
-	/* while (++x_pixel < game->ctx.window.width) */
-	/* { */
-	/* 	draw_level_col2(game, ray_angle_offset + angle, x_pixel); */
-	/* 	ray_angle_offset += step; */
-	/* } */
-
-
+	ray_angle_offset = -fov1_2;
+	x_pixel = -1;
+	while (++x_pixel < game->ctx.window.width)
+	{
+		draw_level_col2(game, ray_angle_offset + angle, x_pixel);
+		ray_angle_offset += step;
+	}
 }
 
 void	draw_level(t_game *game)
