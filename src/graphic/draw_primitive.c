@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:51:18 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/11 21:55:22 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/12 02:29:11 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	draw_line_p( \
 	while (1)
 	{
 		draw_square_cs(canvas, i, 4, color);
-		i = (t_vec2f) {i.x + delta.x, i.y + delta.y};
+		i = (t_vec2f){i.x + delta.x, i.y + delta.y};
 		if ((delta.x > 0 && i.x > pb.x) || (delta.x < 0 && i.x < pb.x))
 			break ;
 		if ((delta.y > 0 && i.y > pb.y) || (delta.y < 0 && i.y < pb.y))

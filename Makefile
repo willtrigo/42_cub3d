@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/03/11 21:54:42 by maurodri         ###   ########.fr        #
+#    Updated: 2025/03/12 02:45:30 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,9 @@ SRCS_FILES                      += $(addprefix $(SRCS_PARSE_DIR), parse_color.c 
 SRCS_FILES                      += $(addprefix $(SRCS_UTILS_DIR), color.c \
 								   ft_extensions.c \
 								   vec2.c \
+								   vec2i.c \
+								   vec2f.c \
+								   vec2f_linear.c \
 								   output.c)
 
 OBJS_MAIN                       = $(SRCS_MAIN:%.c=$(BUILD_DIR)%.o)

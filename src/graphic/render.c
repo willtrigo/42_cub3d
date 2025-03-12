@@ -6,14 +6,13 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:41:04 by dande-je          #+#    #+#             */
-/*   Updated: 2025/03/11 21:45:30 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/12 02:50:56 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "graphic/render.h"
 #include "core/game.h"
 #include "utils/vec2.h"
-
 #include "draw.h"
 #include "draw_mini.h"
 

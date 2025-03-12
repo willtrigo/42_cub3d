@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:15:08 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/11 21:57:52 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/12 02:29:02 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,14 @@ void	draw_mini_texture(
 		((float) entity_sprite->width) / m.block_size
 	};
 	t_vec2i				px;
-	t_vec2i				txt_pos;
 
 	px.y = screen_pos.y - 1;
 	while (++px.y < limit.y)
 	{
 		px.x = screen_pos.x - 1;
-		txt_pos.y = (px.y - screen_pos.y) * scale_txt.y;
 		while (++px.x < limit.x)
-		{
-			txt_pos.x = (px.x - screen_pos.x) * scale_txt.x;
-			int		idx = ((txt_pos.y * entity_sprite->width) + txt_pos.x) * 4;
-			t_color	color;
-			color.value = 0;
-			color.r = entity_sprite->pixels[idx + 0];
-			color.g = entity_sprite->pixels[idx + 1];
-			color.b = entity_sprite->pixels[idx + 2];
-			color.a = entity_sprite->pixels[idx + 3];
-			mlx_put_pixel(game->ctx.canvas, px.x, px.y, color.value);
-		}
+			mlx_put_pixel(game->ctx.canvas, px.x, px.y, \
+				texture_get_color(entity_sprite, scale_txt, px, screen_pos));
 	}
 }
 
