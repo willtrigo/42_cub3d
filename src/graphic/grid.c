@@ -6,14 +6,35 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:54:33 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/08 16:43:53 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:34:27 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "grid.h"
+#include "MLX42/MLX42.h"
+#include "core/game.h"
 #include "ft_assert.h"
 #include "graphic/render.h"
 #include <math.h>
+
+mlx_texture_t	*grid_entity_texture(
+	const t_context *ctx, const t_grid_entity *entity)
+{
+	if (entity->type == '1')
+	{
+		if (entity->direction == NORTH)
+			return (ctx->txts.north);
+		if (entity->direction == EAST)
+			return (ctx->txts.east);
+		if (entity->direction == SOUTH)
+			return (ctx->txts.south);
+		if (entity->direction == WEST)
+			return (ctx->txts.west);
+	}
+	ft_assert(false, \
+		"unexpected call to grid_entity_texture with invalid entity");
+	return (NULL);
+}
 
 t_grid_entity	grid_entity(\
 	const t_chart *chart, const t_vec2f *grid_pos, const t_vec2f *unity)

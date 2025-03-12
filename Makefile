@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/03/09 00:54:25 by maurodri         ###   ########.fr        #
+#    Updated: 2025/03/11 21:54:42 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,8 @@ SRCS_FILES                      += $(addprefix $(SRCS_GRAPHIC_DIR), render.c \
 								camera.c \
 								grid.c \
 								draw_mini.c \
+								draw_entity.c \
+								draw_primitive.c \
 								draw.c)
 SRCS_FILES                      += $(addprefix $(SRCS_CONFIG_DIR), config.c)
 SRCS_FILES                      += $(addprefix $(SRCS_ARGS_DIR), invalid_args.c \

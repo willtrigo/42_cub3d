@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:55:19 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/08 16:38:30 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:25:56 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,7 @@ t_vec2f			grid_pos_to_screen_pos(\
 	t_vec2f grid_pos, float block_size, t_vec2f offset);
 t_grid_entity	grid_ray_wall(\
 	const t_chart *chart, t_vec2f grid_pos, float angle);
+mlx_texture_t	*grid_entity_texture(\
+	const t_context *ctx, const t_grid_entity *entity);
+
 #endif

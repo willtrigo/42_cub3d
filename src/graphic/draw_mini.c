@@ -6,18 +6,17 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:15:08 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/09 01:07:49 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/11 21:57:52 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "draw_mini.h"
 #include "graphic/camera.h"
-#include "graphic/draw.h"
+#include "graphic/draw_primitive.h"
 #include "graphic/grid.h"
 #include "graphic/render.h"
 #include "utils/vec2.h"
 #include <math.h>
-#include <stdio.h>
 
 void	draw_mini_floor(t_game *game, t_mini_args m)
 {
@@ -248,7 +247,6 @@ void	draw_mini_rays(t_game *game, t_mini_args m)
 
 void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
 {
-	const float			angle = game->player.angle;
 	const t_mini_args	player_args = (t_mini_args){\
 		game->player.pos, block_size, offset};
 	const t_mini_args	dimen_args = (t_mini_args){\
