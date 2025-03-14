@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/26 12:51:39 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:28:42 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,30 @@
 
 # include "MLX42/MLX42.h"
 # include "infrastructure/config/config.h"
-#include "utils/color.h"
-#include "utils/vec2.h"
+# include "utils/color.h"
+# include "utils/vec2.h"
 
 # define DEFAULT_WIDTH 1920
 # define DEFAULT_HEIGHT 955
 
-// angle: radians
+typedef struct s_posdir
+{
+	t_vec2f	pos;
+	float	dir;
+}	t_posdir;
+
+// dir = angle in radians
+// fov = field of view in radians
 typedef struct s_player
 {
 	t_vec2f	pos;
 	float	angle;
+	float	fov;
 }	t_player;
 
 typedef struct s_chart
 {
-	t_vec2i dimen;
+	t_vec2i	dimen;
 	char	*buffer;
 }	t_chart;
 
@@ -46,7 +54,7 @@ typedef struct s_window
 {
 	int	height;
 	int	width;
-	int block_size;
+	int	block_size;
 }	t_window;
 
 typedef struct s_context

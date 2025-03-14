@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 16:41:13 by dande-je          #+#    #+#             */
-/*   Updated: 2025/03/12 02:24:16 by maurodri         ###   ########.fr       */
+/*   Created: 2025/03/09 00:52:04 by maurodri          #+#    #+#             */
+/*   Updated: 2025/03/09 00:53:43 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_H
-# define RENDER_H
+#ifndef CAMERA_H
+# define CAMERA_H
 
 # include "core/game.h"
+# include "utils/vec2.h"
 
-void	render(t_game *game);
-char	chart_entity(const t_chart *chart, t_vec2f pos);
-int		texture_get_color(\
-	const mlx_texture_t *txt, t_vec2f scale, t_vec2i pixel, t_vec2f margin);
+typedef struct s_camera
+{
+	int		num_rays;
+	float	fov1_2;
+	t_vec2f	caml;
+	t_vec2f	camr;
+	t_vec2f	camv;
+	t_vec2f	camv_step;
+}	t_camera;
+
+void	camera_init(t_game *game, t_camera *out, int num_rays);
 
 #endif

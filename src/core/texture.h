@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output.h                                           :+:      :+:    :+:   */
+/*   texture.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 20:25:51 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 13:14:07 by maurodri         ###   ########.fr       */
+/*   Created: 2025/02/28 13:46:31 by maurodri          #+#    #+#             */
+/*   Updated: 2025/02/28 13:49:04 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OUTPUT_H
-# define OUTPUT_H
+#ifndef TEXTURE_H
+# define TEXTURE_H
 
-int	logerr_ret(char *str, int ret);
+# include "game.h"
+
+bool	textures_init(t_game *game, t_config_file *config);
+void	texture_clean(t_txts *txts);
 
 #endif

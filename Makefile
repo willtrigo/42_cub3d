@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/02/24 17:20:06 by dande-je         ###   ########.fr        #
+#    Updated: 2025/03/12 02:45:30 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,8 +74,17 @@ NAME_TEST_PATH                  = $(BIN_DIR)$(NAME_TEST)
 
 
 SRCS_MAIN                       = $(addprefix $(SRCS_MAIN_DIR), main.c)
-SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c)
-SRCS_FILES                      += $(addprefix $(SRCS_GRAPHIC_DIR), render.c)
+SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c \
+								game_init_internal.c \
+								system.c \
+								texture.c)
+SRCS_FILES                      += $(addprefix $(SRCS_GRAPHIC_DIR), render.c \
+								camera.c \
+								grid.c \
+								draw_mini.c \
+								draw_entity.c \
+								draw_primitive.c \
+								draw.c)
 SRCS_FILES                      += $(addprefix $(SRCS_CONFIG_DIR), config.c)
 SRCS_FILES                      += $(addprefix $(SRCS_ARGS_DIR), invalid_args.c \
 								   invalid_extension.c)
@@ -85,6 +94,10 @@ SRCS_FILES                      += $(addprefix $(SRCS_PARSE_DIR), parse_color.c 
 								   parse_texture.c)
 SRCS_FILES                      += $(addprefix $(SRCS_UTILS_DIR), color.c \
 								   ft_extensions.c \
+								   vec2.c \
+								   vec2i.c \
+								   vec2f.c \
+								   vec2f_linear.c \
 								   output.c)
 
 OBJS_MAIN                       = $(SRCS_MAIN:%.c=$(BUILD_DIR)%.o)
@@ -215,14 +228,14 @@ endef
 define comp_test
 	$(CC) $(LDFLAGS) $(OBJS) $(OBJS_TEST) $(LDLIBS) -o $(NAME_TEST_PATH)
 	-valgrind --leak-check=full \
-    	-s \
-     	--show-reachable=yes \
-     	--errors-for-leak-kinds=all \
-     	--track-origins=yes \
-     	--track-fds=yes \
-     	--suppressions=.suppress_mlx_error.sup \
-     	--log-file=valgrind-out.txt \
-     	./$(NAME_TEST_PATH)
+	-s \
+	--show-reachable=yes \
+	--errors-for-leak-kinds=all \
+	--track-origins=yes \
+	--track-fds=yes \
+	--suppressions=.suppress_mlx_error.sup \
+	--log-file=valgrind-out.txt \
+	./$(NAME_TEST_PATH)
 endef
 
 #******************************************************************************#

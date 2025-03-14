@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:25:21 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/20 16:55:32 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/02/28 00:29:37 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void test_config_init_invalid(void)
 	ft_printf("\n%s: START\n", __FUNCTION__);
 	{
 		t_config_file	conf;
-
 		FT_TEST(config_init(1, (char *[]){ "does_not_exist.cub", NULL} , &conf)
 				== false,
 				"when argc == 1 and filename == \"does_not_exist.cub\" "

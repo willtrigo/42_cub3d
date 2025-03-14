@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output.h                                           :+:      :+:    :+:   */
+/*   draw_entity.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 20:25:51 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 13:14:07 by maurodri         ###   ########.fr       */
+/*   Created: 2025/03/11 21:39:16 by maurodri          #+#    #+#             */
+/*   Updated: 2025/03/12 02:16:19 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OUTPUT_H
-# define OUTPUT_H
+#ifndef DRAW_ENTITY_H
+# define DRAW_ENTITY_H
 
-int	logerr_ret(char *str, int ret);
+# include "core/game.h"
+# include "graphic/grid.h"
+
+void	draw_entity_col(\
+	t_game *game, t_grid_entity *entity, int pixel_x, float wall_height_screen);
 
 #endif
