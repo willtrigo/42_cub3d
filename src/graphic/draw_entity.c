@@ -6,12 +6,14 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:38:33 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/12 02:24:37 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/13 23:41:54 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "draw_entity.h"
+#include "ft_assert.h"
 #include <math.h>
+#include <stdio.h>
 
 int	texture_get_color(
 	const mlx_texture_t *txt, t_vec2f scale, t_vec2i pixel, t_vec2f margin)
@@ -20,8 +22,10 @@ int	texture_get_color(
 	t_vec2i	txt_px;
 	int		i;
 
-	txt_px.x = (pixel.x - margin.x) * scale.x;
+	txt_px.x = ((pixel.x - margin.x) * scale.x);
+	txt_px.x %= txt->width;
 	txt_px.y = (pixel.y - margin.y) * scale.y;
+	txt_px.y %= txt->height;
 	i = ((txt_px.y * txt->width) + txt_px.x) * 4;
 	color.r = txt->pixels[i + 0];
 	color.g = txt->pixels[i + 1];
