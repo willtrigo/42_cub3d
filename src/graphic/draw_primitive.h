@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:51:47 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/11 21:53:28 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:15:27 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@
 # include "utils/color.h"
 # include "utils/vec2.h"
 
+typedef struct s_brush
+{
+	t_color color;
+	int		size;
+}	t_brush;
+
 void	draw_circle_cs( \
-	mlx_image_t *canvas, t_vec2f center, float radius, t_color color);
+	mlx_image_t *canvas, t_vec2f center, t_brush brush);
 void	draw_square_cs( \
-	mlx_image_t *canvas, t_vec2f center, int size, t_color color);
+	mlx_image_t *canvas, t_vec2f center, t_brush brush);
 void	draw_line_cs( \
-	mlx_image_t *canvas, t_vec2f center, t_vec2f size_angle, t_color color);
+	mlx_image_t *canvas, t_vec2f center, t_vec2f size_angle, t_brush brush);
 void	draw_line_p( \
-	mlx_image_t *canvas, t_vec2f pa, t_vec2f pb, t_color color);
+	mlx_image_t *canvas, t_vec2f pa, t_vec2f pb, t_brush brush);
 
 #endif

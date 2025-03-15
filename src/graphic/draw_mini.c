@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:15:08 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/12 02:29:02 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:41:02 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ void	draw_mini_player(t_game *game, t_mini_args m)
 		player_screen_pos_center.y \
 			+ (sinf(game->player.angle) * player_size / 2.0f)
 	};
-	t_color			color;
+	t_brush			brush;
 
-	color = (t_color){.value = 0x00FF00FF};
+	brush = (t_brush){{0x00FF00FF}, player_size / 2.0f};
 	draw_circle_cs(game->ctx.canvas, \
-		player_screen_pos_center, player_size / 2.0f, color);
-	color = (t_color){.value = 0x0000FFFF};
+		player_screen_pos_center, brush);
+	brush = (t_brush){.color = {0x0000FFFF}, player_size / 4};
 	draw_line_cs(game->ctx.canvas, player_screen_pos_center, \
-		(t_vec2f){player_size, game->player.angle}, color);
-	color = (t_color){.value = 0x000000FF};
-	draw_square_cs(game->ctx.canvas, head_center, 4, color);
+		(t_vec2f){player_size, game->player.angle}, brush);
+	brush = (t_brush){{0x000000FF}, player_size / 4};
+	draw_square_cs(game->ctx.canvas, head_center, brush);
 }
 
 void	draw_mini_grid(t_game *game, t_mini_args m)
@@ -139,7 +139,7 @@ void	draw_mini_ray(t_game *game, t_mini_args m, float angle)
 			break ;
 		else if (entity == '0')
 			draw_square_cs(game->ctx.canvas, screen_pos \
-				, 1, (t_color){0x000000FF});
+						   , (t_brush){{0x000000FF}, 1});
 		screen_pos = (t_vec2f){screen_pos.x + cosf(angle), \
 			screen_pos.y + sinf(angle)};
 		grid_pos = vec2f_scale(\
@@ -161,11 +161,11 @@ int	draw_mini_ray_dotgrid_entity(
 		wall_color.b = ((entity->direction == WEST) \
 			|| (entity->direction == SOUTH)) * 255;
 		wall_color.g = (entity->direction == SOUTH) * 200;
-		draw_square_cs(game->ctx.canvas, screen_pos, 8, wall_color);
+		draw_square_cs(game->ctx.canvas, screen_pos, (t_brush){ wall_color, m.block_size / 8});
 		return (1);
 	}
 	else if (entity->type == '0')
-		draw_square_cs(game->ctx.canvas, screen_pos, 8, (t_color){0x00FF00FF});
+		draw_square_cs(game->ctx.canvas, screen_pos, (t_brush){{0x00FF00FF}, m.block_size / 8});
 	return (0);
 }
 
@@ -201,11 +201,11 @@ void	draw_mini_fov(\
 	const t_color	color = (t_color){0xFF00FFFF};
 
 	draw_line_p(game->ctx.canvas, \
-		player_screen, caml_screen, color);
+				player_screen, caml_screen, (t_brush){color, block_size / 16});
 	draw_line_p(game->ctx.canvas, \
-		player_screen, camr_screen, color);
+		player_screen, camr_screen, (t_brush){color, block_size / 16});
 	draw_line_p(game->ctx.canvas, \
-		camr_screen, caml_screen, color);
+		camr_screen, caml_screen, (t_brush){color, block_size / 16});
 }
 
 void	draw_mini_rays(t_game *game, t_mini_args m)
@@ -224,7 +224,7 @@ void	draw_mini_rays(t_game *game, t_mini_args m)
 			grid_pos_to_screen_pos(\
 				vec2f_add(c.caml, vec2f_scale(c.camv_step, i)), \
 				m.block_size, m.offset), \
-			4, (t_color){0x000000FF});
+					   (t_brush){{0x000000FF}, m.block_size / 16});
 		player_to_camv_step = vec2f_sub(\
 				vec2f_add(c.caml, vec2f_scale(c.camv_step, i)), \
 				game->player.pos);
