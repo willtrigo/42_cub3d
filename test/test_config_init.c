@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:25:21 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/09 21:58:45 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/09 22:43:52 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,7 +335,7 @@ void test_config_init_invalid(void)
 						&conf);
 		FT_TEST(result == false,
 				"when argc == 1 and filename == \"./test/maps/invalid_map_line_before_map_section.cub\" "
-				"and the file exists expected return to be true");
+				"and the file exists expected return to be false");
 
 		config_clean(&conf);
 	}
@@ -348,7 +348,7 @@ void test_config_init_invalid(void)
 						&conf);
 		FT_TEST(result == false,
 				"when argc == 1 and filename == \"./test/maps/invalid_direction_missing_north.cub\" "
-				"and the file exists expected return to be true");
+				"and the file exists expected return to be false");
 
 		config_clean(&conf);
 	}
@@ -360,7 +360,7 @@ void test_config_init_invalid(void)
 						&conf);
 		FT_TEST(result == false,
 				"when argc == 1 and filename == \"./test/maps/invalid_color_missing_floor.cub\" "
-				"and the file exists expected return to be true");
+				"and the file exists expected return to be false");
 
 		config_clean(&conf);
 	}
