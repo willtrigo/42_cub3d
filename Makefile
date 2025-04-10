@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/03/12 02:45:30 by maurodri         ###   ########.fr        #
+#    Updated: 2025/04/09 20:56:00 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -276,10 +276,21 @@ debug:
 
 test: clean_test $(NAME_TEST_PATH)
 
+testrun: $(OBJS_TEST) $(NAME_TEST_PATH) $(OBJS)
+	valgrind --leak-check=full \
+	-s \
+	--show-reachable=yes \
+	--errors-for-leak-kinds=all \
+	--track-origins=yes \
+	--track-fds=yes \
+	--suppressions=.suppress_mlx_error.sup \
+	--log-file=valgrind-out.txt \
+	./$(NAME_TEST_PATH)
+
 etags:
 	etags $$(find . -name '*.[ch]')
 
-.PHONY: all clean fclean clean_test re debug test etags
+.PHONY: all clean fclean clean_test re debug test etags testrun
 .DEFAULT_GOAL := all
 .SILENT:
 
