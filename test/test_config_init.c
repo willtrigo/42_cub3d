@@ -364,6 +364,17 @@ void test_config_init_invalid(void)
 
 		config_clean(&conf);
 	}
+	{
+		t_config_file	conf;
+		int				result = \
+			config_init(1,
+						(char *[]){ "./test/maps/invalid_map_before_elements.cub", NULL},
+						&conf);
+		FT_TEST(result == false,
+				"when argc == 1 and filename == \"./test/maps/invalid_map_before_elements.cub\" "
+				"and the file exists expected return to be false");
+		config_clean(&conf);
+	}
 
 	ft_printf("%s: END", __FUNCTION__);
 
