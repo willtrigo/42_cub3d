@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/03/06 18:28:42 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:58:29 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,16 @@
 # include "infrastructure/config/config.h"
 # include "utils/color.h"
 # include "utils/vec2.h"
+# include <math.h>
 
 # define DEFAULT_WIDTH 1920
 # define DEFAULT_HEIGHT 955
+
+
+#define ANGLE_EAST 0
+#define ANGLE_SOUTH M_PI_2
+#define ANGLE_WEST M_PI
+#define ANGLE_NORTH (3 * M_PI_2)
 
 typedef struct s_posdir
 {

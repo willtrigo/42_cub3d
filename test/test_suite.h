@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 22:29:35 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/20 12:10:40 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:01:18 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	test_config_init(void);
 void    test_color(void);
 void	test_parse_texture(void);
 void	test_parse_color(void);
-void	test_is_valid_args(void);
+void    test_is_valid_args(void);
+void	test_map_init(void);
 
 #endif

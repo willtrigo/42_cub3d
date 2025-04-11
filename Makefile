@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/04/09 20:56:00 by maurodri         ###   ########.fr        #
+#    Updated: 2025/04/11 17:07:08 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,7 @@ SRCS_TEST_FILES                 += $(addprefix $(SRCS_TEST_DIR), test_suite.c \
 								test_color.c \
 								test_parse_color.c \
 								test_is_valid_args.c \
+								test_map_init.c \
 								test_config_init.c)
 OBJS_TEST                       += $(SRCS_TEST_FILES:%.c=$(BUILD_DIR)%.o)
 
@@ -284,7 +285,6 @@ testrun: $(OBJS_TEST) $(NAME_TEST_PATH) $(OBJS)
 	--track-origins=yes \
 	--track-fds=yes \
 	--suppressions=.suppress_mlx_error.sup \
-	--log-file=valgrind-out.txt \
 	./$(NAME_TEST_PATH)
 
 etags:
