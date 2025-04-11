@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:04:30 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/11 17:05:26 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:28:13 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void test_player_direction(void)
 					&conf);
 		t_game game;
 		map_init(&game, &conf);
-		FT_TEST(game.player.angle == ANGLE_NORTH,
+		FT_TEST(game.player.angle - ANGLE_NORTH < 0.0001,
 				"when filename == \"./test/maps/trivial_player_north.cub\" "
 				"expected "
 				"game.player.angle == ANGLE_NORTH");
@@ -39,7 +39,7 @@ void test_player_direction(void)
 					&conf);
 		t_game game;
 		map_init(&game, &conf);
-		FT_TEST(game.player.angle == ANGLE_EAST,
+		FT_TEST(game.player.angle - ANGLE_EAST < 0.0001,
 				"when filename == \"./test/maps/trivial_player_east.cub\" "
 				"expected "
 				"game.player.angle == ANGLE_EAST");
@@ -52,7 +52,7 @@ void test_player_direction(void)
 					&conf);
 		t_game game;
 		map_init(&game, &conf);
-		FT_TEST(game.player.angle == ANGLE_SOUTH,
+		FT_TEST(game.player.angle - ANGLE_SOUTH < 0.0001,
 				"when filename == \"./test/maps/trivial_player_south.cub\" "
 				"expected "
 				"game.player.angle == ANGLE_SOUTH");
@@ -65,7 +65,7 @@ void test_player_direction(void)
 					&conf);
 		t_game game;
 		map_init(&game, &conf);
-		FT_TEST(game.player.angle == ANGLE_WEST,
+		FT_TEST(game.player.angle - ANGLE_WEST < 0.0001,
 				"when filename == \"./test/maps/trivial_player_west.cub\" "
 				"expected "
 				"game.player.angle == ANGLE_WEST");
@@ -73,6 +73,81 @@ void test_player_direction(void)
 	}
 	ft_printf("%s: END\n", __FUNCTION__);
 }
+
+void test_player_pos(void)
+{
+	ft_printf("\n%s: START\n", __FUNCTION__);
+	{
+		t_config_file	conf;
+		config_init(1,
+					(char *[]){ "./test/maps/trivial_player_pos_1_1.cub", NULL},
+					&conf);
+		t_game game;
+		map_init(&game, &conf);
+		FT_TEST(game.player.pos.x == 1.5f,
+				"when filename == \"./test/maps/trivial_player_pos_1_1.cub\" "
+				"expected "
+				"game.player.pos.x == 1.5f");
+		FT_TEST(game.player.pos.y == 1.5f,
+				"when filename == \"./test/maps/trivial_player_pos_1_1.cub\" "
+				"expected "
+				"game.player.pos.y == 1.5f");
+		config_clean(&conf);
+	}
+	{
+		t_config_file	conf;
+		config_init(1,
+					(char *[]){ "./test/maps/trivial_player_pos_1_2.cub", NULL},
+					&conf);
+		t_game game;
+		map_init(&game, &conf);
+		FT_TEST(game.player.pos.x == 1.5f,
+				"when filename == \"./test/maps/trivial_player_pos_1_2.cub\" "
+				"expected "
+				"game.player.pos.x == 1.5f");
+		FT_TEST(game.player.pos.y == 2.5f,
+				"when filename == \"./test/maps/trivial_player_pos_1_2.cub\" "
+				"expected "
+				"game.player.pos.y == 2.5f");
+		config_clean(&conf);
+	}
+	{
+		t_config_file	conf;
+		config_init(1,
+					(char *[]){ "./test/maps/trivial_player_pos_2_1.cub", NULL},
+					&conf);
+		t_game game;
+		map_init(&game, &conf);
+		FT_TEST(game.player.pos.x == 2.5f,
+				"when filename == \"./test/maps/trivial_player_pos_2_1.cub\" "
+				"expected "
+				"game.player.pos.x == 2.5f");
+		FT_TEST(game.player.pos.y == 1.5f,
+				"when filename == \"./test/maps/trivial_player_pos_2_1.cub\" "
+				"expected "
+				"game.player.pos.y == 1.5f");
+		config_clean(&conf);
+	}
+	{
+		t_config_file	conf;
+		config_init(1,
+					(char *[]){ "./test/maps/trivial_player_pos_2_2.cub", NULL},
+					&conf);
+		t_game game;
+		map_init(&game, &conf);
+		FT_TEST(game.player.pos.x == 2.5f,
+				"when filename == \"./test/maps/trivial_player_pos_2_2.cub\" "
+				"expected "
+				"game.player.pos.x == 2.5f");
+		FT_TEST(game.player.pos.y == 2.5f,
+				"when filename == \"./test/maps/trivial_player_pos_2_2.cub\" "
+				"expected "
+				"game.player.pos.y == 2.5f");
+		config_clean(&conf);
+	}
+	ft_printf("%s: END\n", __FUNCTION__);
+}
+
 
 void test_map_init(void)
 {
@@ -84,5 +159,6 @@ void test_map_init(void)
 	// test/maps/diamond_trailing_spaces.cub
 
 	test_player_direction();
+	test_player_pos();
 	ft_printf("%s: END\n", __FUNCTION__);
 }
