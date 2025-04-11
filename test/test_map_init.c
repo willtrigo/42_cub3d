@@ -6,10 +6,11 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:04:30 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/11 17:28:13 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:13:01 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_string.h"
 #include "infrastructure/config/config.h"
 #include "ft_stdio.h"
 #include "test_suite.h"
@@ -18,6 +19,7 @@
 
 void test_player_direction(void)
 {
+	// TODO: Ensure clean game on valid cases
 	ft_printf("\n%s: START\n", __FUNCTION__);
 	{
 		t_config_file	conf;
@@ -76,6 +78,7 @@ void test_player_direction(void)
 
 void test_player_pos(void)
 {
+	// TODO: Ensure clean game on valid cases
 	ft_printf("\n%s: START\n", __FUNCTION__);
 	{
 		t_config_file	conf;
@@ -148,6 +151,87 @@ void test_player_pos(void)
 	ft_printf("%s: END\n", __FUNCTION__);
 }
 
+void test_chart_trivial(void)
+{
+	ft_printf("\n%s: START\n", __FUNCTION__);
+	{
+		t_config_file	conf;
+		config_init(1,
+					(char *[]){ "./test/maps/trivial.cub", NULL},
+					&conf);
+		t_game game;
+		map_init(&game, &conf);
+		FT_TEST(game.chart.dimen.x == 5,
+				"when filename == \"./test/maps/trivial.cub\" "
+				"expected "
+				"game.chart.dimen.x == 5");
+		FT_TEST(game.chart.dimen.y == 5,
+				"when filename == \"./test/maps/trivial.cub\" "
+				"expected "
+				"game.chart.dimen.y == 5");
+		FT_TEST(ft_strncmp(game.chart.buffer,
+							"11111"
+							"10001"
+							"10001"
+							"10001"
+							"11111"
+							,(5 * 5) == 0),
+				"when filename == \"./test/maps/trivial.cub\" "
+				"expected "
+				"ft_strncmp(game.chart.buffer,"
+							"11111"
+							"10001"
+							"10001"
+							"10001"
+							"11111"
+							",(5 * 5) == 0)");
+		config_clean(&conf);
+		// game_clean(&game); // TODO: Ensure clean game on valid cases
+	}
+
+	ft_printf("%s: END\n", __FUNCTION__);
+}
+
+void test_chart_trivial_left_pad(void)
+{
+	ft_printf("\n%s: START\n", __FUNCTION__);
+	{
+		t_config_file	conf;
+		config_init(1,
+					(char *[]){ "./test/maps/trivial_left_pad.cub", NULL},
+					&conf);
+		t_game game;
+		map_init(&game, &conf);
+		FT_TEST(game.chart.dimen.x == 5,
+				"when filename == \"./test/maps/trivial_left_pad.cub\" "
+				"expected "
+				"game.chart.dimen.x == 5");
+		FT_TEST(game.chart.dimen.y == 5,
+				"when filename == \"./test/maps/trivial_left_pad.cub\" "
+				"expected "
+				"game.chart.dimen.y == 5");
+		FT_TEST(ft_strncmp(game.chart.buffer,
+							"11111"
+							"10001"
+							"10001"
+							"10001"
+							"11111"
+							,(5 * 5) == 0),
+				"when filename == \"./test/maps/trivial_left_pad.cub\" "
+				"expected "
+				"ft_strncmp(game.chart.buffer,"
+							"11111"
+							"10001"
+							"10001"
+							"10001"
+							"11111"
+							",(5 * 5) == 0)");
+		config_clean(&conf);
+		// game_clean(&game); // TODO: Ensure clean game on valid cases
+	}
+
+	ft_printf("%s: END\n", __FUNCTION__);
+}
 
 void test_map_init(void)
 {
@@ -160,5 +244,7 @@ void test_map_init(void)
 
 	test_player_direction();
 	test_player_pos();
+	test_chart_trivial();
+	test_chart_trivial_left_pad();
 	ft_printf("%s: END\n", __FUNCTION__);
 }
