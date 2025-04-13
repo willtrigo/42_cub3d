@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:41:04 by dande-je          #+#    #+#             */
-/*   Updated: 2025/03/12 02:50:56 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:49:36 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	render(t_game *game)
 	draw_background(game);
 	draw_level(game);
 	//draw_player(game);
-	draw_mini_map(game, 64, (t_vec2f){10.0f, 10.0f});
+	if (game->state.show_minimap)
+		draw_mini_map(game, 64, (t_vec2f){10.0f, 10.0f});
 }

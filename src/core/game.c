@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/03/08 16:37:21 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:55:04 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	game_loop(t_game *game)
 	t_posdir	update;
 
 	input = system_input_posdir(game);
+	system_input_state_switch(game);
 	/* printf("input: x: %.2f y: %.2f a: %.2f\n",\ */
 	/* 	input.pos.x, input.pos.y, input.dir); */
 	update = system_update_posdir(&game->player, &input, game->mlx->delta_time);

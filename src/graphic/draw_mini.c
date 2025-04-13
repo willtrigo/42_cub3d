@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:15:08 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/14 20:41:02 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:49:45 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,9 @@ void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
 
 	draw_mini_bg_entities(game, dimen_args);
 	draw_mini_player(game, player_args);
-	draw_mini_grid(game, dimen_args);
-	draw_mini_rays(game, player_args);
+	if (game->state.show_minimap == 2)
+	{
+		draw_mini_grid(game, dimen_args);
+		draw_mini_rays(game, player_args);
+	}
 }

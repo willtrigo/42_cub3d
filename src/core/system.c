@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/28 14:09:46 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/12 21:12:05 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ t_posdir	system_input_posdir(const t_game *game)
 	if (posdir.pos.y != 0 && posdir.pos.x != 0)
 		posdir.pos = vec2f_scale(posdir.pos, M_SQRT1_2);
 	return (posdir);
+}
+
+void	system_input_state_switch(t_game *game)
+{
+	if (game->state.time_since_last_update < 0.1)
+	{
+		game->state.time_since_last_update += game->mlx->delta_time;
+		return ;
+	}
+	if (mlx_is_key_down(game->mlx, MLX_KEY_M))
+	{
+		game->state.show_minimap++;
+		game->state.show_minimap %= 3;
+		game->state.time_since_last_update = 0.0;
+	}
 }
 
 t_posdir	system_update_posdir(

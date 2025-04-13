@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/11 16:58:29 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/12 21:08:21 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,19 @@ typedef struct s_context
 	t_color		floor;
 }	t_context;
 
+typedef struct s_state
+{
+	int show_minimap;
+	double time_since_last_update;
+}	t_state;
+
 typedef struct s_game
 {
 	t_context	ctx;
 	mlx_t		*mlx;
 	t_chart		chart;
 	t_player	player;
+	t_state		state;
 }	t_game;
 
 int		game_init(t_config_file *config, t_game *out_game);
