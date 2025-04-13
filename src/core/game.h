@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/12 21:08:21 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/13 20:24:00 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@
 #define ANGLE_WEST M_PI
 #define ANGLE_NORTH (3 * M_PI_2)
 
-typedef struct s_posdir
+typedef struct s_location
 {
 	t_vec2f	pos;
 	float	dir;
-}	t_posdir;
+}	t_location;
 
 // dir = angle in radians
 // fov = field of view in radians

@@ -6,18 +6,18 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/12 21:12:05 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/13 20:25:10 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.h"
 #include <math.h>
 
-t_posdir	system_input_posdir(const t_game *game)
+t_location	system_input_location(const t_game *game)
 {
-	t_posdir	posdir;
+	t_location	posdir;
 
-	posdir = (t_posdir){{0.0f, 0.0f}, 0.0f};
+	posdir = (t_location){{0.0f, 0.0f}, 0.0f};
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		posdir.dir -= 1.0f;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
@@ -52,10 +52,10 @@ void	system_input_state_switch(t_game *game)
 	}
 }
 
-t_posdir	system_update_posdir(
-	const t_player *player, const t_posdir *input, double delta_time)
+t_location	system_update_posdir(
+	const t_player *player, const t_location *input, double delta_time)
 {
-	t_posdir	update;
+	t_location	update;
 
 	update.dir = (input->dir * delta_time) + player->angle;
 	update.pos.x = ((cosf(update.dir) * input->pos.y \
@@ -67,7 +67,7 @@ t_posdir	system_update_posdir(
 	return (update);
 }
 
-void	system_colision_resolve(t_game *game, t_posdir *posdir)
+void	system_colision_resolve(t_game *game, t_location *posdir)
 {
 	// TODO: wall colision
 	// TODO: border colision based on 1/2 *player size variable instead of 0.25
@@ -81,7 +81,7 @@ void	system_colision_resolve(t_game *game, t_posdir *posdir)
 		posdir->pos.y = game->chart.dimen.y - 0.25f;
 }
 
-void	system_player_update(t_player *player, t_posdir *posdir)
+void	system_player_update(t_player *player, t_location *posdir)
 {
 	player->pos = posdir->pos;
 	player->angle = posdir->dir;

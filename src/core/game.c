@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/12 20:55:04 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/13 20:25:09 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 
 void	game_loop(t_game *game)
 {
-	t_posdir	input;
-	t_posdir	update;
+	t_location	input;
+	t_location	update;
 
-	input = system_input_posdir(game);
+	input = system_input_location(game);
 	system_input_state_switch(game);
 	/* printf("input: x: %.2f y: %.2f a: %.2f\n",\ */
 	/* 	input.pos.x, input.pos.y, input.dir); */
