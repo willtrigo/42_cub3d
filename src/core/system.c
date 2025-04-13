@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/13 20:25:10 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/13 20:32:28 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_location	system_input_location(const t_game *game)
 
 	posdir = (t_location){{0.0f, 0.0f}, 0.0f};
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		posdir.dir -= 1.0f;
+		posdir.angle -= 1.0f;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		posdir.dir += 1.0f;
+		posdir.angle += 1.0f;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		posdir.pos.y += 1.0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
@@ -57,13 +57,13 @@ t_location	system_update_posdir(
 {
 	t_location	update;
 
-	update.dir = (input->dir * delta_time) + player->angle;
-	update.pos.x = ((cosf(update.dir) * input->pos.y \
-						+ cosf(update.dir + M_PI_2) * input->pos.x) \
-					* delta_time) + player->pos.x;
-	update.pos.y = ((sinf(update.dir) * input->pos.y \
-						+ sinf(update.dir + M_PI_2) * input->pos.x) \
-					* delta_time) + player->pos.y;
+	update.angle = (input->angle * delta_time) + player->loc.angle;
+	update.pos.x = ((cosf(update.angle) * input->pos.y \
+						+ cosf(update.angle + M_PI_2) * input->pos.x) \
+					* delta_time) + player->loc.pos.x;
+	update.pos.y = ((sinf(update.angle) * input->pos.y \
+						+ sinf(update.angle + M_PI_2) * input->pos.x) \
+					* delta_time) + player->loc.pos.y;
 	return (update);
 }
 
@@ -81,8 +81,7 @@ void	system_colision_resolve(t_game *game, t_location *posdir)
 		posdir->pos.y = game->chart.dimen.y - 0.25f;
 }
 
-void	system_player_update(t_player *player, t_location *posdir)
+void	system_player_update(t_player *player, t_location *new_location)
 {
-	player->pos = posdir->pos;
-	player->angle = posdir->dir;
+	player->loc = *new_location;
 }

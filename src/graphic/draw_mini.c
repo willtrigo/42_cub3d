@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:15:08 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/12 20:49:45 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/13 20:36:20 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	draw_mini_player(t_game *game, t_mini_args m)
 		vec2f_add(vec2f_scalei(m.grid_pos, m.block_size), m.offset);
 	const t_vec2f	head_center = (t_vec2f){\
 		player_screen_pos_center.x \
-			+ (cosf(game->player.angle) * player_size / 2.0f), \
+			+ (cosf(game->player.loc.angle) * player_size / 2.0f), \
 		player_screen_pos_center.y \
-			+ (sinf(game->player.angle) * player_size / 2.0f)
+			+ (sinf(game->player.loc.angle) * player_size / 2.0f)
 	};
 	t_brush			brush;
 
@@ -75,7 +75,7 @@ void	draw_mini_player(t_game *game, t_mini_args m)
 		player_screen_pos_center, brush);
 	brush = (t_brush){.color = {0x0000FFFF}, player_size / 4};
 	draw_line_cs(game->ctx.canvas, player_screen_pos_center, \
-		(t_vec2f){player_size, game->player.angle}, brush);
+		(t_vec2f){player_size, game->player.loc.angle}, brush);
 	brush = (t_brush){{0x000000FF}, player_size / 4};
 	draw_square_cs(game->ctx.canvas, head_center, brush);
 }
@@ -193,7 +193,7 @@ void	draw_mini_fov(\
 	t_game *game, int block_size, t_vec2f offset, const t_camera *c)
 {
 	const t_vec2f	player_screen = \
-		grid_pos_to_screen_pos(game->player.pos, block_size, offset);
+		grid_pos_to_screen_pos(game->player.loc.pos, block_size, offset);
 	const t_vec2f	caml_screen = \
 		grid_pos_to_screen_pos(c->caml, block_size, offset);
 	const t_vec2f	camr_screen = \
@@ -227,7 +227,7 @@ void	draw_mini_rays(t_game *game, t_mini_args m)
 					   (t_brush){{0x000000FF}, m.block_size / 16});
 		player_to_camv_step = vec2f_sub(\
 				vec2f_add(c.caml, vec2f_scale(c.camv_step, i)), \
-				game->player.pos);
+				game->player.loc.pos);
 		angle = atan2(player_to_camv_step.y, player_to_camv_step.x);
 		draw_mini_ray(game, m, angle);
 		draw_mini_ray_dotgrid(game, m, angle);
@@ -237,7 +237,7 @@ void	draw_mini_rays(t_game *game, t_mini_args m)
 void	draw_mini_map(t_game *game, int block_size, t_vec2f offset)
 {
 	const t_mini_args	player_args = (t_mini_args){\
-		game->player.pos, block_size, offset};
+		game->player.loc.pos, block_size, offset};
 	const t_mini_args	dimen_args = (t_mini_args){\
 		vec2i_tof(game->chart.dimen), block_size, offset};
 
