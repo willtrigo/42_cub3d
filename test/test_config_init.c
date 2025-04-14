@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:25:21 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/28 00:29:37 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:09:21 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,44 @@ void test_config_init_valid_trivial_map(void)
 	config_clean(&conf);
 	ft_printf("%s: END\n", __FUNCTION__);
 }
+
+void test_config_init_valid_random_order(void)
+{
+	ft_printf("\n%s: START\n", __FUNCTION__);
+
+	{
+		t_config_file	conf;
+		int				result = \
+			config_init(1,
+						(char *[]){ "./test/maps/random_order.cub", NULL},
+						&conf);
+		FT_TEST(result == true,
+				"when argc == 1 and filename == \"./test/maps/random_order.cub\" "
+				"and the file exists expected return to be true");
+	}
+	{
+		t_config_file	conf;
+		int				result = \
+			config_init(1,
+						(char *[]){ "./test/maps/random_order_no_empty_lines.cub", NULL},
+						&conf);
+		FT_TEST(result == true,
+				"when argc == 1 and filename == \"./test/maps/random_order_no_empty_lines.cub\" "
+				"and the file exists expected return to be true");
+	}
+	{
+		t_config_file	conf;
+		int				result = \
+			config_init(1,
+						(char *[]){ "./test/maps/random_order_multiple_spaces.cub", NULL},
+						&conf);
+		FT_TEST(result == true,
+				"when argc == 1 and filename == \"./test/maps/random_order_multiple_spaces.cub\" "
+				"and the file exists expected return to be true");
+	}
+	ft_printf("%s: END\n", __FUNCTION__);
+}
+
 
 void test_config_init_invalid(void)
 {
@@ -271,6 +309,63 @@ void test_config_init_invalid(void)
 			"filename == \"./test/maps/invalid_empty.cub\" "
 			"and the file exists expected return to be false");
 	}
+
+	{
+		t_config_file	conf;
+		int				result = \
+			config_init(1, \
+						(char *[]){\
+							"./test/maps/invalid_duplicate_direction.cub", \
+							NULL}, \
+						&conf);
+		FT_TEST(result == false, \
+			"when argc == 1 and "
+			"filename == \"./test/maps/invalid_duplicate_direction.cub\" "
+			"and the file exists expected return to be false");
+	}
+
+	{
+		t_config_file	conf;
+		int				result = \
+			config_init(1,
+						(char *[]){ "./test/maps/invalid_map_line_before_map_section.cub", NULL},
+						&conf);
+		FT_TEST(result == false,
+				"when argc == 1 and filename == \"./test/maps/invalid_map_line_before_map_section.cub\" "
+				"and the file exists expected return to be false");
+	}
+
+	{
+		t_config_file	conf;
+		int				result = \
+			config_init(1,
+						(char *[]){ "./test/maps/invalid_direction_missing_north.cub", NULL},
+						&conf);
+		FT_TEST(result == false,
+				"when argc == 1 and filename == \"./test/maps/invalid_direction_missing_north.cub\" "
+				"and the file exists expected return to be false");
+	}
+	{
+		t_config_file	conf;
+		int				result = \
+			config_init(1,
+						(char *[]){ "./test/maps/invalid_color_missing_floor.cub", NULL},
+						&conf);
+		FT_TEST(result == false,
+				"when argc == 1 and filename == \"./test/maps/invalid_color_missing_floor.cub\" "
+				"and the file exists expected return to be false");
+	}
+	{
+		t_config_file	conf;
+		int				result = \
+			config_init(1,
+						(char *[]){ "./test/maps/invalid_map_before_elements.cub", NULL},
+						&conf);
+		FT_TEST(result == false,
+				"when argc == 1 and filename == \"./test/maps/invalid_map_before_elements.cub\" "
+				"and the file exists expected return to be false");
+	}
+
 	ft_printf("%s: END", __FUNCTION__);
 
 }
@@ -281,5 +376,6 @@ void test_config_init(void)
 	ft_printf("\n%s: START", __FUNCTION__);
 	test_config_init_invalid();
 	test_config_init_valid_trivial_map();
+	test_config_init_valid_random_order();
 	ft_printf("%s: END\n", __FUNCTION__);
 }

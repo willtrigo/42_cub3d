@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:13:44 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/11 21:54:46 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/13 20:36:53 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ void	draw_level_col(t_game *game, float ray_angle, int pixel_x)
 	float			distance;
 	float			wall_height_screen;
 
-	entity = grid_ray_wall(&game->chart, game->player.pos, ray_angle);
+	entity = grid_ray_wall(&game->chart, game->player.loc.pos, ray_angle);
 	if (entity.type == '1')
 	{
-		diff = vec2f_sub(entity.pos, game->player.pos);
+		diff = vec2f_sub(entity.pos, game->player.loc.pos);
 		distance = fabs(vec2f_dot_product(\
-			vec2f_unit_vector(game->player.angle), diff));
+			vec2f_unit_vector(game->player.loc.angle), diff));
 		wall_height_screen = (game->ctx.window.height * 0.7f) / distance;
 		draw_entity_col(game, &entity, pixel_x, wall_height_screen);
 	}
@@ -78,7 +78,7 @@ void	draw_level(t_game *game)
 	{
 		player_to_camv_step = vec2f_sub(\
 				vec2f_add(c.caml, vec2f_scale(c.camv_step, i)), \
-				game->player.pos);
+				game->player.loc.pos);
 		angle = atan2(player_to_camv_step.y, player_to_camv_step.x);
 		draw_level_col(game, angle, i);
 	}

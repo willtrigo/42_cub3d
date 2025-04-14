@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/03/06 18:28:42 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/13 20:30:40 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,28 @@
 # include "infrastructure/config/config.h"
 # include "utils/color.h"
 # include "utils/vec2.h"
+# include <math.h>
 
 # define DEFAULT_WIDTH 1920
 # define DEFAULT_HEIGHT 955
 
-typedef struct s_posdir
+
+#define ANGLE_EAST 0
+#define ANGLE_SOUTH M_PI_2
+#define ANGLE_WEST M_PI
+#define ANGLE_NORTH (3 * M_PI_2)
+
+typedef struct s_location
 {
 	t_vec2f	pos;
-	float	dir;
-}	t_posdir;
+	float	angle;
+}	t_location;
 
 // dir = angle in radians
 // fov = field of view in radians
 typedef struct s_player
 {
-	t_vec2f	pos;
-	float	angle;
+	t_location loc;
 	float	fov;
 }	t_player;
 
@@ -66,12 +72,19 @@ typedef struct s_context
 	t_color		floor;
 }	t_context;
 
+typedef struct s_state
+{
+	int show_minimap;
+	double time_since_last_update;
+}	t_state;
+
 typedef struct s_game
 {
 	t_context	ctx;
 	mlx_t		*mlx;
 	t_chart		chart;
 	t_player	player;
+	t_state		state;
 }	t_game;
 
 int		game_init(t_config_file *config, t_game *out_game);
