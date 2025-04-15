@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:24 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 13:18:39 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/15 13:04:28 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,7 @@ bool	parse_file(char *filename, t_config_file *config)
 	fd = open(filename, O_RDONLY, CHMOD_PERMISSION);
 	if (fd == FD_FAIL)
 		return (logerr_ret("could not read config file", false));
-	if (!parse_textures(fd, config))
-		return (clean_parse(config, fd, false));
-	if (!jump_empty_line(fd))
-		return (clean_parse(config, fd, false));
-	if (!parse_colors(fd, config))
+	if (!parse_textures_colors(fd, config))
 		return (clean_parse(config, fd, false));
 	if (!jump_empty_line(fd))
 		return (clean_parse(config, fd, false));

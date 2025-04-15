@@ -6,45 +6,15 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:32:06 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 13:16:27 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/15 13:04:46 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ctype.h"
-#include "ft_memlib.h"
 #include "ft_string.h"
-#include "get_next_line.h"
 #include "infrastructure/config/config.h"
 #include "infrastructure/config/parse/parse_internal.h"
-#include "utils/ft_extensions.h"
 #include "utils/output.h"
-
-bool	parse_textures(int fd, t_config_file *config)
-{
-	char	*ln;
-	bool	is_tex_set[TOTAL_TEXTURE];
-
-	ft_bzero(is_tex_set, sizeof(is_tex_set));
-	while (!is_tex_set[TEXTURE_NO] || !is_tex_set[TEXTURE_EA] \
-		|| !is_tex_set[TEXTURE_SO] || !is_tex_set[TEXTURE_WE])
-	{
-		ln = ft_chomp(get_next_line(fd));
-		if (!ln)
-			return (logerr_ret("invalid file format", false));
-		if (ft_is_blank(ln))
-		{
-			free(ln);
-			break ;
-		}
-		if (!check_texture(ln, config, is_tex_set))
-			return (ft_free_retvalue(ln, false));
-		free(ln);
-	}
-	if (!is_tex_set[TEXTURE_NO] || !is_tex_set[TEXTURE_EA] \
-		|| !is_tex_set[TEXTURE_SO] || !is_tex_set[TEXTURE_WE])
-		return (logerr_ret("invalid set of texture", false));
-	return (true);
-}
 
 bool	check_texture(char *tex_ln, t_config_file *config, bool *is_tex_set)
 {

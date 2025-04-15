@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/04/11 17:07:08 by maurodri         ###   ########.fr        #
+#    Updated: 2025/04/15 13:05:18 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,8 @@ SRCS_FILES                      += $(addprefix $(SRCS_ARGS_DIR), invalid_args.c 
 SRCS_FILES                      += $(addprefix $(SRCS_PARSE_DIR), parse_color.c \
 								   parse_file.c \
 								   parse_map.c \
-								   parse_texture.c)
+								   parse_texture.c \
+								   parse_textures_colors.c)
 SRCS_FILES                      += $(addprefix $(SRCS_UTILS_DIR), color.c \
 								   ft_extensions.c \
 								   vec2.c \
