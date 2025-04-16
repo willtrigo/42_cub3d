@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 20:24:50 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/15 21:33:32 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/15 22:17:50 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(void)
 	test_parse_color();
 	test_is_valid_args();
 	test_config_init();
-	/* test_map_init(); */
+	test_map_init();
 	ft_printf("\n");
 	return (0);
 }
