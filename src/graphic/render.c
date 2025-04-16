@@ -6,12 +6,13 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:41:04 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/16 06:49:30 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/16 07:27:55 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "graphic/render.h"
 #include "core/game.h"
+#include "graphic/camera.h"
 #include "graphic/draw_primitive.h"
 #include "graphic/grid.h"
 #include "utils/vec2.h"
@@ -61,10 +62,10 @@ void	draw_entities(t_game *game)
 		if (bullet_dist < wall_dist)
 		{
 			printf("is visible\n");
-			int px_x = ((cosf(game->player.fov * 0.5f) * bullet.x / bullet.y) * (game->ctx.window.width)) + (0.5 * game->ctx.window.width);
-
+			int px_x = ((cosf(game->player.fov * 0.5f) * bullet.x / bullet.y) * (game->ctx.window.width * 0.6) + (0.5 * game->ctx.window.width));
+			printf("px_x: %d\n", px_x);
 			draw_circle_cs(game->ctx.canvas,
-						   (t_vec2f){px_x, game->ctx.window.height * 0.5f}, (t_brush) {0xFFFFFFFF, 4.0 / bullet.y});
+						   (t_vec2f){px_x, game->ctx.window.height * 0.5f}, (t_brush) {0xFFFFFFFF, 8.0 / bullet.y});
 		}
 	}
 }
