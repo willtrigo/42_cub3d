@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:25:21 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/15 21:24:41 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/15 22:04:20 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,22 +223,6 @@ void test_config_init_invalid(void)
 		FT_TEST(result == false, \
 			"when argc == 1 and "
 			"filename == \"./test/maps/invalid_non_blank_fst_separator.cub\" "
-			"and the file exists expected return to be false");
-		if (result)
-			config_clean(&conf);
-	}
-
-	{
-		t_config_file	conf;
-		int				result = \
-			config_init(1, \
-						(char *[]){\
-							"./test/maps/invalid_non_blank_snd_separator.cub", \
-							NULL}, \
-						&conf);
-		FT_TEST(result == false, \
-			"when argc == 1 and "
-			"filename == \"./test/maps/invalid_non_blank_snd_separator.cub\" "
 			"and the file exists expected return to be false");
 		if (result)
 			config_clean(&conf);

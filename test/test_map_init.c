@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:04:30 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/15 19:37:04 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/15 22:16:00 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,27 @@
 #include "test_suite.h"
 #include "core/game.h"
 #include "core/game_init_internal.h"
+
+void test_invalid_mapline()
+{
+	ft_printf("\n%s: START\n", __FUNCTION__);
+	{
+		t_config_file	conf;
+		config_init(1, \
+					(char *[]){\
+						"./test/maps/invalid_non_blank_snd_separator.cub", \
+						NULL}, \
+					&conf);
+		t_game game;
+		int result = map_init(&game, &conf);
+		FT_TEST(result == false,
+				"when filename == \"./test/maps/invalid_non_blank_snd_separator.cub\" "
+				"expected "
+				"result == false");
+		config_clean(&conf);
+	}
+	ft_printf("%s: END\n", __FUNCTION__);
+}
 
 void test_player_direction(void)
 {
@@ -242,6 +263,7 @@ void test_map_init(void)
 	// test/maps/diamond_leftpad.cub
 	// test/maps/diamond_trailing_spaces.cub
 
+	test_invalid_mapline();
 	test_player_direction();
 	test_player_pos();
 	test_chart_trivial();
