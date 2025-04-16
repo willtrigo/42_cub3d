@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/13 20:30:40 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:21:15 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@
 
 # define DEFAULT_WIDTH 1920
 # define DEFAULT_HEIGHT 955
-
-
-#define ANGLE_EAST 0
-#define ANGLE_SOUTH M_PI_2
-#define ANGLE_WEST M_PI
-#define ANGLE_NORTH (3 * M_PI_2)
+# define ANGLE_EAST 0
+# define ANGLE_SOUTH M_PI_2
+# define ANGLE_WEST M_PI
+# define ANGLE_NORTH (3 * M_PI_2)
 
 typedef struct s_location
 {
@@ -38,8 +36,8 @@ typedef struct s_location
 // fov = field of view in radians
 typedef struct s_player
 {
-	t_location loc;
-	float	fov;
+	t_location	loc;
+	float		fov;
 }	t_player;
 
 typedef struct s_chart
@@ -74,8 +72,8 @@ typedef struct s_context
 
 typedef struct s_state
 {
-	int show_minimap;
-	double time_since_last_update;
+	int		show_minimap;
+	double	time_since_last_update;
 }	t_state;
 
 typedef struct s_game
