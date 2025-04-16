@@ -6,11 +6,12 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:51:36 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/15 22:22:27 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/16 02:07:23 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game_init_internal.h"
+#include "core/game.h"
 #include "ft_memlib.h"
 #include "utils/output.h"
 
@@ -40,7 +41,8 @@ void	canvas_clean(mlx_t *mlx, mlx_image_t *canvas)
 bool	map_init(t_game *game, t_config_file *config)
 {
 	// TODO:
-	ft_bzero(game, sizeof(t_game));
+	ft_bzero(&game->player, sizeof(t_player));
+	ft_bzero(&game->chart, sizeof(t_player));
 	(void) game;
 	(void) config;
 	return (true);
