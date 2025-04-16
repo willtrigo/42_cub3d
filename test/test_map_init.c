@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:04:30 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/15 22:16:00 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/15 22:46:32 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,23 @@ void test_invalid_mapline()
 	ft_printf("\n%s: START\n", __FUNCTION__);
 	{
 		t_config_file	conf;
-		config_init(1, \
+		int res_config = config_init(1, \
 					(char *[]){\
 						"./test/maps/invalid_non_blank_snd_separator.cub", \
 						NULL}, \
 					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/invalid_non_blank_snd_separator.cub\" "
+				"expected "
+				"res_config == true");
 		t_game game;
 		int result = map_init(&game, &conf);
 		FT_TEST(result == false,
 				"when filename == \"./test/maps/invalid_non_blank_snd_separator.cub\" "
 				"expected "
 				"result == false");
-		config_clean(&conf);
+		if (res_config)
+			config_clean(&conf);
 	}
 	ft_printf("%s: END\n", __FUNCTION__);
 }
@@ -44,55 +49,75 @@ void test_player_direction(void)
 	ft_printf("\n%s: START\n", __FUNCTION__);
 	{
 		t_config_file	conf;
-		config_init(1,
+		int res_config = config_init(1,
 					(char *[]){ "./test/maps/trivial_player_north.cub", NULL},
 					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/trivial_player_north.cub\" "
+				"expected "
+				"res_config == true");
 		t_game game;
 		map_init(&game, &conf);
 		FT_TEST(game.player.loc.angle - ANGLE_NORTH < 0.0001,
 				"when filename == \"./test/maps/trivial_player_north.cub\" "
 				"expected "
 				"game.player.loc.angle == ANGLE_NORTH");
-		config_clean(&conf);
+		if (res_config)
+			config_clean(&conf);
 	}
 	{
 		t_config_file	conf;
-		config_init(1,
+		int res_config = config_init(1,
 					(char *[]){ "./test/maps/trivial_player_east.cub", NULL},
 					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/trivial_player_east.cub\" "
+				"expected "
+				"res_config == true");
 		t_game game;
 		map_init(&game, &conf);
 		FT_TEST(game.player.loc.angle - ANGLE_EAST < 0.0001,
 				"when filename == \"./test/maps/trivial_player_east.cub\" "
 				"expected "
 				"game.player.loc.angle == ANGLE_EAST");
-		config_clean(&conf);
+		if (res_config)
+			config_clean(&conf);
 	}
 	{
 		t_config_file	conf;
-		config_init(1,
+		int res_config = config_init(1,
 					(char *[]){ "./test/maps/trivial_player_south.cub", NULL},
 					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/trivial_player_south.cub\" "
+				"expected "
+				"res_config == true");
 		t_game game;
 		map_init(&game, &conf);
 		FT_TEST(game.player.loc.angle - ANGLE_SOUTH < 0.0001,
 				"when filename == \"./test/maps/trivial_player_south.cub\" "
 				"expected "
 				"game.player.loc.angle == ANGLE_SOUTH");
-		config_clean(&conf);
+		if (res_config)
+			config_clean(&conf);
 	}
 	{
 		t_config_file	conf;
-		config_init(1,
+		int res_config = config_init(1,
 					(char *[]){ "./test/maps/trivial_player_west.cub", NULL},
 					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/trivial_player_west.cub\" "
+				"expected "
+				"res_config == true");
 		t_game game;
 		map_init(&game, &conf);
 		FT_TEST(game.player.loc.angle - ANGLE_WEST < 0.0001,
 				"when filename == \"./test/maps/trivial_player_west.cub\" "
 				"expected "
 				"game.player.loc.angle == ANGLE_WEST");
-		config_clean(&conf);
+		if (res_config)
+			config_clean(&conf);
 	}
 	ft_printf("%s: END\n", __FUNCTION__);
 }
@@ -103,9 +128,13 @@ void test_player_pos(void)
 	ft_printf("\n%s: START\n", __FUNCTION__);
 	{
 		t_config_file	conf;
-		config_init(1,
+		int res_config = config_init(1,
 					(char *[]){ "./test/maps/trivial_player_pos_1_1.cub", NULL},
 					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/trivial_player_pos_1_1.cub\" "
+				"expected "
+				"res_config == true");
 		t_game game;
 		map_init(&game, &conf);
 		FT_TEST(game.player.loc.pos.x == 1.5f,
@@ -116,13 +145,18 @@ void test_player_pos(void)
 				"when filename == \"./test/maps/trivial_player_pos_1_1.cub\" "
 				"expected "
 				"game.player.loc.pos.y == 1.5f");
-		config_clean(&conf);
+		if (res_config)
+			config_clean(&conf);
 	}
 	{
 		t_config_file	conf;
-		config_init(1,
+		int res_config =  config_init(1,
 					(char *[]){ "./test/maps/trivial_player_pos_1_2.cub", NULL},
 					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/trivial_player_pos_1_2.cub\" "
+				"expected "
+				"res_config == true");
 		t_game game;
 		map_init(&game, &conf);
 		FT_TEST(game.player.loc.pos.x == 1.5f,
@@ -133,13 +167,18 @@ void test_player_pos(void)
 				"when filename == \"./test/maps/trivial_player_pos_1_2.cub\" "
 				"expected "
 				"game.player.loc.pos.y == 2.5f");
-		config_clean(&conf);
+		if (res_config)
+			config_clean(&conf);
 	}
 	{
 		t_config_file	conf;
-		config_init(1,
+		int res_config = config_init(1,
 					(char *[]){ "./test/maps/trivial_player_pos_2_1.cub", NULL},
 					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/trivial_player_pos_2_1.cub\" "
+				"expected "
+				"res_config == true");
 		t_game game;
 		map_init(&game, &conf);
 		FT_TEST(game.player.loc.pos.x == 2.5f,
@@ -150,13 +189,18 @@ void test_player_pos(void)
 				"when filename == \"./test/maps/trivial_player_pos_2_1.cub\" "
 				"expected "
 				"game.player.loc.pos.y == 1.5f");
-		config_clean(&conf);
+		if (res_config)
+			config_clean(&conf);
 	}
 	{
 		t_config_file	conf;
-		config_init(1,
+		int res_config =  config_init(1,
 					(char *[]){ "./test/maps/trivial_player_pos_2_2.cub", NULL},
 					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/trivial_player_pos_2_2.cub\" "
+				"expected "
+				"res_config == true");
 		t_game game;
 		map_init(&game, &conf);
 		FT_TEST(game.player.loc.pos.x == 2.5f,
@@ -167,7 +211,8 @@ void test_player_pos(void)
 				"when filename == \"./test/maps/trivial_player_pos_2_2.cub\" "
 				"expected "
 				"game.player.loc.pos.y == 2.5f");
-		config_clean(&conf);
+		if (res_config)
+			config_clean(&conf);
 	}
 	ft_printf("%s: END\n", __FUNCTION__);
 }
@@ -177,9 +222,13 @@ void test_chart_trivial(void)
 	ft_printf("\n%s: START\n", __FUNCTION__);
 	{
 		t_config_file	conf;
-		config_init(1,
+		int res_config = config_init(1,
 					(char *[]){ "./test/maps/trivial.cub", NULL},
 					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/trivial.cub\" "
+				"expected "
+				"res_config == true");
 		t_game game;
 		map_init(&game, &conf);
 		FT_TEST(game.chart.dimen.x == 5,
@@ -206,7 +255,8 @@ void test_chart_trivial(void)
 							"10001"
 							"11111"
 							",(5 * 5) == 0)");
-		config_clean(&conf);
+		if (res_config)
+			config_clean(&conf);
 		// game_clean(&game); // TODO: Ensure clean game on valid cases
 	}
 
@@ -218,9 +268,13 @@ void test_chart_trivial_left_pad(void)
 	ft_printf("\n%s: START\n", __FUNCTION__);
 	{
 		t_config_file	conf;
-		config_init(1,
+		int res_config = config_init(1,
 					(char *[]){ "./test/maps/trivial_left_pad.cub", NULL},
 					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/trivial_left_pad.cub\" "
+				"expected "
+				"res_config == true");
 		t_game game;
 		map_init(&game, &conf);
 		FT_TEST(game.chart.dimen.x == 5,
@@ -247,7 +301,8 @@ void test_chart_trivial_left_pad(void)
 							"10001"
 							"11111"
 							",(5 * 5) == 0)");
-		config_clean(&conf);
+		if (res_config)
+			config_clean(&conf);
 		// game_clean(&game); // TODO: Ensure clean game on valid cases
 	}
 
