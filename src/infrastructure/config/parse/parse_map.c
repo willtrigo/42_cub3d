@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:05:16 by dande-je          #+#    #+#             */
-/*   Updated: 2025/02/28 13:16:33 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:53:00 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,17 @@ bool	parse_map(int fd, t_config_file *config)
 {
 	char	*ln;
 
-	config->map = ft_arraylist_new((t_consumer)free);
 	ln = ft_chomp(get_next_line(fd));
 	if (!ln)
 		return (logerr_ret("invalid file format", false));
+	while (ft_is_blank(ln))
+	{
+		free(ln);
+		ln = ft_chomp(get_next_line(fd));
+		if (!ln)
+			return (logerr_ret("invalid file format", false));
+	}
+	config->map = ft_arraylist_new((t_consumer)free);
 	while (ln)
 	{
 		config->map = ft_arraylist_add(config->map, ln);

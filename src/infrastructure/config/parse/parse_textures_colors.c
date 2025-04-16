@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_texture_color.c                              :+:      :+:    :+:   */
+/*   parse_textures_colors.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 11:32:28 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/15 13:02:51 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:11:03 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	parse_textures_colors(int fd, t_config_file *config)
 			return (ft_free_retvalue(ln, false));
 		else if (*ln == 'C' && !check_color(ln, &config->ceil, is_clr_set))
 			return (ft_free_retvalue(ln, false));
-		else if (!(*ln == 'F' || *ln == 'C') \
+		else if (!(*ln == 'F' || *ln == 'C')
 			&& !check_texture(ln, config, is_tex_set))
 			return (ft_free_retvalue(ln, false));
 		free(ln);
@@ -50,8 +50,8 @@ bool	parse_textures_colors(int fd, t_config_file *config)
 
 bool	is_set_textures_colors(bool *is_tex_set, bool *is_clr_set)
 {
-	if (is_tex_set[TEXTURE_NO] && is_tex_set[TEXTURE_EA] \
-		&& is_tex_set[TEXTURE_SO] && is_tex_set[TEXTURE_WE] \
+	if (is_tex_set[TEXTURE_NO] && is_tex_set[TEXTURE_EA]
+		&& is_tex_set[TEXTURE_SO] && is_tex_set[TEXTURE_WE]
 		&& is_clr_set[COLOR_F] && is_clr_set[COLOR_C])
 		return (true);
 	return (false);
