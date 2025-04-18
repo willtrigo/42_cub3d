@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:51:36 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/16 16:29:08 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/04/17 11:38:32 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void	canvas_clean(mlx_t *mlx, mlx_image_t *canvas)
 		mlx_delete_image(mlx, canvas);
 }
 
-// TODO:
 bool	map_init(t_game *game, t_config_file *config)
 {
 	ft_bzero(&game->player, sizeof(t_player));
-	ft_bzero(&game->chart, sizeof(t_player));
+	ft_bzero(&game->chart, sizeof(t_chart));
+	
 	(void) game;
 	(void) config;
 	return (true);
