@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:51:18 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/16 07:26:06 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 00:56:07 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	draw_circle_cs( \
 		while (++i.x < bottom_right_square.x)
 		{
 			if (i.x < 0.0f || i.y < 0.0f \
-				|| i.x > canvas->width || i.y > canvas->height)
+				|| (uint32_t)i.x >= canvas->width
+				|| (uint32_t)i.y >= canvas->height)
 				continue ;
 			(void)"(x - a)^2 + (y - b)^2 < r^2";
 			sum_squares = ((i.x - center.x) * (i.x - center.x)) \

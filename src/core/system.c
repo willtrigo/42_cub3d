@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/18 01:11:39 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:15:19 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	system_input_state_switch(t_game *game)
 		game->bullet.is_alive = 1;
 		game->bullet.loc = game->player.loc;
 		game->bullet.velocity = 2.0f;
+		game->bullet.size = 8.0f;
 		game->state.time_since_last_update = 0.0;
 	}
 }

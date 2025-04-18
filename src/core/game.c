@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/14 15:30:13 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 00:43:04 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,9 @@ void	system_entities_move(t_game *game)
 	new_location = location_move(&game->bullet.loc, \
 		game->bullet.velocity, game->mlx->delta_time);
 	scene_entity = chart_entity(&game->chart, new_location.pos);
-	printf("bullet angle %.2f, x %.2f, y %.2f\n", game->bullet.loc.angle, game->bullet.loc.pos.x, game->bullet.loc.pos.y);
-	printf("player angle %.2f, x %.2f, y %.2f\n", game->player.loc.angle, game->player.loc.pos.x, game->player.loc.pos.y);
-	/* printf("new_location angle %.2f, x %.2f, y %.2f\n", new_location.angle, new_location.pos.x, new_location.pos.y); */
 	if (scene_entity == '1')
 	{
 		game->bullet.is_alive = 0;
-		printf("\n");
 	}
 	else
 		game->bullet.loc = new_location;
@@ -59,15 +55,11 @@ void	game_loop(t_game *game)
 
 	input = system_input_location(game);
 	system_input_state_switch(game);
-	/* printf("input: x: %.2f y: %.2f a: %.2f\n",\ */
-	/* 	input.pos.x, input.pos.y, input.dir); */
 	update = system_player_location_update(\
 		&game->player, &input, game->mlx->delta_time);
 	system_entities_move(game);
 	system_colision_resolve(game, &update);
 	system_player_location_set(&game->player, &update);
-	/* printf("player_update: x: %.2f y: %.2f a: %.2f\n", \ */
-	/* 	game->player.pos.x, game->player.pos.y, game->player.angle); */
 	render(game);
 }
 

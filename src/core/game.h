@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/18 01:11:13 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:15:06 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_bullet
 	t_location	loc;
 	float		velocity;
 	int			is_alive;
+	int			size;
 } t_bullet;
 
 typedef struct s_game
