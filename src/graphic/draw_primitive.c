@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:51:18 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/14 20:28:03 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:25:10 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ void	draw_circle_cs( \
 		i.x = top_left_square.x - 1;
 		while (++i.x < bottom_right_square.x)
 		{
-			if (i.x < 0.0f || i.y < 0.0f)
+			if (i.x < 0.0f || i.y < 0.0f \
+				|| (uint32_t)i.x >= canvas->width
+				|| (uint32_t)i.y >= canvas->height)
 				continue ;
 			(void)"(x - a)^2 + (y - b)^2 < r^2";
 			sum_squares = ((i.x - center.x) * (i.x - center.x)) \
 						+ ((i.y - center.y) * (i.y - center.y));
-			if (sum_squares < r2 )
+			if (sum_squares < r2)
 				mlx_put_pixel(canvas, i.x, i.y, brush.color.value);
 		}
 	}

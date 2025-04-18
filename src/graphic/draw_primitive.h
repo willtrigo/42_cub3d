@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:51:47 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/14 20:15:27 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:21:20 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 typedef struct s_brush
 {
-	t_color color;
+	t_color	color;
 	int		size;
 }	t_brush;
 
