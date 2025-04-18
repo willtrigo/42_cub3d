@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/18 01:15:19 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:27:45 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ t_location	system_player_location_update(
 		"and player has axis based on his angle in map(forward, back, ...)"
 		"so we need to change input base changing its axis so that"
 		"input up goes forward in player angle";
-	update.pos.x = ((cosf(update.angle) * input->pos.y				  \
+	update.pos.x = ((cosf(update.angle) * input->pos.y \
 						+ cosf(update.angle + M_PI_2) * input->pos.x) \
 					* delta_time) + player->loc.pos.x;
 	update.pos.y = ((sinf(update.angle) * input->pos.y \
 						+ sinf(update.angle + M_PI_2) * input->pos.x) \
 					* delta_time) + player->loc.pos.y;
 	if (update.angle > 2 * M_PI)
-		update.angle -=  2 * M_PI;
+		update.angle -= 2 * M_PI;
 	else if (update.angle < 0)
 		update.angle += 2 * M_PI;
 	return (update);

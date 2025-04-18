@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 00:31:32 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/18 00:56:06 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:25:01 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 t_location	location_in_player_perspective(\
 	const t_location *grid_location, const t_player *player)
 {
-	t_location relative;
+	t_location	relative;
+
 	relative.pos = vec2f_sub(grid_location->pos, player->loc.pos);
 	relative.angle = atan2(relative.pos.y, relative.pos.x) \
 						- player->loc.angle;
@@ -33,20 +34,21 @@ bool	location_is_in_field_of_view(\
 	const t_location *player_relative_location, const t_player *player)
 {
 	return ((-0.5 * player->fov) <= player_relative_location->angle
-			&& player_relative_location->angle < (0.5 * player->fov));
+		&& player_relative_location->angle < (0.5 * player->fov));
 }
 
 float	distance_if_visible(\
 	const t_location *p_relative, const t_player *player, const t_chart *chart)
 {
-	const t_grid_entity wall = grid_ray_wall(chart, \
+	const t_grid_entity	wall = grid_ray_wall(chart, \
 			player->loc.pos, p_relative->angle + player->loc.angle);
-	const float wall_dist = fabs(vec2f_dot_product(\
+	const float			wall_dist = fabs(vec2f_dot_product(\
 		vec2f_unit_vector(p_relative->angle + player->loc.angle), \
 		vec2f_sub(wall.pos, player->loc.pos)));
-	const float entity_dist = fabs(vec2f_dot_product(\
+	const float			entity_dist = fabs(vec2f_dot_product(\
 			vec2f_unit_vector(p_relative->angle + player->loc.angle), \
 			p_relative->pos));
+
 	if (entity_dist > wall_dist)
 	{
 		(void) "there is a wall blocking view";
@@ -90,5 +92,5 @@ void	draw_entities(t_game *game)
 	screen_pos = screen_pos_from_cam_relative(\
 		&cam_relative, game->player.fov, &game->ctx.window);
 	draw_circle_cs(game->ctx.canvas, screen_pos, \
-				   (t_brush){{0xFFFFFFFF}, game->bullet.size / cam_relative.y});
+		(t_brush){{0xFFFFFFFF}, game->bullet.size / cam_relative.y});
 }

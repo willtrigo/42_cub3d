@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/18 00:43:04 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:27:07 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,23 @@
 #include "utils/vec2.h"
 #include <stdio.h>
 
-t_location location_move(\
+t_location	location_move(\
 	const t_location *old_location, float velocity, float delta_time)
 {
 	const t_vec2f	movement_vec = vec2f_scale(\
 		vec2f_unit_vector(old_location->angle), velocity * delta_time);
-	/* printf("movement %.2f %.2f\n", movement_vec.x, movement_vec.y); */
-	return (t_location){
+
+	return ((t_location){
 		.pos = vec2f_add(movement_vec, old_location->pos),
 		.angle = old_location->angle
-	};
+	});
 }
 
 void	system_entities_move(t_game *game)
 {
 	char		scene_entity;
 	t_location	new_location;
+
 	if (!game->bullet.is_alive)
 		return ;
 	new_location = location_move(&game->bullet.loc, \

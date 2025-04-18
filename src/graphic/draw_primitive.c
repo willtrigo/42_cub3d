@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:51:18 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/18 00:56:07 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:25:10 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_circle_cs( \
 			(void)"(x - a)^2 + (y - b)^2 < r^2";
 			sum_squares = ((i.x - center.x) * (i.x - center.x)) \
 						+ ((i.y - center.y) * (i.y - center.y));
-			if (sum_squares < r2 )
+			if (sum_squares < r2)
 				mlx_put_pixel(canvas, i.x, i.y, brush.color.value);
 		}
 	}

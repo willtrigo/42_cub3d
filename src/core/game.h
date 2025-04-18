@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/18 01:15:06 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:34:05 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define ANGLE_EAST 0
 # define ANGLE_SOUTH M_PI_2
 # define ANGLE_WEST M_PI
-# define ANGLE_NORTH (3 * M_PI_2)
+# define ANGLE_NORTH 4.7123889804
 
 typedef struct s_location
 {
@@ -82,7 +82,7 @@ typedef struct s_bullet
 	float		velocity;
 	int			is_alive;
 	int			size;
-} t_bullet;
+}	t_bullet;
 
 typedef struct s_game
 {

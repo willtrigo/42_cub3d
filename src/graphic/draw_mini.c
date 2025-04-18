@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:15:08 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/13 20:36:20 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:23:51 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	draw_mini_ray(t_game *game, t_mini_args m, float angle)
 			break ;
 		else if (entity == '0')
 			draw_square_cs(game->ctx.canvas, screen_pos \
-						   , (t_brush){{0x000000FF}, 1});
+				, (t_brush){{0x000000FF}, 1});
 		screen_pos = (t_vec2f){screen_pos.x + cosf(angle), \
 			screen_pos.y + sinf(angle)};
 		grid_pos = vec2f_scale(\
@@ -161,7 +161,7 @@ int	draw_mini_ray_dotgrid_entity(
 		wall_color.b = ((entity->direction == WEST) \
 			|| (entity->direction == SOUTH)) * 255;
 		wall_color.g = (entity->direction == SOUTH) * 200;
-		draw_square_cs(game->ctx.canvas, screen_pos, (t_brush){ wall_color, m.block_size / 8});
+		draw_square_cs(game->ctx.canvas, screen_pos, (t_brush){wall_color, m.block_size / 8});
 		return (1);
 	}
 	else if (entity->type == '0')
@@ -224,7 +224,7 @@ void	draw_mini_rays(t_game *game, t_mini_args m)
 			grid_pos_to_screen_pos(\
 				vec2f_add(c.caml, vec2f_scale(c.camv_step, i)), \
 				m.block_size, m.offset), \
-					   (t_brush){{0x000000FF}, m.block_size / 16});
+					(t_brush){{0x000000FF}, m.block_size / 16});
 		player_to_camv_step = vec2f_sub(\
 				vec2f_add(c.caml, vec2f_scale(c.camv_step, i)), \
 				game->player.loc.pos);
