@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/13 20:40:55 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:30:13 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,41 @@
 #include "texture.h"
 #include "game_init_internal.h"
 #include "system.h"
-#include "utils/output.h"
+#include "utils/vec2.h"
 #include <stdio.h>
+
+t_location location_move(\
+	const t_location *old_location, float velocity, float delta_time)
+{
+	const t_vec2f	movement_vec = vec2f_scale(\
+		vec2f_unit_vector(old_location->angle), velocity * delta_time);
+	/* printf("movement %.2f %.2f\n", movement_vec.x, movement_vec.y); */
+	return (t_location){
+		.pos = vec2f_add(movement_vec, old_location->pos),
+		.angle = old_location->angle
+	};
+}
+
+void	system_entities_move(t_game *game)
+{
+	char		scene_entity;
+	t_location	new_location;
+	if (!game->bullet.is_alive)
+		return ;
+	new_location = location_move(&game->bullet.loc, \
+		game->bullet.velocity, game->mlx->delta_time);
+	scene_entity = chart_entity(&game->chart, new_location.pos);
+	printf("bullet angle %.2f, x %.2f, y %.2f\n", game->bullet.loc.angle, game->bullet.loc.pos.x, game->bullet.loc.pos.y);
+	printf("player angle %.2f, x %.2f, y %.2f\n", game->player.loc.angle, game->player.loc.pos.x, game->player.loc.pos.y);
+	/* printf("new_location angle %.2f, x %.2f, y %.2f\n", new_location.angle, new_location.pos.x, new_location.pos.y); */
+	if (scene_entity == '1')
+	{
+		game->bullet.is_alive = 0;
+		printf("\n");
+	}
+	else
+		game->bullet.loc = new_location;
+}
 
 void	game_loop(t_game *game)
 {
@@ -28,9 +61,11 @@ void	game_loop(t_game *game)
 	system_input_state_switch(game);
 	/* printf("input: x: %.2f y: %.2f a: %.2f\n",\ */
 	/* 	input.pos.x, input.pos.y, input.dir); */
-	update = system_update_location(&game->player, &input, game->mlx->delta_time);
+	update = system_player_location_update(\
+		&game->player, &input, game->mlx->delta_time);
+	system_entities_move(game);
 	system_colision_resolve(game, &update);
-	system_player_update(&game->player, &update);
+	system_player_location_set(&game->player, &update);
 	/* printf("player_update: x: %.2f y: %.2f a: %.2f\n", \ */
 	/* 	game->player.pos.x, game->player.pos.y, game->player.angle); */
 	render(game);

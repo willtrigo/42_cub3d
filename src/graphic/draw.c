@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:13:44 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/13 20:36:53 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/14 00:40:49 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	draw_level_col(t_game *game, float ray_angle, int pixel_x)
 		diff = vec2f_sub(entity.pos, game->player.loc.pos);
 		distance = fabs(vec2f_dot_product(\
 			vec2f_unit_vector(game->player.loc.angle), diff));
-		wall_height_screen = (game->ctx.window.height * 0.7f) / distance;
+		wall_height_screen = (game->ctx.window.height * 0.60f) / distance;
 		draw_entity_col(game, &entity, pixel_x, wall_height_screen);
 	}
 }
