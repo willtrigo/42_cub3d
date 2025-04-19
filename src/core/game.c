@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/21 17:35:13 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:37:41 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,32 @@ t_location	location_move(const t_location *old_location, float velocity,
 	});
 }
 
-void	system_entities_move(t_manager *manager, t_game *game)
+void	system_bullet_move(t_manager *manager, t_bullet *bullet, t_game *game)
 {
 	char		scene_entity;
 	t_location	new_location;
 
-	if (!manager->bullet.is_alive)
+	if (bullet->is_alive == false)
 		return ;
-	new_location = location_move(&manager->bullet.loc, \
-		manager->bullet.velocity, game->mlx->delta_time);
+	new_location = location_move(&bullet->loc, \
+		bullet->velocity, game->mlx->delta_time);
 	scene_entity = chart_entity(&manager->chart, new_location.pos);
 	if (scene_entity == '1')
 	{
-		manager->bullet.is_alive = 0;
+		bullet->is_alive = 0;
 	}
 	else
-		manager->bullet.loc = new_location;
+		bullet->loc = new_location;
+}
+
+
+void	system_entities_move(t_manager *manager, t_game *game)
+{
+	int i;
+
+	i = -1;
+	while (++i < BULLETS_SIZE)
+		system_bullet_move(manager, manager->bullets + i, game);
 }
 
 void	game_loop(t_game *game)

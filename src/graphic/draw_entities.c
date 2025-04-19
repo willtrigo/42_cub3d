@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 00:31:32 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/19 04:02:24 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/19 20:42:38 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,17 @@ t_vec2f	screen_pos_from_cam_relative(\
 	});
 }
 
-void	draw_entities(t_game *game, t_manager *manager)
+void	draw_bullet(t_game *game, t_manager *manager, t_bullet *bullet)
 {
 	t_location	p_relative_bullet;
 	float		distance;
 	t_vec2f		cam_relative;
 	t_vec2f		screen_pos;
 
-	if (!manager->bullet.is_alive)
+	if (!bullet->is_alive)
 		return ;
 	p_relative_bullet = location_in_player_perspective(\
-		&manager->bullet.loc, &manager->player);
+		&bullet->loc, &manager->player);
 	if (!location_is_in_field_of_view(&p_relative_bullet, &manager->player))
 		return ;
 	distance = distance_if_visible(\
@@ -92,5 +92,16 @@ void	draw_entities(t_game *game, t_manager *manager)
 	screen_pos = screen_pos_from_cam_relative(\
 		&cam_relative, manager->player.fov, &game->ctx.window);
 	draw_circle_cs(game->ctx.canvas, screen_pos, \
-		(t_brush){{0xFFFFFFFF}, manager->bullet.size / cam_relative.y});
+		(t_brush){{0xFFFFFFFF}, bullet->size / cam_relative.y});
+}
+
+void	draw_entities(t_game *game, t_manager *manager)
+{
+	int i;
+
+	i = -1;
+	while (++i < BULLETS_SIZE)
+	{
+		draw_bullet(game, manager, manager->bullets + i);
+	}
 }

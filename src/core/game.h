@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/19 03:28:53 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/19 20:42:37 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,13 @@ typedef struct s_bullet
 	int			size;
 }	t_bullet;
 
+# define BULLETS_SIZE 8
+# define BULLET_MIN_SPAWN_SECONDS 0.5
+
 typedef struct s_manager
 {
-	t_bullet	bullet;
+	double		last_bullet_time;
+	t_bullet	bullets[BULLETS_SIZE];
 	t_player	player;
 	t_chart		chart;
 }	t_manager;

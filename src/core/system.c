@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/19 03:44:23 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/19 20:42:37 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,28 @@ void	entity_manager_bullet_init(
 	new_bullet->size = 8.0f;
 }
 
+
+bool	entity_manager_spawn_bullet(
+	t_manager *manager, const t_location *initial, double time)
+{
+	int	i;
+
+	if ((time - manager->last_bullet_time) < BULLET_MIN_SPAWN_SECONDS)
+		return false;
+	i = -1;
+	while (++i < BULLETS_SIZE)
+	{
+		if (!manager->bullets[i].is_alive)
+		{
+			entity_manager_bullet_init(manager->bullets + i, initial);
+			manager->last_bullet_time = time;
+			return (true);
+		}
+	}
+	return (false);
+}
+
+
 void	system_input_state_switch( \
 	t_state *state, t_manager *manager, mlx_t *mlx)
 {
@@ -63,10 +85,11 @@ void	system_input_state_switch( \
 		state->show_minimap %= 3;
 		state->time_since_last_update = 0.0;
 	}
-	else if (mlx_is_key_down(mlx, MLX_KEY_SPACE) &&!manager->bullet.is_alive)
+	else if (mlx_is_key_down(mlx, MLX_KEY_SPACE))
 	{
-		entity_manager_bullet_init(&manager->bullet, &manager->player.loc);
-		state->time_since_last_update = 0.0;
+		if (entity_manager_spawn_bullet(manager, &manager->player.loc, \
+				mlx_get_time()))
+			state->time_since_last_update = 0.0;
 	}
 }
 
