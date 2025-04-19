@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:13:44 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/14 00:40:49 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/19 04:14:16 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,39 +47,40 @@ void	draw_background(t_game *game)
 	}
 }
 
-void	draw_level_col(t_game *game, float ray_angle, int pixel_x)
+void	draw_level_col(
+	t_game *game, float ray_angle, int pixel_x, t_manager *manager)
 {
 	t_vec2f			diff;
 	t_grid_entity	entity;
 	float			distance;
 	float			wall_height_screen;
 
-	entity = grid_ray_wall(&game->chart, game->player.loc.pos, ray_angle);
+	entity = grid_ray_wall(&manager->chart, manager->player.loc.pos, ray_angle);
 	if (entity.type == '1')
 	{
-		diff = vec2f_sub(entity.pos, game->player.loc.pos);
+		diff = vec2f_sub(entity.pos, manager->player.loc.pos);
 		distance = fabs(vec2f_dot_product(\
-			vec2f_unit_vector(game->player.loc.angle), diff));
+			vec2f_unit_vector(manager->player.loc.angle), diff));
 		wall_height_screen = (game->ctx.window.height * 0.60f) / distance;
 		draw_entity_col(game, &entity, pixel_x, wall_height_screen);
 	}
 }
 
-void	draw_level(t_game *game)
+void	draw_level(t_game *game, t_manager *manager)
 {
 	t_camera	c;
 	int			i;
 	t_vec2f		player_to_camv_step;
 	float		angle;
 
-	camera_init(game, &c, game->ctx.window.width - 1);
+	camera_init(&game->manager.player, &c, game->ctx.window.width - 1);
 	i = -1;
 	while (++i <= c.num_rays)
 	{
 		player_to_camv_step = vec2f_sub(\
 				vec2f_add(c.caml, vec2f_scale(c.camv_step, i)), \
-				game->player.loc.pos);
+				manager->player.loc.pos);
 		angle = atan2(player_to_camv_step.y, player_to_camv_step.x);
-		draw_level_col(game, angle, i);
+		draw_level_col(game, angle, i, manager);
 	}
 }

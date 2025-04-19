@@ -6,11 +6,12 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/18 01:27:45 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/19 03:44:23 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.h"
+#include "MLX42/MLX42.h"
 #include "core/game.h"
 #include "utils/vec2.h"
 #include <math.h>
@@ -39,26 +40,33 @@ t_location	system_input_location(const t_game *game)
 	return (location);
 }
 
-void	system_input_state_switch(t_game *game)
+void	entity_manager_bullet_init(
+	t_bullet *new_bullet, const t_location *initial)
 {
-	if (game->state.time_since_last_update < 0.1)
+	new_bullet->is_alive = 1;
+	new_bullet->loc = *initial;
+	new_bullet->velocity = 2.0f;
+	new_bullet->size = 8.0f;
+}
+
+void	system_input_state_switch( \
+	t_state *state, t_manager *manager, mlx_t *mlx)
+{
+	if (state->time_since_last_update < 0.1)
 	{
-		game->state.time_since_last_update += game->mlx->delta_time;
+		state->time_since_last_update += mlx->delta_time;
 		return ;
 	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_M))
+	if (mlx_is_key_down(mlx, MLX_KEY_M))
 	{
-		game->state.show_minimap++;
-		game->state.show_minimap %= 3;
-		game->state.time_since_last_update = 0.0;
+		state->show_minimap++;
+		state->show_minimap %= 3;
+		state->time_since_last_update = 0.0;
 	}
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_SPACE) &&!game->bullet.is_alive)
+	else if (mlx_is_key_down(mlx, MLX_KEY_SPACE) &&!manager->bullet.is_alive)
 	{
-		game->bullet.is_alive = 1;
-		game->bullet.loc = game->player.loc;
-		game->bullet.velocity = 2.0f;
-		game->bullet.size = 8.0f;
-		game->state.time_since_last_update = 0.0;
+		entity_manager_bullet_init(&manager->bullet, &manager->player.loc);
+		state->time_since_last_update = 0.0;
 	}
 }
 
@@ -87,16 +95,16 @@ t_location	system_player_location_update(
 
 // TODO: wall colision
 // TODO: border colision based on 1/2 *player size variable instead of 0.25
-void	system_colision_resolve(t_game *game, t_location *location)
+void	system_colision_resolve(t_manager *manager, t_location *location)
 {
 	if (location->pos.x < 0.25f)
 		location->pos.x = 0.25f;
-	else if (location->pos.x > game->chart.dimen.x - 0.25f)
-		location->pos.x = game->chart.dimen.x - 0.25f;
+	else if (location->pos.x > manager->chart.dimen.x - 0.25f)
+		location->pos.x = manager->chart.dimen.x - 0.25f;
 	if (location->pos.y < 0.25f)
 		location->pos.y = 0.25f;
-	else if (location->pos.y > game->chart.dimen.y - 0.25f)
-		location->pos.y = game->chart.dimen.y - 0.25f;
+	else if (location->pos.y > manager->chart.dimen.y - 0.25f)
+		location->pos.y = manager->chart.dimen.y - 0.25f;
 }
 
 void	system_player_location_set(t_player *player, t_location *new_location)

@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 00:52:04 by maurodri          #+#    #+#             */
-/*   Updated: 2025/03/09 00:53:43 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/19 04:12:40 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ typedef struct s_camera
 	t_vec2f	camv_step;
 }	t_camera;
 
-void	camera_init(t_game *game, t_camera *out, int num_rays);
+void	camera_init(const t_player *player, t_camera *out, int num_rays);
 
 #endif

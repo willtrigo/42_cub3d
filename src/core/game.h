@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/18 01:34:05 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/19 03:28:53 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,20 @@ typedef struct s_bullet
 	int			size;
 }	t_bullet;
 
+typedef struct s_manager
+{
+	t_bullet	bullet;
+	t_player	player;
+	t_chart		chart;
+}	t_manager;
+
+
 typedef struct s_game
 {
 	t_context	ctx;
 	mlx_t		*mlx;
-	t_chart		chart;
-	t_player	player;
+	t_manager	manager;
 	t_state		state;
-	t_bullet	bullet;
 }	t_game;
 
 int		game_init(t_config_file *config, t_game *out_game);
