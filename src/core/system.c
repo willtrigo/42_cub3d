@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/19 20:59:41 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/19 21:23:24 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "core/game.h"
 #include "utils/vec2.h"
 #include <math.h>
+#include "core/manager.h"
 
 t_location	system_input_location(const t_game *game)
 {
