@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   system.h                                           :+:      :+:    :+:   */
+/*   location.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 14:01:13 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/19 20:59:19 by maurodri         ###   ########.fr       */
+/*   Created: 2025/04/19 21:02:51 by maurodri          #+#    #+#             */
+/*   Updated: 2025/04/19 21:07:26 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYSTEM_H
-# define SYSTEM_H
+#ifndef LOCATION_H
+# define LOCATION_H
 
 # include "core/game.h"
 
-void		system_input_state_switch( \
-	t_state *state, t_manager *manager, mlx_t *mlx);
-t_location	system_input_location(const t_game *game);
-t_location	system_player_location_update(\
-	const t_player *player, const t_location *input, double delta_time);
-void		system_colision_resolve(t_manager *manager, t_location *location);
-void		system_player_location_set(t_player *player, t_location *location);
+t_location	location_move(\
+	const t_location *old_location, float velocity, float delta_time);
+t_location	location_in_player_perspective(\
+	const t_location *grid_location, const t_player *player);
+bool		location_is_in_field_of_view(\
+	const t_location *player_relative_location, const t_player *player);
 
 #endif

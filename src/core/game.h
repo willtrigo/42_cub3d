@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/19 20:42:37 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/19 20:49:49 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ typedef struct s_manager
 	t_player	player;
 	t_chart		chart;
 }	t_manager;
-
 
 typedef struct s_game
 {

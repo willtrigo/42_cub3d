@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 00:31:32 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/19 20:42:38 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/19 21:08:13 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,7 @@
 #include "graphic/grid.h"
 #include "utils/vec2.h"
 #include <math.h>
-#include <stdio.h>
-
-t_location	location_in_player_perspective(\
-	const t_location *grid_location, const t_player *player)
-{
-	t_location	relative;
-
-	relative.pos = vec2f_sub(grid_location->pos, player->loc.pos);
-	relative.angle = atan2(relative.pos.y, relative.pos.x) \
-						- player->loc.angle;
-	if (relative.angle < -M_PI)
-		relative.angle += 2 * M_PI;
-	return (relative);
-}
-
-bool	location_is_in_field_of_view(\
-	const t_location *player_relative_location, const t_player *player)
-{
-	return ((-0.5 * player->fov) <= player_relative_location->angle
-		&& player_relative_location->angle < (0.5 * player->fov));
-}
+#include "core/location.h"
 
 float	distance_if_visible(\
 	const t_location *p_relative, const t_player *player, const t_chart *chart)
@@ -97,7 +77,7 @@ void	draw_bullet(t_game *game, t_manager *manager, t_bullet *bullet)
 
 void	draw_entities(t_game *game, t_manager *manager)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < BULLETS_SIZE)
