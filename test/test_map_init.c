@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:04:30 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/21 18:56:08 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/21 19:05:39 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,7 @@ void test_chart_trivial(void)
 							"10001"
 							"10001"
 							"11111"
-							,(5 * 5) == 0),
+						   ,(5 * 5)) == 0,
 				"when filename == \"./test/maps/trivial.cub\" "
 				"expected "
 				"ft_strncmp(game.manager.chart.buffer,"
@@ -311,7 +311,7 @@ void test_chart_trivial_left_pad(void)
 							"10001"
 							"10001"
 							"11111"
-							,(5 * 5) == 0),
+							,(5 * 5)) == 0,
 				"when filename == \"./test/maps/trivial_left_pad.cub\" "
 				"expected "
 				"ft_strncmp(game.manager.chart.buffer,"
