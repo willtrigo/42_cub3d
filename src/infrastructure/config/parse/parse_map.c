@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:05:16 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/18 20:41:28 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:53:44 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	normalize_map(t_config_file *config, size_t map_height)
 
 static void	check_map_witdh(t_config_file *config, char *ln)
 {
-	const int	current_width = ft_strlen(ln);
+	const int	current_width = ft_strlen(ln) + 1;
 
 	if (current_width >= config->map_width)
 		config->map_width = current_width;

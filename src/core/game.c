@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/18 01:27:07 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:59:14 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 #include "utils/vec2.h"
 #include <stdio.h>
 
-t_location	location_move(\
-	const t_location *old_location, float velocity, float delta_time)
+t_location	location_move(const t_location *old_location, float velocity,
+				float delta_time)
 {
-	const t_vec2f	movement_vec = vec2f_scale(\
-		vec2f_unit_vector(old_location->angle), velocity * delta_time);
+	const t_vec2f	movement_vec = vec2f_scale(
+			vec2f_unit_vector(old_location->angle), velocity * delta_time);
 
 	return ((t_location){
 		.pos = vec2f_add(movement_vec, old_location->pos),
@@ -38,8 +38,8 @@ void	system_entities_move(t_game *game)
 
 	if (!game->bullet.is_alive)
 		return ;
-	new_location = location_move(&game->bullet.loc, \
-		game->bullet.velocity, game->mlx->delta_time);
+	new_location = location_move(&game->bullet.loc,
+			game->bullet.velocity, game->mlx->delta_time);
 	scene_entity = chart_entity(&game->chart, new_location.pos);
 	if (scene_entity == '1')
 	{
@@ -56,8 +56,8 @@ void	game_loop(t_game *game)
 
 	input = system_input_location(game);
 	system_input_state_switch(game);
-	update = system_player_location_update(\
-		&game->player, &input, game->mlx->delta_time);
+	update = system_player_location_update(&game->player, &input,
+			game->mlx->delta_time);
 	system_entities_move(game);
 	system_colision_resolve(game, &update);
 	system_player_location_set(&game->player, &update);
@@ -70,8 +70,8 @@ int	game_init(t_config_file *config, t_game *out_game)
 	out_game->ctx.ceil = config->ceil;
 	out_game->ctx.floor = config->floor;
 	window_init(out_game);
-	out_game->mlx = mlx_init(out_game->ctx.window.width, \
-		out_game->ctx.window.height, "cub3d", false);
+	out_game->mlx = mlx_init(out_game->ctx.window.width,
+			out_game->ctx.window.height, "cub3d", false);
 	if (out_game->mlx == NULL)
 		return (game_init_fail(out_game, config, "failed to initialize mlx"));
 	if (!map_init(out_game, config))
@@ -87,7 +87,7 @@ void	game_clean(t_game *game)
 {
 	texture_clean(&game->ctx.txts);
 	canvas_clean(game->mlx, game->ctx.canvas);
-	// TODO: clear map
+	free(game->chart.buffer);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 }
