@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:51:36 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/21 17:36:40 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:25:41 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	map_init(t_game *game, t_config_file *config)
 	k = 0;
 	ft_bzero(&game->manager.player, sizeof(t_player));
 	ft_bzero(&game->manager.chart, sizeof(t_chart));
-	if (!map_validation(game, config, map_height))
+	if (!map_validation(&game->manager, config, map_height))
 		return (false);
 	game->manager.chart.buffer = \
 		ft_calloc((--config->map_width * map_height + 1),
