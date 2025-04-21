@@ -329,6 +329,53 @@ void test_chart_trivial_left_pad(void)
 	ft_printf("%s: END\n", __FUNCTION__);
 }
 
+void test_chart_trivial_trailing_spaces(void)
+{
+	ft_printf("\n%s: START\n", __FUNCTION__);
+	{
+		t_config_file	conf;
+		int res_config = config_init(1,
+					(char *[]){ "./test/maps/trivial_trailing_spaces.cub", NULL},
+					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/trivial_trailing_spaces.cub\" "
+				"expected "
+				"res_config == true");
+		t_game game;
+		ft_bzero(&game, sizeof(t_game));
+		map_init(&game, &conf);
+		FT_TEST(game.manager.chart.dimen.x == 5,
+				"when filename == \"./test/maps/trivial_trailing_spaces.cub\" "
+				"expected "
+				"game.manager.chart.dimen.x == 5");
+		FT_TEST(game.manager.chart.dimen.y == 5,
+				"when filename == \"./test/maps/trivial_trailing_spaces.cub\" "
+				"expected "
+				"game.manager.chart.dimen.y == 5");
+		FT_TEST(ft_strncmp(game.manager.chart.buffer,
+							"11111"
+							"10001"
+							"10001"
+							"10001"
+							"11111"
+							,(5 * 5)) == 0,
+				"when filename == \"./test/maps/trivial_trailing_spaces.cub\" "
+				"expected "
+				"ft_strncmp(game.manager.chart.buffer,"
+							"11111"
+							"10001"
+							"10001"
+							"10001"
+							"11111"
+							",(5 * 5) == 0)");
+		if (res_config)
+			config_clean(&conf);
+		game_clean(&game);
+	}
+
+	ft_printf("%s: END\n", __FUNCTION__);
+}
+
 void test_map_init(void)
 {
 	ft_printf("\n%s: START", __FUNCTION__);
@@ -343,5 +390,6 @@ void test_map_init(void)
 	test_player_pos();
 	test_chart_trivial();
 	test_chart_trivial_left_pad();
+	test_chart_trivial_trailing_spaces();
 	ft_printf("%s: END\n", __FUNCTION__);
 }
