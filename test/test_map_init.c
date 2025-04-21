@@ -6,10 +6,11 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:04:30 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/15 22:46:32 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:56:08 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_memlib.h"
 #include "ft_string.h"
 #include "infrastructure/config/config.h"
 #include "ft_stdio.h"
@@ -32,6 +33,7 @@ void test_invalid_mapline()
 				"expected "
 				"res_config == true");
 		t_game game;
+		ft_bzero(&game, sizeof(t_game));
 		int result = map_init(&game, &conf);
 		FT_TEST(result == false,
 				"when filename == \"./test/maps/invalid_non_blank_snd_separator.cub\" "
@@ -57,13 +59,15 @@ void test_player_direction(void)
 				"expected "
 				"res_config == true");
 		t_game game;
+		ft_bzero(&game, sizeof(t_game));
 		map_init(&game, &conf);
-		FT_TEST(game.player.loc.angle - ANGLE_NORTH < 0.0001,
+		FT_TEST(game.manager.player.loc.angle - ANGLE_NORTH < 0.0001,
 				"when filename == \"./test/maps/trivial_player_north.cub\" "
 				"expected "
-				"game.player.loc.angle == ANGLE_NORTH");
+				"game.manager.player.loc.angle == ANGLE_NORTH");
 		if (res_config)
 			config_clean(&conf);
+		game_clean(&game);
 	}
 	{
 		t_config_file	conf;
@@ -75,13 +79,15 @@ void test_player_direction(void)
 				"expected "
 				"res_config == true");
 		t_game game;
+		ft_bzero(&game, sizeof(t_game));
 		map_init(&game, &conf);
-		FT_TEST(game.player.loc.angle - ANGLE_EAST < 0.0001,
+		FT_TEST(game.manager.player.loc.angle - ANGLE_EAST < 0.0001,
 				"when filename == \"./test/maps/trivial_player_east.cub\" "
 				"expected "
-				"game.player.loc.angle == ANGLE_EAST");
+				"game.manager.player.loc.angle == ANGLE_EAST");
 		if (res_config)
 			config_clean(&conf);
+		game_clean(&game);
 	}
 	{
 		t_config_file	conf;
@@ -93,13 +99,15 @@ void test_player_direction(void)
 				"expected "
 				"res_config == true");
 		t_game game;
+		ft_bzero(&game, sizeof(t_game));
 		map_init(&game, &conf);
-		FT_TEST(game.player.loc.angle - ANGLE_SOUTH < 0.0001,
+		FT_TEST(game.manager.player.loc.angle - ANGLE_SOUTH < 0.0001,
 				"when filename == \"./test/maps/trivial_player_south.cub\" "
 				"expected "
-				"game.player.loc.angle == ANGLE_SOUTH");
+				"game.manager.player.loc.angle == ANGLE_SOUTH");
 		if (res_config)
 			config_clean(&conf);
+		game_clean(&game);
 	}
 	{
 		t_config_file	conf;
@@ -111,13 +119,15 @@ void test_player_direction(void)
 				"expected "
 				"res_config == true");
 		t_game game;
+		ft_bzero(&game, sizeof(t_game));
 		map_init(&game, &conf);
-		FT_TEST(game.player.loc.angle - ANGLE_WEST < 0.0001,
+		FT_TEST(game.manager.player.loc.angle - ANGLE_WEST < 0.0001,
 				"when filename == \"./test/maps/trivial_player_west.cub\" "
 				"expected "
-				"game.player.loc.angle == ANGLE_WEST");
+				"game.manager.player.loc.angle == ANGLE_WEST");
 		if (res_config)
 			config_clean(&conf);
+		game_clean(&game);
 	}
 	ft_printf("%s: END\n", __FUNCTION__);
 }
@@ -136,17 +146,19 @@ void test_player_pos(void)
 				"expected "
 				"res_config == true");
 		t_game game;
+		ft_bzero(&game, sizeof(t_game));
 		map_init(&game, &conf);
-		FT_TEST(game.player.loc.pos.x == 1.5f,
+		FT_TEST(game.manager.player.loc.pos.x == 1.5f,
 				"when filename == \"./test/maps/trivial_player_pos_1_1.cub\" "
 				"expected "
-				"game.player.loc.pos.x == 1.5f");
-		FT_TEST(game.player.loc.pos.y == 1.5f,
+				"game.manager.player.loc.pos.x == 1.5f");
+		FT_TEST(game.manager.player.loc.pos.y == 1.5f,
 				"when filename == \"./test/maps/trivial_player_pos_1_1.cub\" "
 				"expected "
-				"game.player.loc.pos.y == 1.5f");
+				"game.manager.player.loc.pos.y == 1.5f");
 		if (res_config)
 			config_clean(&conf);
+		game_clean(&game);
 	}
 	{
 		t_config_file	conf;
@@ -158,17 +170,19 @@ void test_player_pos(void)
 				"expected "
 				"res_config == true");
 		t_game game;
+		ft_bzero(&game, sizeof(t_game));
 		map_init(&game, &conf);
-		FT_TEST(game.player.loc.pos.x == 1.5f,
+		FT_TEST(game.manager.player.loc.pos.x == 1.5f,
 				"when filename == \"./test/maps/trivial_player_pos_1_2.cub\" "
 				"expected "
-				"game.player.loc.pos.x == 1.5f");
-		FT_TEST(game.player.loc.pos.y == 2.5f,
+				"game.manager.player.loc.pos.x == 1.5f");
+		FT_TEST(game.manager.player.loc.pos.y == 2.5f,
 				"when filename == \"./test/maps/trivial_player_pos_1_2.cub\" "
 				"expected "
-				"game.player.loc.pos.y == 2.5f");
+				"game.manager.player.loc.pos.y == 2.5f");
 		if (res_config)
 			config_clean(&conf);
+		game_clean(&game);
 	}
 	{
 		t_config_file	conf;
@@ -180,17 +194,19 @@ void test_player_pos(void)
 				"expected "
 				"res_config == true");
 		t_game game;
+		ft_bzero(&game, sizeof(t_game));
 		map_init(&game, &conf);
-		FT_TEST(game.player.loc.pos.x == 2.5f,
+		FT_TEST(game.manager.player.loc.pos.x == 2.5f,
 				"when filename == \"./test/maps/trivial_player_pos_2_1.cub\" "
 				"expected "
-				"game.player.loc.pos.x == 2.5f");
-		FT_TEST(game.player.loc.pos.y == 1.5f,
+				"game.manager.player.loc.pos.x == 2.5f");
+		FT_TEST(game.manager.player.loc.pos.y == 1.5f,
 				"when filename == \"./test/maps/trivial_player_pos_2_1.cub\" "
 				"expected "
-				"game.player.loc.pos.y == 1.5f");
+				"game.manager.player.loc.pos.y == 1.5f");
 		if (res_config)
 			config_clean(&conf);
+		game_clean(&game);
 	}
 	{
 		t_config_file	conf;
@@ -202,17 +218,19 @@ void test_player_pos(void)
 				"expected "
 				"res_config == true");
 		t_game game;
+		ft_bzero(&game, sizeof(t_game));
 		map_init(&game, &conf);
-		FT_TEST(game.player.loc.pos.x == 2.5f,
+		FT_TEST(game.manager.player.loc.pos.x == 2.5f,
 				"when filename == \"./test/maps/trivial_player_pos_2_2.cub\" "
 				"expected "
-				"game.player.loc.pos.x == 2.5f");
-		FT_TEST(game.player.loc.pos.y == 2.5f,
+				"game.manager.player.loc.pos.x == 2.5f");
+		FT_TEST(game.manager.player.loc.pos.y == 2.5f,
 				"when filename == \"./test/maps/trivial_player_pos_2_2.cub\" "
 				"expected "
-				"game.player.loc.pos.y == 2.5f");
+				"game.manager.player.loc.pos.y == 2.5f");
 		if (res_config)
 			config_clean(&conf);
+		game_clean(&game);
 	}
 	ft_printf("%s: END\n", __FUNCTION__);
 }
@@ -230,16 +248,17 @@ void test_chart_trivial(void)
 				"expected "
 				"res_config == true");
 		t_game game;
+		ft_bzero(&game, sizeof(t_game));
 		map_init(&game, &conf);
-		FT_TEST(game.chart.dimen.x == 5,
+		FT_TEST(game.manager.chart.dimen.x == 5,
 				"when filename == \"./test/maps/trivial.cub\" "
 				"expected "
-				"game.chart.dimen.x == 5");
-		FT_TEST(game.chart.dimen.y == 5,
+				"game.manager.chart.dimen.x == 5");
+		FT_TEST(game.manager.chart.dimen.y == 5,
 				"when filename == \"./test/maps/trivial.cub\" "
 				"expected "
-				"game.chart.dimen.y == 5");
-		FT_TEST(ft_strncmp(game.chart.buffer,
+				"game.manager.chart.dimen.y == 5");
+		FT_TEST(ft_strncmp(game.manager.chart.buffer,
 							"11111"
 							"10001"
 							"10001"
@@ -248,7 +267,7 @@ void test_chart_trivial(void)
 							,(5 * 5) == 0),
 				"when filename == \"./test/maps/trivial.cub\" "
 				"expected "
-				"ft_strncmp(game.chart.buffer,"
+				"ft_strncmp(game.manager.chart.buffer,"
 							"11111"
 							"10001"
 							"10001"
@@ -257,7 +276,7 @@ void test_chart_trivial(void)
 							",(5 * 5) == 0)");
 		if (res_config)
 			config_clean(&conf);
-		// game_clean(&game); // TODO: Ensure clean game on valid cases
+		game_clean(&game);
 	}
 
 	ft_printf("%s: END\n", __FUNCTION__);
@@ -276,16 +295,17 @@ void test_chart_trivial_left_pad(void)
 				"expected "
 				"res_config == true");
 		t_game game;
+		ft_bzero(&game, sizeof(t_game));
 		map_init(&game, &conf);
-		FT_TEST(game.chart.dimen.x == 5,
+		FT_TEST(game.manager.chart.dimen.x == 5,
 				"when filename == \"./test/maps/trivial_left_pad.cub\" "
 				"expected "
-				"game.chart.dimen.x == 5");
-		FT_TEST(game.chart.dimen.y == 5,
+				"game.manager.chart.dimen.x == 5");
+		FT_TEST(game.manager.chart.dimen.y == 5,
 				"when filename == \"./test/maps/trivial_left_pad.cub\" "
 				"expected "
-				"game.chart.dimen.y == 5");
-		FT_TEST(ft_strncmp(game.chart.buffer,
+				"game.manager.chart.dimen.y == 5");
+		FT_TEST(ft_strncmp(game.manager.chart.buffer,
 							"11111"
 							"10001"
 							"10001"
@@ -294,7 +314,7 @@ void test_chart_trivial_left_pad(void)
 							,(5 * 5) == 0),
 				"when filename == \"./test/maps/trivial_left_pad.cub\" "
 				"expected "
-				"ft_strncmp(game.chart.buffer,"
+				"ft_strncmp(game.manager.chart.buffer,"
 							"11111"
 							"10001"
 							"10001"
@@ -303,7 +323,7 @@ void test_chart_trivial_left_pad(void)
 							",(5 * 5) == 0)");
 		if (res_config)
 			config_clean(&conf);
-		// game_clean(&game); // TODO: Ensure clean game on valid cases
+		game_clean(&game);
 	}
 
 	ft_printf("%s: END\n", __FUNCTION__);
