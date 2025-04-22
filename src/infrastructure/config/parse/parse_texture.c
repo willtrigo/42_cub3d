@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:32:06 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/16 11:09:57 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:06:01 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	check_texture(char *tex_ln, t_config_file *config, bool *is_tex_set)
 	else if (ft_strncmp(tex_ln, "WE", TEX_LEN) == TEX_ASSERT)
 		return (set_texture(tex_ln, &config->texture_west,
 				is_tex_set + TEXTURE_WE));
-	return (logerr_ret("invalid direction", false));
+	return (logerr_ret("invalid set of texture", false));
 }
 
 bool	set_texture(char *tex_ln, char **texture, bool *is_tex_set)

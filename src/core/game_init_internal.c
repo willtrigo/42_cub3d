@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:51:36 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/21 18:25:41 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:47:01 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ bool	game_init_fail(t_game *game, t_config_file *config, char *msg_error)
 {
 	config_clean(config);
 	game_clean(game);
-	return (logerr_ret(msg_error, false));
+	if (msg_error)
+		return (logerr_ret(msg_error, false));
+	return (false);
 }

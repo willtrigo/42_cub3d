@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:38:49 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/22 01:54:23 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:24:13 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "core/game.h"
 #include "infrastructure/config/config.h"
 #include "utils/output.h"
-#include "utils/vec2.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include "core/map.h"
@@ -22,33 +21,43 @@
 void	flood_fill(int x, int y, t_config_file *config, bool rot_state);
 bool	check_elements(t_config_file *config, size_t map_height, bool valid);
 void	check_border(int x, int y, t_config_file *config);
+void	set_flood_fill(t_config_file *config, size_t map_height,
+			bool rot_state);
 
 bool	map_validation(\
 	t_manager *manager, t_config_file *config, size_t map_height)
+{
+	if (!check_elements(config, map_height, false))
+		return (logerr_ret("invalid elements of the map", false));
+	if (!get_player_pos(manager, config, map_height))
+		return (logerr_ret("invalid player", false));
+	set_flood_fill(config, map_height, true);
+	if (!check_elements(config, map_height, true))
+		return (logerr_ret("invalid map, must be closed/surrounded by walls",
+				false));
+	set_flood_fill(config, map_height, false);
+	return (true);
+}
+
+void	set_flood_fill(t_config_file *config, size_t map_height, bool rot_state)
 {
 	int		i;
 	int		j;
 	char	*ln;
 
 	i = -1;
-	if (!check_elements(config, map_height, false))
-		return (logerr_ret("invalid elements of the map", false));
-	if (!get_player_pos(manager, config, map_height))
-		return (logerr_ret("invalid player", false));
 	while ((size_t)++i < map_height)
 	{
 		j = -1;
 		ln = ft_arraylist_get(config->map, i);
 		while (ln[++j])
-			if (ln[j] == '0')
-				flood_fill(j, i, config, true);
+		{
+			if (rot_state && ln[j] == '0')
+				flood_fill(j, i, config, rot_state);
+			else if (!rot_state && ln[j] == '3')
+				flood_fill(j, i, config, rot_state);
+		}
 	}
-	if (!check_elements(config, map_height, true))
-		return (logerr_ret("invalid map, must be closed/surrounded by walls",
-				false));
-	flood_fill((int)manager->player.loc.pos.x,
-		(int)manager->player.loc.pos.y, config, false);
-	return (true);
 }
 
 bool	check_elements(t_config_file *config, size_t map_height, bool valid)

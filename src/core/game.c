@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/22 01:51:09 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:10:03 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int	game_init(t_config_file *config, t_game *out_game)
 	if (out_game->mlx == NULL)
 		return (game_init_fail(out_game, config, "failed to initialize mlx"));
 	if (!map_init(out_game, config))
-		return (false);
+		return (game_init_fail(out_game, config, NULL));
 	if (!textures_init(out_game, config))
-		return (false);
+		return (game_init_fail(out_game, config, NULL));
 	if (!canvas_init(out_game))
-		return (false);
+		return (game_init_fail(out_game, config, NULL));
 	return (true);
 }
 
@@ -57,8 +57,11 @@ void	game_clean(t_game *game)
 {
 	texture_clean(&game->ctx.txts);
 	canvas_clean(game->mlx, game->ctx.canvas);
-	free(game->manager.chart.buffer);
-	game->manager.chart.buffer = NULL;
+	if (game->manager.chart.buffer)
+	{
+		free(game->manager.chart.buffer);
+		game->manager.chart.buffer = NULL;
+	}
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 }
