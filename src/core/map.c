@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:38:49 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/21 18:34:24 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/22 01:54:23 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,36 @@
 #include "utils/vec2.h"
 #include <stdbool.h>
 #include <stddef.h>
+#include "core/map.h"
 
-bool	get_player_pos(t_manager *manager, t_config_file *config, \
-	size_t map_height);
-void	player_init(t_player *player, char angle, int row, int col);
 void	flood_fill(int x, int y, t_config_file *config, bool rot_state);
 bool	check_elements(t_config_file *config, size_t map_height, bool valid);
+void	check_border(int x, int y, t_config_file *config);
 
 bool	map_validation(\
 	t_manager *manager, t_config_file *config, size_t map_height)
 {
+	int		i;
+	int		j;
+	char	*ln;
+
+	i = -1;
 	if (!check_elements(config, map_height, false))
 		return (logerr_ret("invalid elements of the map", false));
 	if (!get_player_pos(manager, config, map_height))
 		return (logerr_ret("invalid player", false));
-	flood_fill((int)manager->player.loc.pos.x, \
-			(int)manager->player.loc.pos.y, config, true);
+	while ((size_t)++i < map_height)
+	{
+		j = -1;
+		ln = ft_arraylist_get(config->map, i);
+		while (ln[++j])
+			if (ln[j] == '0')
+				flood_fill(j, i, config, true);
+	}
 	if (!check_elements(config, map_height, true))
 		return (logerr_ret("invalid map, must be closed/surrounded by walls",
 				false));
-	flood_fill((int)manager->player.loc.pos.x, \
+	flood_fill((int)manager->player.loc.pos.x,
 		(int)manager->player.loc.pos.y, config, false);
 	return (true);
 }
@@ -65,49 +75,6 @@ bool	check_elements(t_config_file *config, size_t map_height, bool valid)
 	return (true);
 }
 
-bool	get_player_pos(t_manager *manager, t_config_file \
-	*config, size_t map_height)
-{
-	size_t	i;
-	int		j;
-	char	*ln;
-	bool	set_pos;
-
-	set_pos = false;
-	i = -1;
-	while (++i < map_height)
-	{
-		ln = (char *)ft_arraylist_get(config->map, i);
-		j = -1;
-		while (ln[++j])
-		{
-			if (ln[j] == 'N' || ln[j] == 'W' || ln[j] == 'E' || ln[j] == 'S')
-			{
-				if (set_pos || i == 0 || i == (map_height - 1)
-					|| j == 0 || j == (config->map_width - 2))
-					return (false);
-				player_init(&manager->player, ln[j], i, j);
-				ln[j] = '0';
-				set_pos = true;
-			}
-		}
-	}
-	return (set_pos);
-}
-
-void	player_init(t_player *player, char angle, int row, int col)
-{
-	if (angle == 'N')
-		player->loc.angle = ANGLE_NORTH;
-	else if (angle == 'W')
-		player->loc.angle = ANGLE_WEST;
-	else if (angle == 'E')
-		player->loc.angle = ANGLE_EAST;
-	else if (angle == 'S')
-		player->loc.angle = ANGLE_SOUTH;
-	player->loc.pos = (t_vec2f){col + 0.5, row + 0.5};
-}
-
 void	flood_fill(int x, int y, t_config_file *config, bool rot_state)
 {
 	char	*map;
@@ -119,10 +86,7 @@ void	flood_fill(int x, int y, t_config_file *config, bool rot_state)
 	if (rot_state && map[x] == '0')
 	{
 		map[x] += 3;
-		flood_fill(x + 1, y, config, rot_state);
-		flood_fill(x - 1, y, config, rot_state);
-		flood_fill(x, y + 1, config, rot_state);
-		flood_fill(x, y - 1, config, rot_state);
+		check_border(x, y, config);
 	}
 	else if (rot_state && (map[x] != '1' && map[x] != '3'))
 		map[x] = 'X';
@@ -134,4 +98,27 @@ void	flood_fill(int x, int y, t_config_file *config, bool rot_state)
 		flood_fill(x, y + 1, config, rot_state);
 		flood_fill(x, y - 1, config, rot_state);
 	}
+}
+
+void	check_border(int x, int y, t_config_file *config)
+{
+	char	*map;
+
+	map = ft_arraylist_get(config->map, y);
+	if (x + 1 < config->map_width - 1)
+		flood_fill(x + 1, y, config, true);
+	else
+		map[x] = 'X';
+	if (x - 1 >= 0)
+		flood_fill(x - 1, y, config, true);
+	else
+		map[x] = 'X';
+	if ((size_t)(y + 1) < ft_arraylist_len(config->map))
+		flood_fill(x, y + 1, config, true);
+	else
+		map[x] = 'X';
+	if (y - 1 >= 0)
+		flood_fill(x, y - 1, config, true);
+	else
+		map[x] = 'X';
 }

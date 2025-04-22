@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/04/21 17:39:27 by maurodri         ###   ########.fr        #
+#    Updated: 2025/04/22 01:18:25 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRCS_MAIN                       = $(addprefix $(SRCS_MAIN_DIR), main.c)
 SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c \
 								game_init_internal.c \
 								map.c \
+								map_get_player.c \
 								system.c \
 								location.c \
 								texture.c \

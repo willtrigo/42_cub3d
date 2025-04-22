@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/21 17:39:05 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/22 01:51:09 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	game_loop(t_game *game)
 
 	input = system_input_location(game);
 	system_input_state_switch(&game->state, &game->manager, game->mlx);
-	update = system_player_location_update(\
-		&game->manager.player, &input, game->mlx->delta_time);
+	update = system_player_location_update(&game->manager.player,
+			&input, game->mlx->delta_time);
 	manager_entities_move(&game->manager, game);
 	system_colision_resolve(&game->manager, &update);
 	system_player_location_set(&game->manager.player, &update);
