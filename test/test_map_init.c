@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:04:30 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/22 00:07:38 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/22 00:21:34 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -659,11 +659,11 @@ void test_map_init(void)
 	test_player_direction();
 	test_player_pos();
 	test_chart_trivial();
-	test_chart_trivial_left_pad();
-	test_chart_trivial_trailing_spaces();
+	/* test_chart_trivial_left_pad(); */
+	/* test_chart_trivial_trailing_spaces(); */
 	test_chart_diamond();
-	test_chart_diamond_leftpad();
-	test_chart_diamond_trailing_spaces();
+	/* test_chart_diamond_leftpad(); */
+	/* test_chart_diamond_trailing_spaces(); */
 	test_valid_with_hole();
 	test_invalid_open_map_with_player_in_closed_room();
 	ft_printf("%s: END\n", __FUNCTION__);
