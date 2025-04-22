@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   manager.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 11:38:58 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/21 18:25:11 by maurodri         ###   ########.fr       */
+/*   Created: 2025/04/19 20:54:54 by maurodri          #+#    #+#             */
+/*   Updated: 2025/04/19 21:00:39 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#ifndef MANAGER_H
+# define MANAGER_H
 
-# include "core/game.h"
-# include "infrastructure/config/config.h"
-# include <stdbool.h>
+# include "game.h"
 
-bool	map_validation(\
-	t_manager *manager, t_config_file *config, size_t map_height);
-
+void	manager_entities_move(t_manager *manager, t_game *game);
+bool	entity_manager_spawn_bullet(\
+	t_manager *manager, const t_location *initial, double time);
 #endif

@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:38:49 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/19 19:06:13 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:34:24 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,30 @@
 #include "core/game.h"
 #include "infrastructure/config/config.h"
 #include "utils/output.h"
+#include "utils/vec2.h"
 #include <stdbool.h>
 #include <stddef.h>
 
-bool	get_player_pos(t_game *game, t_config_file *config, size_t map_height,
-			bool set_pos);
-void	set_angle(char angle, t_game *game);
+bool	get_player_pos(t_manager *manager, t_config_file *config, \
+	size_t map_height);
+void	player_init(t_player *player, char angle, int row, int col);
 void	flood_fill(int x, int y, t_config_file *config, bool rot_state);
 bool	check_elements(t_config_file *config, size_t map_height, bool valid);
 
-bool	map_validation(t_game *game, t_config_file *config, size_t map_height)
+bool	map_validation(\
+	t_manager *manager, t_config_file *config, size_t map_height)
 {
 	if (!check_elements(config, map_height, false))
 		return (logerr_ret("invalid elements of the map", false));
-	if (!get_player_pos(game, config, map_height, false))
+	if (!get_player_pos(manager, config, map_height))
 		return (logerr_ret("invalid player", false));
-	flood_fill((int)game->player.loc.pos.x, (int)game->player.loc.pos.y, config,
-		true);
+	flood_fill((int)manager->player.loc.pos.x, \
+			(int)manager->player.loc.pos.y, config, true);
 	if (!check_elements(config, map_height, true))
 		return (logerr_ret("invalid map, must be closed/surrounded by walls",
 				false));
-	flood_fill((int)game->player.loc.pos.x, (int)game->player.loc.pos.y, config,
-		false);
+	flood_fill((int)manager->player.loc.pos.x, \
+		(int)manager->player.loc.pos.y, config, false);
 	return (true);
 }
 
@@ -63,13 +65,15 @@ bool	check_elements(t_config_file *config, size_t map_height, bool valid)
 	return (true);
 }
 
-bool	get_player_pos(t_game *game, t_config_file *config, size_t map_height,
-					bool set_pos)
+bool	get_player_pos(t_manager *manager, t_config_file \
+	*config, size_t map_height)
 {
 	size_t	i;
 	int		j;
 	char	*ln;
+	bool	set_pos;
 
+	set_pos = false;
 	i = -1;
 	while (++i < map_height)
 	{
@@ -82,27 +86,26 @@ bool	get_player_pos(t_game *game, t_config_file *config, size_t map_height,
 				if (set_pos || i == 0 || i == (map_height - 1)
 					|| j == 0 || j == (config->map_width - 2))
 					return (false);
-				game->player.loc.pos.x = j;
-				game->player.loc.pos.y = i;
-				set_angle(ln[j], game);
+				player_init(&manager->player, ln[j], i, j);
 				ln[j] = '0';
 				set_pos = true;
 			}
 		}
 	}
-	return (true);
+	return (set_pos);
 }
 
-void	set_angle(char angle, t_game *game)
+void	player_init(t_player *player, char angle, int row, int col)
 {
 	if (angle == 'N')
-		game->player.loc.angle = ANGLE_NORTH;
+		player->loc.angle = ANGLE_NORTH;
 	else if (angle == 'W')
-		game->player.loc.angle = ANGLE_WEST;
+		player->loc.angle = ANGLE_WEST;
 	else if (angle == 'E')
-		game->player.loc.angle = ANGLE_EAST;
+		player->loc.angle = ANGLE_EAST;
 	else if (angle == 'S')
-		game->player.loc.angle = ANGLE_SOUTH;
+		player->loc.angle = ANGLE_SOUTH;
+	player->loc.pos = (t_vec2f){col + 0.5, row + 0.5};
 }
 
 void	flood_fill(int x, int y, t_config_file *config, bool rot_state)

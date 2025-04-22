@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:51:36 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/20 20:55:21 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:25:41 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,22 @@ bool	map_init(t_game *game, t_config_file *config)
 
 	i = -1;
 	k = 0;
-	ft_bzero(&game->player, sizeof(t_player));
-	ft_bzero(&game->chart, sizeof(t_chart));
-	if (!map_validation(game, config, map_height))
+	ft_bzero(&game->manager.player, sizeof(t_player));
+	ft_bzero(&game->manager.chart, sizeof(t_chart));
+	if (!map_validation(&game->manager, config, map_height))
 		return (false);
-	game->chart.buffer = ft_calloc((--config->map_width * map_height + 1),
+	game->manager.chart.buffer = \
+		ft_calloc((--config->map_width * map_height + 1),
 			sizeof(char));
 	while (++i < map_height)
 	{
 		j = 0;
 		ln = ft_arraylist_get(config->map, i);
 		while (ln[j])
-			game->chart.buffer[k++] = ln[j++];
+			game->manager.chart.buffer[k++] = ln[j++];
 	}
-	game->chart.dimen = (t_vec2i){config->map_width, map_height};
-	game->player.fov = 2.0f;
+	game->manager.chart.dimen = (t_vec2i){config->map_width, map_height};
+	game->manager.player.fov = 2.0f;
 	return (true);
 }
 

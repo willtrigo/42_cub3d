@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 00:31:32 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/18 01:25:01 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/19 21:08:13 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,7 @@
 #include "graphic/grid.h"
 #include "utils/vec2.h"
 #include <math.h>
-#include <stdio.h>
-
-t_location	location_in_player_perspective(\
-	const t_location *grid_location, const t_player *player)
-{
-	t_location	relative;
-
-	relative.pos = vec2f_sub(grid_location->pos, player->loc.pos);
-	relative.angle = atan2(relative.pos.y, relative.pos.x) \
-						- player->loc.angle;
-	if (relative.angle < -M_PI)
-		relative.angle += 2 * M_PI;
-	return (relative);
-}
-
-bool	location_is_in_field_of_view(\
-	const t_location *player_relative_location, const t_player *player)
-{
-	return ((-0.5 * player->fov) <= player_relative_location->angle
-		&& player_relative_location->angle < (0.5 * player->fov));
-}
+#include "core/location.h"
 
 float	distance_if_visible(\
 	const t_location *p_relative, const t_player *player, const t_chart *chart)
@@ -69,28 +49,39 @@ t_vec2f	screen_pos_from_cam_relative(\
 	});
 }
 
-void	draw_entities(t_game *game)
+void	draw_bullet(t_game *game, t_manager *manager, t_bullet *bullet)
 {
 	t_location	p_relative_bullet;
 	float		distance;
 	t_vec2f		cam_relative;
 	t_vec2f		screen_pos;
 
-	if (!game->bullet.is_alive)
+	if (!bullet->is_alive)
 		return ;
 	p_relative_bullet = location_in_player_perspective(\
-		&game->bullet.loc, &game->player);
-	if (!location_is_in_field_of_view(&p_relative_bullet, &game->player))
+		&bullet->loc, &manager->player);
+	if (!location_is_in_field_of_view(&p_relative_bullet, &manager->player))
 		return ;
 	distance = distance_if_visible(\
-		&p_relative_bullet, &game->player, &game->chart);
+		&p_relative_bullet, &manager->player, &manager->chart);
 	if (distance <= 0.0f)
 		return ;
 	cam_relative = vec2f_scale(vec2f_unit_vector(\
 		p_relative_bullet.angle + M_PI_2), distance);
 	cam_relative.x *= -1;
 	screen_pos = screen_pos_from_cam_relative(\
-		&cam_relative, game->player.fov, &game->ctx.window);
+		&cam_relative, manager->player.fov, &game->ctx.window);
 	draw_circle_cs(game->ctx.canvas, screen_pos, \
-		(t_brush){{0xFFFFFFFF}, game->bullet.size / cam_relative.y});
+		(t_brush){{0xFFFFFFFF}, bullet->size / cam_relative.y});
+}
+
+void	draw_entities(t_game *game, t_manager *manager)
+{
+	int	i;
+
+	i = -1;
+	while (++i < BULLETS_SIZE)
+	{
+		draw_bullet(game, manager, manager->bullets + i);
+	}
 }

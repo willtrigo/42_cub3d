@@ -6,48 +6,18 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/20 21:08:03 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:39:05 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
+#include "core/manager.h"
 #include "ft_memlib.h"
 #include "graphic/render.h"
 #include "texture.h"
 #include "game_init_internal.h"
 #include "system.h"
-#include "utils/vec2.h"
 #include <stdio.h>
-
-t_location	location_move(const t_location *old_location, float velocity,
-				float delta_time)
-{
-	const t_vec2f	movement_vec = vec2f_scale(
-			vec2f_unit_vector(old_location->angle), velocity * delta_time);
-
-	return ((t_location){
-		.pos = vec2f_add(movement_vec, old_location->pos),
-		.angle = old_location->angle
-	});
-}
-
-void	system_entities_move(t_game *game)
-{
-	char		scene_entity;
-	t_location	new_location;
-
-	if (!game->bullet.is_alive)
-		return ;
-	new_location = location_move(&game->bullet.loc,
-			game->bullet.velocity, game->mlx->delta_time);
-	scene_entity = chart_entity(&game->chart, new_location.pos);
-	if (scene_entity == '1')
-	{
-		game->bullet.is_alive = 0;
-	}
-	else
-		game->bullet.loc = new_location;
-}
 
 void	game_loop(t_game *game)
 {
@@ -55,12 +25,12 @@ void	game_loop(t_game *game)
 	t_location	update;
 
 	input = system_input_location(game);
-	system_input_state_switch(game);
-	update = system_player_location_update(&game->player, &input,
-			game->mlx->delta_time);
-	system_entities_move(game);
-	system_colision_resolve(game, &update);
-	system_player_location_set(&game->player, &update);
+	system_input_state_switch(&game->state, &game->manager, game->mlx);
+	update = system_player_location_update(\
+		&game->manager.player, &input, game->mlx->delta_time);
+	manager_entities_move(&game->manager, game);
+	system_colision_resolve(&game->manager, &update);
+	system_player_location_set(&game->manager.player, &update);
 	render(game);
 }
 
@@ -87,8 +57,8 @@ void	game_clean(t_game *game)
 {
 	texture_clean(&game->ctx.txts);
 	canvas_clean(game->mlx, game->ctx.canvas);
-	free(game->chart.buffer);
-	game->chart.buffer = NULL;
+	free(game->manager.chart.buffer);
+	game->manager.chart.buffer = NULL;
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 }
