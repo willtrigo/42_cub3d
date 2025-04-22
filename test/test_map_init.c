@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:04:30 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/21 23:49:37 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/22 00:07:38 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -624,6 +624,34 @@ void test_valid_with_hole(void)
 	ft_printf("%s: END\n", __FUNCTION__);
 }
 
+void test_invalid_open_map_with_player_in_closed_room(void)
+{
+	ft_printf("\n%s: START\n", __FUNCTION__);
+	{
+		t_config_file	conf;
+		int res_config = config_init(1,
+					(char *[]){ "./test/maps/invalid_open_map_with_player_in_closed_room.cub", NULL},
+					&conf);
+		FT_TEST(res_config == true,
+				"when filename == \"./test/maps/invalid_open_map_with_player_in_closed_room.cub\" "
+				"expected "
+				"res_config == true");
+		t_game game;
+		ft_bzero(&game, sizeof(t_game));
+		int result = map_init(&game, &conf);
+		FT_TEST(result == false,
+				"when filename == \"./test/maps/invalid_open_map_with_player_in_closed_room.cub\" "
+				"expected "
+				"result == false");
+				if (res_config)
+			config_clean(&conf);
+		if (result)
+			game_clean(&game);
+	}
+	ft_printf("%s: END\n", __FUNCTION__);
+}
+
+
 void test_map_init(void)
 {
 	ft_printf("\n%s: START", __FUNCTION__);
@@ -637,5 +665,6 @@ void test_map_init(void)
 	test_chart_diamond_leftpad();
 	test_chart_diamond_trailing_spaces();
 	test_valid_with_hole();
+	test_invalid_open_map_with_player_in_closed_room();
 	ft_printf("%s: END\n", __FUNCTION__);
 }
