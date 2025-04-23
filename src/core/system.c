@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/19 21:23:24 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:45:29 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,18 @@ t_location	system_player_location_update(
 }
 
 // TODO: wall colision
-// TODO: border colision based on 1/2 *player size variable instead of 0.25
 void	system_colision_resolve(t_manager *manager, t_location *location)
 {
-	if (location->pos.x < 0.25f)
-		location->pos.x = 0.25f;
-	else if (location->pos.x > manager->chart.dimen.x - 0.25f)
-		location->pos.x = manager->chart.dimen.x - 0.25f;
-	if (location->pos.y < 0.25f)
-		location->pos.y = 0.25f;
-	else if (location->pos.y > manager->chart.dimen.y - 0.25f)
-		location->pos.y = manager->chart.dimen.y - 0.25f;
+	const float player_half_size = manager->player.size / 2.0;
+
+	if (location->pos.x < player_half_size)
+		location->pos.x = player_half_size;
+	else if (location->pos.x > manager->chart.dimen.x - player_half_size)
+		location->pos.x = manager->chart.dimen.x - player_half_size;
+	if (location->pos.y < player_half_size)
+		location->pos.y = player_half_size;
+	else if (location->pos.y > manager->chart.dimen.y - player_half_size)
+		location->pos.y = manager->chart.dimen.y - player_half_size;
 }
 
 void	system_player_location_set(t_player *player, t_location *new_location)

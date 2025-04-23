@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/19 20:49:49 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/23 02:51:25 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_player
 {
 	t_location	loc;
 	float		fov;
+	float		size;
 }	t_player;
 
 typedef struct s_chart
