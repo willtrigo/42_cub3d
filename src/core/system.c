@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/23 16:45:29 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:51:40 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,33 @@ t_location	system_player_location_update(
 	return (update);
 }
 
-// TODO: wall colision
-void	system_colision_resolve(t_manager *manager, t_location *location)
+void	system_colision_border(t_manager *manager, t_location *intention)
 {
 	const float player_half_size = manager->player.size / 2.0;
 
-	if (location->pos.x < player_half_size)
-		location->pos.x = player_half_size;
-	else if (location->pos.x > manager->chart.dimen.x - player_half_size)
-		location->pos.x = manager->chart.dimen.x - player_half_size;
-	if (location->pos.y < player_half_size)
-		location->pos.y = player_half_size;
-	else if (location->pos.y > manager->chart.dimen.y - player_half_size)
-		location->pos.y = manager->chart.dimen.y - player_half_size;
+	if (intention->pos.x < player_half_size)
+		intention->pos.x = player_half_size;
+	else if (intention->pos.x > manager->chart.dimen.x - player_half_size)
+		intention->pos.x = manager->chart.dimen.x - player_half_size;
+	if (intention->pos.y < player_half_size)
+		intention->pos.y = player_half_size;
+	else if (intention->pos.y > manager->chart.dimen.y - player_half_size)
+		intention->pos.y = manager->chart.dimen.y - player_half_size;
+}
+
+
+void	system_colision_walls(t_manager *manager, t_location *intention)
+{
+	const float player_half_size = manager->player.size / 2.0;
+
+	// TODO
+}
+
+
+void	system_colision_resolve(t_manager *manager, t_location *intention)
+{
+	system_colision_border(manager, intention);
+	system_colision_walls(manager, intention);
 }
 
 void	system_player_location_set(t_player *player, t_location *new_location)
