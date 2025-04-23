@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:34:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/23 02:51:25 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/23 22:58:58 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_context
 
 typedef struct s_state
 {
+	int		colision;
 	int		show_minimap;
 	double	time_since_last_update;
 }	t_state;
