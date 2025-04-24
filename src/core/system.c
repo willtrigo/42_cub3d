@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/23 23:02:41 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/24 20:44:53 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,32 @@
 #include <stdbool.h>
 #include "core/manager.h"
 
+void		system_input_angle(const t_game *game, t_location *location)
+{
+	t_vec2i	mouse_pos;
+
+	mlx_get_mouse_pos(game->mlx, &mouse_pos.x, &mouse_pos.y);
+	if (game->state.mouse && mouse_pos.x != 400)
+	{
+		if (mouse_pos.x < 400)
+			location->angle -= 1.0f;
+		else
+			location->angle += 1.0f;
+		mlx_set_mouse_pos(game->mlx, 400, 400);
+		return ;
+	}
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		location->angle -= 1.0f;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		location->angle += 1.0f;
+}
+
 t_location	system_input_location(const t_game *game)
 {
 	t_location	location;
 
 	location = (t_location){{0.0f, 0.0f}, 0.0f};
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		location.angle -= 1.0f;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		location.angle += 1.0f;
+	system_input_angle(game, &location);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		location.pos.y += 1.0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
@@ -51,23 +68,32 @@ void	system_input_state_switch( \
 		state->time_since_last_update += mlx->delta_time;
 		return ;
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_M))
-	{
-		state->show_minimap++;
-		state->show_minimap %= 3;
-		state->time_since_last_update = 0.0;
-	}
-	else if (mlx_is_key_down(mlx, MLX_KEY_SPACE))
+	if (mlx_is_key_down(mlx, MLX_KEY_SPACE))
 	{
 		if (entity_manager_spawn_bullet(manager, &manager->player.loc, \
 				mlx_get_time()))
 			state->time_since_last_update = 0.0;
+		return ;
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_M))
+	{
+		state->show_minimap++;
+		state->show_minimap %= 3;
 	}
 	else if (mlx_is_key_down(mlx, MLX_KEY_C))
-	{
 		state->colision ^= 1;
-		state->time_since_last_update = 0.0;
+	else if (mlx_is_key_down(mlx, MLX_KEY_N))
+	{
+		state->mouse ^= 1;
+		if (state->mouse)
+		{
+			mlx_set_cursor_mode(mlx, MLX_MOUSE_HIDDEN);
+			mlx_set_mouse_pos(mlx, 400, 400);
+		}
+		else
+			mlx_set_cursor_mode(mlx, MLX_MOUSE_NORMAL);
 	}
+	state->time_since_last_update = 0.0;
 }
 
 t_location	system_player_location_update(
