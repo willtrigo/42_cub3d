@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 00:31:32 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/19 21:08:13 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/25 04:42:37 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_vec2f	screen_pos_from_cam_relative(\
 {
 	return ((t_vec2f){
 		.x = ((cosf(fov * 0.5f) * (cam_relative->x / cam_relative->y)) \
-					* (window->width * 0.6)) \
+					* (window->width * 0.55)) \
 				+ (0.5 * window->width),
 		.y = window->height * 0.5f
 	});
