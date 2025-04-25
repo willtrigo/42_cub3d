@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:51:36 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/22 17:47:01 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/04/22 22:29:18 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ bool	map_init(t_game *game, t_config_file *config)
 			game->manager.chart.buffer[k++] = ln[j++];
 	}
 	game->manager.chart.dimen = (t_vec2i){config->map_width, map_height};
-	game->manager.player.fov = 2.0f;
+	game->manager.player.fov = 2.2f;
 	return (true);
 }
 

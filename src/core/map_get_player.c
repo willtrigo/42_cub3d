@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 00:53:12 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/22 01:52:29 by dande-je         ###   ########.fr       */
+/*   Updated: 2025/04/23 07:08:16 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	player_init(t_player *player, char angle, int row, int col)
 	else if (angle == 'S')
 		player->loc.angle = ANGLE_SOUTH;
 	player->loc.pos = (t_vec2f){col + 0.5, row + 0.5};
+	(void) "1.0 being one grid cell size";
+	player->size = 0.5f;
 }
 
 bool	get_player_pos(t_manager *manager, t_config_file *config,
