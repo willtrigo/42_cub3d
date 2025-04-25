@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:00:03 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/24 20:44:53 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:06:48 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,14 @@
 #include <stdbool.h>
 #include "core/manager.h"
 
-void		system_input_angle(const t_game *game, t_location *location)
+void	system_input_angle(const t_game *game, t_location *location)
 {
 	t_vec2i	mouse_pos;
 
 	mlx_get_mouse_pos(game->mlx, &mouse_pos.x, &mouse_pos.y);
 	if (game->state.mouse && mouse_pos.x != 400)
 	{
-		if (mouse_pos.x < 400)
-			location->angle -= 1.0f;
-		else
-			location->angle += 1.0f;
+		location->angle = (2 * (mouse_pos.x < 400)) - 1;
 		mlx_set_mouse_pos(game->mlx, 400, 400);
 		return ;
 	}
@@ -121,7 +118,7 @@ t_location	system_player_location_update(
 
 void	system_colision_border(t_manager *manager, t_location *intention)
 {
-	const float player_half_size = manager->player.size / 2.0;
+	const float	player_half_size = manager->player.size / 2.0;
 
 	if (intention->pos.x < player_half_size)
 		intention->pos.x = player_half_size;
@@ -151,7 +148,7 @@ bool	has_cross(float new, float old, float player_half_size)
 	return (((int) min) != ((int) max));
 }
 
-void system_colision_walls_h(
+void	system_colision_walls_h(
 	t_manager *manager, t_location *intention, float p_half_size)
 {
 	int		offset;
@@ -161,10 +158,8 @@ void system_colision_walls_h(
 		offset = 1;
 	else
 		offset = -1;
-	scene_entity = chart_entity(&manager->chart, (t_vec2f) {
-			intention->pos.x + (p_half_size * offset),
-			intention->pos.y
-	});
+	scene_entity = chart_entity(&manager->chart, (t_vec2f){
+			intention->pos.x + (p_half_size * offset), intention->pos.y});
 	if (scene_entity != '1')
 		return ;
 	else if (offset > 0)
@@ -183,10 +178,8 @@ void	system_colision_walls_v(
 		offset = 1;
 	else
 		offset = -1;
-	scene_entity = chart_entity(&manager->chart, (t_vec2f) {
-			intention->pos.x,
-			intention->pos.y + (p_half_size * offset)
-	});
+	scene_entity = chart_entity(&manager->chart, (t_vec2f){
+			intention->pos.x, intention->pos.y + (p_half_size * offset)});
 	if (scene_entity != '1')
 		return ;
 	else if (offset > 0)
@@ -200,7 +193,7 @@ void	system_colision_walls_diag_resolve(
 {
 	const t_vec2f	movement_vec = vec2f_sub(\
 		intention->pos, manager->player.loc.pos);
-	float		diag_component = p_half_size * M_SQRT1_2 + 0.08;
+	const float		diag_component = p_half_size * M_SQRT1_2 + 0.08;
 
 	if (fabs(movement_vec.y) >= fabs(movement_vec.x))
 	{
@@ -228,7 +221,6 @@ void	system_colision_walls_diag_resolve(
 		intention->pos.y = ((int) intention->pos.y) + diag_component;
 }
 
-
 void	system_colision_walls_diag(
 	t_manager *manager, t_location *intention, float p_half_size)
 {
@@ -237,27 +229,15 @@ void	system_colision_walls_diag(
 	char		scene_entity_y;
 	char		scene_entity_diag;
 
-	if (intention->pos.y > manager->player.loc.pos.y)
-		offset.y = 1;
-	else
-		offset.y = -1;
-	if (intention->pos.x > manager->player.loc.pos.x)
-		offset.x = 1;
-	else
-		offset.x = -1;
-
-	scene_entity_y = chart_entity(&manager->chart, (t_vec2f) {
-			intention->pos.x,
-			intention->pos.y + (p_half_size * offset.y)
-	});
-	scene_entity_x = chart_entity(&manager->chart, (t_vec2f) {
+	offset.y = (2 * (intention->pos.y > manager->player.loc.pos.y)) - 1;
+	offset.x = (2 * (intention->pos.x > manager->player.loc.pos.x)) - 1;
+	scene_entity_y = chart_entity(&manager->chart, (t_vec2f){
+			intention->pos.x, intention->pos.y + (p_half_size * offset.y)});
+	scene_entity_x = chart_entity(&manager->chart, (t_vec2f){
+			intention->pos.x + (p_half_size * offset.x), intention->pos.y});
+	scene_entity_diag = chart_entity(&manager->chart, (t_vec2f){
 			intention->pos.x + (p_half_size * offset.x),
-			intention->pos.y
-	});
-	scene_entity_diag = chart_entity(&manager->chart, (t_vec2f) {
-			intention->pos.x + (p_half_size * offset.x),
-			intention->pos.y + (p_half_size * offset.y)
-	});
+			intention->pos.y + (p_half_size * offset.y)});
 	if (scene_entity_x == '1' && scene_entity_y == '1')
 	{
 		system_colision_walls_h(manager, intention, p_half_size);
@@ -274,23 +254,21 @@ void	system_colision_walls_diag(
 void	system_colision_walls(t_manager *manager, t_location *intention)
 {
 	const float		p_half_size = manager->player.size / 2.0;
-	const t_vec2i   has_crossv = (t_vec2i) {
+	const t_vec2i	has_crossv = (t_vec2i){
 		has_cross(intention->pos.x, manager->player.loc.pos.x, p_half_size),
-		has_cross(intention->pos.y, manager->player.loc.pos.y, p_half_size),
-	};
+		has_cross(intention->pos.y, manager->player.loc.pos.y, p_half_size)};
 
 	if (!has_crossv.x && !has_crossv.y)
-		return;
+		return ;
 	else if (has_crossv.x && !has_crossv.y)
-		return system_colision_walls_h(manager, intention, p_half_size);
+		return (system_colision_walls_h(manager, intention, p_half_size));
 	else if (!has_crossv.x && has_crossv.y)
-		return system_colision_walls_v(manager, intention, p_half_size);
+		return (system_colision_walls_v(manager, intention, p_half_size));
 	else
-		return system_colision_walls_diag(manager, intention, p_half_size);
+		return (system_colision_walls_diag(manager, intention, p_half_size));
 }
 
-
-void system_colision_resolve( \
+void	system_colision_resolve(\
 	t_game *game, t_manager *manager, t_location *intention)
 {
 	system_colision_border(manager, intention);
