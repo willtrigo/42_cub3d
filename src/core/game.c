@@ -6,7 +6,7 @@
 /*   By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:32:41 by dande-je          #+#    #+#             */
-/*   Updated: 2025/04/23 23:01:31 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/25 17:49:29 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	game_init(t_config_file *config, t_game *out_game)
 	if (!map_init(out_game, config))
 		return (game_init_fail(out_game, config, NULL));
 	if (!textures_init(out_game, config))
-		return (game_init_fail(out_game, config, NULL));
+		return (false);
 	if (!canvas_init(out_game))
 		return (game_init_fail(out_game, config, NULL));
 	return (true);

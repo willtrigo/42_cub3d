@@ -6,12 +6,14 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:44:26 by maurodri          #+#    #+#             */
-/*   Updated: 2025/02/28 14:09:45 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/25 17:54:22 by dande-je         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "texture.h"
 #include "game_init_internal.h"
+#include <fcntl.h>
+#include <unistd.h>
 
 bool	texture_to_image(mlx_t *mlx, mlx_texture_t *txt, mlx_image_t **out_img)
 {
@@ -35,6 +37,15 @@ void	texture_clean(t_txts *txts)
 
 bool	texture_load_png(char *png_path, mlx_texture_t	**out_txt)
 {
+	int	fd;
+
+	fd = open(png_path, O_RDONLY);
+	if (fd == -1)
+	{
+		close(fd);
+		return (false);
+	}
+	close(fd);
 	*out_txt = mlx_load_png(png_path);
 	if (*out_txt == NULL)
 		return (false);
