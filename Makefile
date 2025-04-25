@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/04/25 17:02:31 by maurodri         ###   ########.fr        #
+#    Updated: 2025/04/25 17:20:33 by dande-je         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,14 @@ SRCS_CONFIG_DIR                 := $(SRCS_INFRASTRUCTURE_DIR)config/
 SRCS_ARGS_DIR                   := $(SRCS_CONFIG_DIR)args/
 SRCS_PARSE_DIR                  := $(SRCS_CONFIG_DIR)parse/
 SRCS_UTILS_DIR                  := $(SRCS_MAIN_DIR)utils/
+SRCS_BONUS_MAIN_DIR             := bonus/
+SRCS_BONUS_CORE_DIR             := $(SRCS_BONUS_MAIN_DIR)core/
+SRCS_BONUS_GRAPHIC_DIR          := $(SRCS_BONUS_MAIN_DIR)graphic/
+SRCS_BONUS_INFRASTRUCTURE_DIR   := $(SRCS_BONUS_MAIN_DIR)infrastructure/
+SRCS_BONUS_CONFIG_DIR           := $(SRCS_BONUS_INFRASTRUCTURE_DIR)config/
+SRCS_BONUS_ARGS_DIR             := $(SRCS_BONUS_CONFIG_DIR)args/
+SRCS_BONUS_PARSE_DIR            := $(SRCS_BONUS_CONFIG_DIR)parse/
+SRCS_BONUS_UTILS_DIR            := $(SRCS_BONUS_MAIN_DIR)utils/
 SRCS_TEST_DIR                   := test/
 INCS                            := src/ lib/libftx/includes/ lib/MLX42/include/
 BUILD_DIR                       := build/
@@ -69,6 +77,8 @@ LIBS                            := ./lib/libftx/libft.a \
 
 NAME                            = cub3D
 NAME_PATH                       = $(BIN_DIR)$(NAME)
+NAME_BONUS                            = cub3D_bonus
+NAME_BONUS_PATH                       = $(BIN_DIR)$(NAME_BONUS)
 NAME_TEST                       = test_$(NAME)
 NAME_TEST_PATH                  = $(BIN_DIR)$(NAME_TEST)
 
@@ -114,6 +124,44 @@ SRCS_FILES                      += $(addprefix $(SRCS_UTILS_DIR), color.c \
 OBJS_MAIN                       = $(SRCS_MAIN:%.c=$(BUILD_DIR)%.o)
 OBJS                            += $(SRCS_FILES:%.c=$(BUILD_DIR)%.o)
 
+SRCS_BONUS_MAIN                       = $(addprefix $(SRCS_BONUS_MAIN_DIR), main.c)
+SRCS_BONUS_FILES                      += $(addprefix $(SRCS_BONUS_CORE_DIR), game.c \
+								game_init_internal.c \
+								map.c \
+								map_get_player.c \
+								system.c \
+								location.c \
+								texture.c \
+								manager.c)
+SRCS_BONUS_FILES                      += $(addprefix $(SRCS_BONUS_GRAPHIC_DIR), render.c \
+								camera.c \
+								grid.c \
+								draw_mini.c \
+								draw_mini_ray.c \
+								draw_mini_grid.c \
+								draw_entity.c \
+								draw_primitive.c \
+								draw_entities.c \
+								draw.c)
+SRCS_BONUS_FILES                      += $(addprefix $(SRCS_BONUS_CONFIG_DIR), config.c)
+SRCS_BONUS_FILES                      += $(addprefix $(SRCS_BONUS_ARGS_DIR), invalid_args.c \
+								   invalid_extension.c)
+SRCS_BONUS_FILES                      += $(addprefix $(SRCS_BONUS_PARSE_DIR), parse_color.c \
+								   parse_file.c \
+								   parse_map.c \
+								   parse_texture.c \
+								   parse_textures_colors.c)
+SRCS_BONUS_FILES                      += $(addprefix $(SRCS_BONUS_UTILS_DIR), color.c \
+								   ft_extensions.c \
+								   vec2.c \
+								   vec2i.c \
+								   vec2f.c \
+								   vec2f_linear.c \
+								   output.c)
+
+OBJS_BONUS_MAIN                       = $(SRCS_BONUS_MAIN:%.c=$(BUILD_DIR)%.o)
+OBJS_BONUS                            += $(SRCS_BONUS_FILES:%.c=$(BUILD_DIR)%.o)
+
 SRCS_TEST_FILES                 += $(addprefix $(SRCS_TEST_DIR), test_suite.c \
 								test_color.c \
 								test_parse_color.c \
@@ -134,7 +182,9 @@ CLEAN_MLX42_OBJS_MESSAGE        := Library MLX42 objects deleted
 CLEAN_MLX42_MESSAGE             := Library MLX42 deleted
 FCLEAN_MESSAGE                  := $(NAME) deleted
 EXE_MESSAGE                     = $(RESET)[100%%] $(GREEN)Built target $(NAME)
+EXE_BONUS_MESSAGE               = [100%%] $(GREEN)Built target $(NAME_BONUS)
 COMP_MESSAGE                    = Building C object
+COMP_BONUS_MESSAGE              = $(CYAN)[BONUS]$(RESET) $(YELLOW)Building C object
 
 #******************************************************************************#
 #                               COMPILATION                                    #
@@ -157,6 +207,13 @@ COMPILE_EXE                    = $(CC) $(LDFLAGS) $(OBJS_MAIN) $(OBJS) $(LDLIBS)
 
 ifdef WITH_DEBUG
 	CFLAGS += $(DFLAGS)
+endif
+
+ifdef WITH_BONUS
+	NAME                       = $(NAME_BONUS)
+	OBJS                       = $(OBJS_BONUS)
+	COMP_MESSAGE               = $(COMP_BONUS_MESSAGE)
+	EXE_MESSAGE                = $(EXE_BONUS_MESSAGE)
 endif
 
 #******************************************************************************#
@@ -201,6 +258,10 @@ define comp_objs
 	$(COMPILE_OBJS)
 	$(SLEEP)
 	printf "[%3d%%] $(YELLOW)$(COMP_MESSAGE) $@ \r$(RESET)\n" $$(echo $$(($(COUNT) * 100 / $(words $(OBJS)))))
+endef
+
+define bonus
+	$(MAKE) WITH_BONUS=TRUE
 endef
 
 define comp_exe
@@ -272,6 +333,9 @@ $(LIBFTX):
 $(MLX42):
 	$(call submodule_update_mlx42)
 
+bonus:
+	$(call bonus)
+
 clean:
 	$(call clean)
 
@@ -301,7 +365,7 @@ testrun: $(OBJS_TEST) $(NAME_TEST_PATH) $(OBJS)
 etags:
 	etags $$(find . -name '*.[ch]')
 
-.PHONY: all clean fclean clean_test re debug test etags testrun
+.PHONY: all clean fclean clean_test re debug test etags testrun bonus
 .DEFAULT_GOAL := all
 .SILENT:
 
