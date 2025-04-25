@@ -6,7 +6,7 @@
 #    By: dande-je <dande-je@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 19:55:51 by dande-je          #+#    #+#              #
-#    Updated: 2025/04/22 01:18:25 by dande-je         ###   ########.fr        #
+#    Updated: 2025/04/25 17:02:31 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,9 @@ SRCS_FILES                      += $(addprefix $(SRCS_CORE_DIR), game.c \
 								map.c \
 								map_get_player.c \
 								system.c \
+								system_input.c \
+								system_colision.c \
+								system_colision_walls_internal.c \
 								location.c \
 								texture.c \
 								manager.c)

@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:01:13 by maurodri          #+#    #+#             */
-/*   Updated: 2025/04/25 15:57:13 by maurodri         ###   ########.fr       */
+/*   Updated: 2025/04/25 17:01:55 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ t_location	system_player_location_update(\
 void		system_colision_resolve(\
 	t_game *game, t_manager *manager, t_location *location);
 void		system_player_location_set(t_player *player, t_location *location);
+void		system_colision_resolve(\
+	t_game *game, t_manager *manager, t_location *intention);
 
 #endif
